@@ -92,10 +92,8 @@ class Diff extends ConnectedAbstract
      */
     protected function diffEdit(array $diff, File $right, File $left, array $options)
     {
-		//echo __FILE__.'(line:'.__LINE__.')->class:'.__CLASS__.'::'.__FUNCTION__.'()<br/>';
-		
         $mode  = $options[static::IGNORE_WS] ? '-dwu5' : '-du5';
-        $flags = array($mode, $left->getFilespec(), $right->getFilespec());
+        $flags = array('-t',$mode, $left->getFilespec(), $right->getFilespec());
         $data  = $this->getConnection()->run('diff2', $flags, null, false)->getData();
 
         // diff output puts a file header in the first data block
