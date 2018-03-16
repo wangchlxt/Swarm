@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>States</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.states.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="States" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>States</h1>
+        <p>Reviews can be in one of several states. The biggest differentiator is whether the review's files have any outstanding, uncommitted changes or not.</p>
+        <p>Whenever a review's state changes, an email notification is sent to all review participants, including the author, anyone who comments on the review or its files, anyone who has changed the review's state previously, anyone who is <a href="basics.notable.html#basics.notable.mentions">@mentioned</a>, or a member of a group that is <a href="basics.notable.html#basics.notable.mentions">@@mentioned</a> in the review's description or comments.</p>
+        <p>Code reviews can be in one of the following states:</p>
+        <ul>
+            <li value="1"><b>Needs review:</b> The review has started and the changes need to be reviewed.</li>
+            <li value="2"><b>Needs revisions:</b> The changes have been reviewed and the reviewer has indicated that further revisions are required.</li>
+            <li value="3"><b>Approved:</b> The review has completed. The changes may need to be committed. If the changes have been committed then this review will be Approved and closed, otherwise it will be Approved and open. See the note <a href="#code_reviews.states.unapprove_modified">below</a>.</li>
+            <li value="4"><b>Rejected:</b> The review has completed. The changes are undesirable and should not be committed.</li>
+            <li value="5"><b>Archived:</b> The review has completed for now. However, it is neither rejected nor approved; it is simply put aside in case it is needed in the future.</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><a name="code_reviews.states.unapprove_modified"></a>By default, when an <b>Approved</b> review is committed or updated, <span class="PerforceSwarm short">Swarm</span> changes the state to <b>Needs Review</b> if the files have been modified since the review was approved. Files are considered modified if the list of involved files changes, or if the file content or file-type changes.</p>
+            <p>If one or more files in a review has the filetype +k (<code class="code_clearBackground">ktext</code>), this behavior is undesirable because the files will appear to be modified when the <span class="PerforceHVE short">Helix server</span> replaces RCS keywords with their current values. See <a href="admin.unapprove_modified.html" class="MCXref xref">Unapprove modified reviews</a> to see how to disable this behavior.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Self-approval_by_review_authors" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.states.self_approve"></a>Self-approval by review authors</h2>
+        <p>By default, review authors can approve their own reviews. This behavior is based on <span class="PerforceSwarm short">Swarm</span>'s <a href="chapter.code_reviews.html#Advisory">advisory nature</a>. </p>
+        <p>Self-approval by authors can be prohibited on a project-by-project basis by specifying moderators for project branches (see <a href="#code_reviews.states.moderation" class="MCXref xref">State change restrictions with moderation</a>). However, authors who are moderators can self-approve their own reviews.</p>
+        <p>Administrators can configure <span class="PerforceSwarm short">Swarm</span> to prevent all self-approval by review authors. See <a href="admin.reviews.html#admin.reviews.disable_self_approve" class="MCXref xref">Disable self-approval of reviews by authors</a>.</p>
+        <h2 data-mc-autonum=""><a name="State_change_restrictions_with_moderation" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.states.moderation"></a>State change restrictions with moderation</h2>
+        <p>Typically, any authenticated user can change the state of a review (remember that the review state is merely advisory in most cases). When the <b>Only Moderators can approve or reject reviews</b> restriction is enabled for a project branch, and one or more <a href="projects.add.html#projects.add.moderators">moderators</a> have been assigned to that branch (see <a href="projects.add.html" class="MCXref xref">Add a project</a> for details), that branch is <i>moderated</i>. Changing the state of any review associated with a moderated branch is restricted as follows:</p>
+        <ul>
+            <li value="1">Only moderators can approve or reject the review. Moderators can also transition a review to any other state.</li>
+            <li value="2">
+                <p>The review's author, when she is not a moderator, can change the review's state to <b>Needs Review</b>, <b>Needs Revision</b>, <b>Archived</b>, and can attach committed changelists.</p>
+                <p>Normally, the review's author cannot change the review's state to <b>Approved</b> or <b>Rejected</b> on moderated branches. However, authors that are also moderators have moderator privileges, and may approve or reject their own review.</p>
+                <p>When <code class="code_clearBackground"><a href="admin.reviews.html#admin.reviews.disable_self_approve">disable_self_approve</a></code> is enabled, authors who are moderators (or even users with <i>admin</i> privileges) cannot approve their own reviews.</p>
+            </li>
+            <li value="3">Project members can change the review's state to <b>Needs Review</b> or <b>Needs Revision</b>, and can attach committed changelists. Project members cannot change the review's state to <b>Approved</b>, <b>Rejected</b>, or <b>Archived</b>.</li>
+            <li value="4">Users that are not project members, moderators, or the review's author cannot transition the review's state.</li>
+            <li value="5">
+                <p>For the review's author and project members, if a review is not in one of their permitted states, for example if the review's state is <b>Rejected</b>, they cannot transition the review to another state.</p>
+                <p>These restrictions have no effect on who can start a review.</p>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Required_reviewers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.states.required_reviewers"></a>Required reviewers</h2>
+        <p>Reviews can optionally have required reviewers. When a review has required reviewers, the review cannot be approved until all required reviewers and required reviewer groups have up-voted the review. If the review is associated with a project that has assigned moderators, even the moderators cannot approve the review without up-votes from all required reviewers (but they can reject the review).</p>
+        <p>When a group is  a required reviewer, it can be set to operate in one of two ways: </p>
+        <ul>
+            <li value="1"><b>All votes required:</b> all members of the group must up-vote the review to allow the review to be approved.</li>
+            <li value="2"><b>One vote required:</b> at least one member of the group must up-vote the review to allow the review to be approved. If any member of the group down-votes the review, the review cannot be approved. </li>
+        </ul>
+        <p>Required reviewers are expected to take greater care while performing a review than non-required reviewers, as their votes affect whether a review can be approved or not. </p>
+        <p>To edit the reviewers for a review, and to change whether a reviewer is required or not, see <a href="code_reviews.activities.html#code_reviews.activities.edit_reviewers" class="MCXref xref">Edit reviewers</a>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If a review involves a branch with assigned moderators, only a moderator can approve the review, even if all required reviewers have up-voted the review.</p>
+            <p>See the <a href="projects.add.html#projects.add.moderators">description of assigning moderators</a>.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="State_actions" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.states.state_actions"></a>State actions</h2>
+        <p>The drop-down menu provides two special actions included with the state change for uncommitted reviews: </p>
+        <p>
+            <img src="../Resources/Images/swarm-dropdown-review_states-shelved.png" title="Review state drop-down menu for shelved files" alt="" />
+        </p>
+        <ul>
+            <li value="1">
+                <p><b>Approve and Commit</b>
+                </p>
+                <p>When selected, a dialog appears allowing you to update the description, select which jobs should be associated, and specify the job status upon commit. When you click the <b>Approve and Commit</b> button, the review becomes approved and its associated files are committed. By default, <span class="PerforceSwarm short">Swarm</span>'s activity stream entries and email notifications note that you committed the review on behalf of the review's author. This can be configured to credit only the committer, see <a href="admin.commit_credit.html" class="MCXref xref">Commit credit</a> for details.</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-dialog-commit_review.png" title="The Commit Review dialog" alt="" />
+                </div>
+                <p>If selected, the <b>Remove pending changelists</b> button attempts to clean up automatically any changelists left behind after the review has been committed, including removing any shelved files. This option can be removed by an administrator. See <a href="admin.review_cleanup.html" class="MCXref xref">Review cleanup</a> for details.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The commit option can be removed by an administrator. See <a href="admin.security.html#admin.security.disable_commit" class="MCXref xref">Disable commit</a> for details.</p>
+                    <p>By default, if the committer is not the review's author, <span class="PerforceSwarm short">Swarm</span> credits both users. If you prefer to credit only the committer, see <a href="admin.commit_credit.html" class="MCXref xref">Commit credit</a> for details.</p>
+                </div>
+            </li>
+            <li value="2">
+                <p><b>Already Committed</b>
+                </p>
+                <p>Sometimes, a changelist that a review is based upon gets committed without the review being updated. In such a situation, selecting <b>Already Committed</b> displays a dialog presenting a list of candidate changelists:</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-dialog-select_change.png" title="The Select Change dialog" alt="" />
+                </div>
+                <p>Specify the changelist, if you know it, or browse the recent changes to locate the submitted change. The first field under <b>History</b> allows you to filter changes by depot path. The second field allows you to filter changes by userid. Click a changelist to select it, and then click <b>Select</b> to associate the changelist with the review and complete the review. Or, just double-click a changelist to do the same.</p>
+            </li>
+        </ul>
+        <p>The review state drop-down menu for committed changes When a review has been committed, sometimes a follow-up change needs to be associated with the review. For committed reviews, the drop-down menu provides the <b>Add a commit</b> entry in place of <b>Already Committed</b>. Select <b>Add a Commit</b> to use the <b>Select Change</b> dialog as described above.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

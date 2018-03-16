@@ -1,0 +1,41 @@
+<?php
+$title  = 'Add Group';
+$this->headTitle()->set($this->te($title));
+?>
+<div class="row-fluid">
+    <div class="span3"></div>
+    <div class="span9 profile-body group-edit">
+        <h1><?php echo $this->te($title) ?></h1>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#settings" data-toggle="tab"><i class="icon-wrench"></i> <?php echo $this->te("Settings")?></a></li>
+            <li><a href="#notificationForm" data-toggle="tab"><i class="icon-envelope"></i> <?php echo $this->te("Notifications")?></a></li>
+        </ul>
+        <form method="post" class="form-horizontal form">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="settings">
+                    <?php include __DIR__ . '/settingsForm.phtml' ?>
+                    <div class="control-group group-buttons">
+                        <div class="controls">
+                            <button type="submit" class="btn btn-mlarge btn-primary"><?php echo $this->te('Save')?></button>
+                            <button type="button" class="btn btn-mlarge" onclick="window.history.back(); return false;"><?php echo $this->te('Cancel')?></button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade in" id="notificationForm">
+                    <?php include __DIR__ . '/notificationsForm.phtml' ?>
+                </div>
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            swarm.group.initEdit(
+                '.group-edit',
+                '/group/add',
+                '<?php echo $group->getId() ?>'
+            );
+            // Configure the settings form controls
+            swarm.settings.group.init();
+        </script>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Short links</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.short_links.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Short_links" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Short links</h1>
+        <p><a href="basics.notable.html#basics.notable.short_links">Short links</a> work with your <span class="PerforceSwarm short">Swarm</span> installation's current hostname, but you have the option of registering/configuring an even shorter hostname to make shareable file/directory links as short as possible.</p>
+        <ol>
+            <li value="1">Register a short domain name, or if you control your own DNS server, a short domain name for your network.</li>
+            <li value="2">Point the short domain name at your <span class="PerforceSwarm short">Swarm</span> host.</li>
+            <li value="3">
+                <p>Edit the <code class="code_clearBackground"><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a>/data/config.php</code> file and add the following configuration block:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'short_links' =&gt; array(<br />        'hostname'  =&gt; 'myho.st',<br />    ),</pre>
+                <p>Replace <code>myho.st</code> with the short domain name you registered/configured.</p>
+                <p>If your <span class="PerforceSwarm short">Swarm</span> is configured to use <a href="setup.post.html#setup.post.ssl">HTTPS</a>, a <a href="setup.post.html#setup.post.port">custom port</a>, a <a href="setup.post.html#setup.post.subfolder">sub-folder</a>, or any combination of these custom installation options, the short links configuration block should look like:</p><pre class="programlisting" xml:space="preserve" lang="php">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'short_links' =&gt; array(<br />        'external_url' =&gt; 'https://<i>myho.st:port/sub-folder</i>',<br />    ),</pre>
+            </li>
+        </ol>
+        <p>Replace <code style="font-style: italic;">myho.st</code> with the short domain name you have registered/configured.</p>
+        <p>If you have not configured <span class="PerforceSwarm short">Swarm</span> to use HTTPS, replace <code>https://</code> with <code>http://</code>.</p>
+        <p>If you have configured <span class="PerforceSwarm short">Swarm</span> to run on a custom port, replace <code style="font-style: italic;">:port</code> with the correct custom port. Otherwise, remove <code style="font-style: italic;">:port</code>.</p>
+        <p>If you have configured <span class="PerforceSwarm short">Swarm</span> to run in a sub-folder, replace <code style="font-style: italic;">/sub-folder</code> with the correct sub-folder name. Otherwise, remove <code style="font-style: italic;">/sub-folder</code>.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The <code class="code_clearBackground">external_url</code> configuration item is only honored if you have also configured the <code class="code_clearBackground"><a href="admin.environment.html#admin.environment.external_url" class="MCXref xref">external_url</a></code> item within the <code class="code_clearBackground"><a href="admin.environment.html" class="MCXref xref">Environment</a></code> configuration item as well. Otherwise, <span class="PerforceSwarm short">Swarm</span> could generate short links that cannot correctly link to their corresponding full URLs.</p>
+            <p>When <code class="code_clearBackground">external_url</code> is configured, the <code class="code_clearBackground">hostname</code> configuration item is ignored.</p>
+        </div>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

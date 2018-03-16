@@ -1,0 +1,152 @@
+<?php
+$canViewLeft  = $left  && !$left->isDeletedOrPurged()  && $formats->canPreview($left, $this->request());
+$canViewRight = $right && !$right->isDeletedOrPurged() && $formats->canPreview($right, $this->request());
+
+// if we can preview either side, show the preview as the diff
+$shouldPreview = $canViewLeft || $canViewRight;
+
+// don't preview if we cannot view right and diff is same
+// (this could happen in a file rename situation)
+if (!$canViewRight && $diff['isSame']) {
+    $shouldPreview = false;
+}
+// add a final meta line to provide ability to show more context, and also
+// detect the case of truncated files and inform user via the line value.
+if ($diff['lines']) {
+    $cutMessage = $left ? $this->te('Truncated (too many difference lines)') : $this->te('Truncated (> %d )', array($this->fileSize($diff['isCut'])));
+    $last = end($diff['lines']);
+    if ($last['type'] !== 'add') {
+        // the last line is not an add so we need a 'Show more' which
+        // may or may not be functional depending on whether the diff is cut
+        array_push(
+            $diff['lines'],
+            array(
+                'type'  => 'meta',
+                'isCut' => $diff['isCut'],
+                'value' => $diff['isCut'] ? $cutMessage : '...'
+            )
+        );
+    } else {
+        // If the last diff line is an add (either from a legit insert or an
+        // edit on the last line signified by a delete/add pair) then put
+        // a blank line at the end to give confidence that it is the end of
+        // the file
+        array_push(
+            $diff['lines'],
+            array(
+                'type'  => 'same',
+                'isCut' => false,
+                'value' => ''
+            )
+        );
+    }
+}
+if ($diff['isCut']):
+    if ($left):
+        echo
+            '<div class="diff-cut hidden">'
+            . ' ' . $this->te('This file has been truncated. It has a large number of difference lines, which may cause the browser to become unresponsive.')
+            . ' ' . $this->te('Use the') . ' '
+            . '<i class="icon-resize-full"></i>' . ' ' . $this->te('button to display all difference lines') . ' '
+            . $this->te('or use the'). ' '
+            . '<i class="icon-share"></i>'
+            . ' ' . $this->te('button to go to the file view.')
+            . '</div>';
+    else:
+        echo
+            '<div class="diff-cut hidden">'
+            . ' ' . $this->te('Files larger than')
+            . ' ' . $this->fileSize($diff['isCut']) . ' ' . $this->te('are truncated. Use the') . ' '
+            . '<i class="icon-resize-full"></i>' . ' ' . $this->te('button to display the full file') . ' '
+            . $this->te('or use the') . ' '
+            . '<i class="icon-share"></i>'
+            . ' ' . $this->te('button to go to the file view.')
+            . '</div>';
+    endif;
+endif;
+?>
+<div class="diff-body diff-inline <?php echo $ignoreWs ? 'no-ws' : 'ws' ?> active">
+    <?php if (!$shouldPreview && $diff['lines']): ?>
+        <div class="diff-scroll">
+            <table class="table diff-table">
+                <tbody>
+                    <?php
+                    foreach ($diff['lines'] as $line):
+                        $isMeta      = $line['type'] === 'meta';
+                        $isCut       = isset($line['isCut']) && (bool) $line['isCut'];
+                        $isUncutMeta = $isMeta && !$isCut;
+                        $lineEnd     = isset($line['lineEnd']) ? $line['lineEnd'] : null;
+                        $lineEnd     = str_replace(array("\r", "\n"), array("cr", "lf"), $lineEnd);
+
+                        $classes     = array($lineEnd);
+                        $classes[]   = $line['leftLine']  ? 'll' . $line['leftLine']  : '';
+                        $classes[]   = $line['rightLine'] ? 'lr' . $line['rightLine'] : '';
+                        $classes[]   = "diff-type-" . $line['type'];
+                        $classes[]   = $isCut ? 'is-cut' : '';
+                    ?>
+                        <tr class="diff <?php echo $this->escapeHtmlAttr(implode(' ', $classes)) ?>" tabIndex="0"
+                            <?php echo $isUncutMeta ? 'aria-label="' . $this->te('Show More Context') . '"' : '' ?>>
+                            <td class="line-num line-num-left" data-num="<?php echo !$isMeta ? $this->escapeHtmlAttr($line['leftLine']) : '' ?>">
+                                <?php if ($isUncutMeta) : ?>
+                                    <i class="swarm-icon icon-more-context" title="<?php echo $this->te('Show More')?>"></i>
+                                <?php endif; ?>
+                            </td>
+                            <td class="line-num line-num-right" data-num="<?php echo !$isMeta ? $this->escapeHtmlAttr($line['rightLine']) : '' ?>">
+                                <?php if ($isUncutMeta) : ?>
+                                    <i class="swarm-icon icon-more-context" title="<?php echo $this->te('Show More')?>"></i>
+                                <?php endif; ?>
+                            </td>
+                            <td class="line-value<?php echo $isMeta ? ' meta' : '' ?>"><?php
+                                // note: it's important no extra whitespace gets into this td because it is pre-formatted
+                                if ($isUncutMeta) {
+                                    echo '<span class="meta-value">' . $this->escapeHtml($line['value']) . '</span>';
+                                } else if ($line['type'] === 'edit'){
+                                    echo $this->escapeHtml($line['value']);
+                                } else {
+                                    // replace all whitespace with spans that can show spaces and tabs in the diff
+                                    $rawLine = $this->escapeHtml($line['value']);
+                                    $replacedWhitespace = preg_replace(array('/( )/', '/(\t)/'),  array('<span class="space">$1</span>', '<span class="tab">$1</span>'), substr($rawLine, 1));
+                                    echo substr($rawLine, 0, 1) . $replacedWhitespace;
+                                }
+                            ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    <?php elseif ($shouldPreview): ?>
+        <div class="diff-image clearfix <?php
+            echo $canViewLeft && $canViewRight && !$diff['isSame'] ? 'two-up' : ''
+        ?>">
+            <?php
+            if ($canViewLeft && !$diff['isSame']) {
+                echo '<div class="view-wrapper view-left pull-left border-box">'
+                   .  $formats->renderPreview($left, $this->request())
+                   . '</div>';
+            }
+            if ($canViewRight) {
+                echo '<div class="view-wrapper view-right pull-left border-box">'
+                    .  $formats->renderPreview($right, $this->request())
+                    . '</div>';
+            }
+            ?>
+        </div>
+    <?php else: ?>
+        <div class="diff-description pad3">
+            <?php
+            echo $nonPreviewMessage;
+            if ($action !== 'purge' && $diff['isSame'] === false) {
+                if ($left) {
+                    $rev = $left->getStatus('headRev') !== 'none'
+                        ? $left->getStatus('headRev')
+                        : '@=' . $left->getStatus('headChange');
+                    $url = $this->url('file', array('path' => trim($left->getDepotFilename(), '/')))
+                        . '?' . http_build_query(array('v' => $rev));
+                    echo ' (<a href="' . $url . '" target="_blank">'.$this->te('previous version').'</a>)';
+                }
+                echo ".";
+            }
+            ?>
+        </div>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Swarm configuration</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.swarm.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Swarm_configuration_..111" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><span class="PerforceSwarm short">Swarm</span> configuration</h1>
+        <p>Now that <span class="PerforceSwarm short">Swarm</span> is ready for use, you need to configure it to work in your environment.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><span style="font-style: italic;" class="PerforceHVE long">Helix Versioning Engine</span> can refer to a <span class="PerforceHVE short">Helix server</span> 
+			machine (<code class="code_clearBackground">p4d</code>), proxy, broker, replica, edge server, or commit server. 
+				For simplicity, the term <span style="font-style: italic;" class="PerforceHVE short">Helix server</span> 
+				is used to refer to any configuration of a <span class="PerforceHVE long">Helix Versioning Engine</span> machine.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Swarm_configuration_file" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.swarm.config_file"></a>Swarm configuration file</h2>
+        <p>Create a file named <code class="code_clearBackground">config.php </code>under the data directory with the following contents:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php
+    return array(
+        'p4' =&gt; array(
+            'port'      =&gt; '<i>my-helix-versioning-engine:1666</i>',
+            'user'      =&gt; '<i>admin_userid</i>',
+            'password'  =&gt; '<i>admin user ticket or password</i>',
+         ),
+         'log' =&gt; array(
+             'priority'  =&gt; 3, // 7 for max, defaults to 3
+         ),
+         'mail' =&gt; array(
+             'transport' =&gt; array(
+                 'host' =&gt; 'my.mx.host',
+             ),
+         ),
+    );</pre>
+        <ul>
+            <li value="1">
+                <p>For the port value, replace my-helix-versioning-engine:1666 with the P4PORT value used to connect to your <span class="PerforceHVE short">Helix server</span>.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If your <span class="PerforceHVE short">Helix server</span> is deployed using the commit-edge architecture, ensure that Swarm's port value points to the commit server.</p>
+                    <p>For more information, see "Commit-edge Architecture" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4dist/index.html" target="_blank"><i><span class="Perforcegd-p4dist">Helix Versioning Engine Administrator Guide:&#160;Multi-Site Deployment</span></i></a>.</p>
+                </div>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If the port points to a <span class="PerforceBroker long">Helix Broker</span>, ensure that the broker does not delegate commands to different replicas, edge servers, or proxies. Such delegation can cause odd problems or outright failures in Swarm.</p>
+                    <p>Swarm needs to have a consistent, current view of the state of <span class="PerforceHVE short">Helix server</span>, and works best when it connects to a central/commit server.</p>
+                </div>
+            </li>
+            <li value="2">For the user value, replace <code class="code_clearBackground" style="font-style: italic;">admin_userid </code>with a normal <span class="PerforceHelix short">Helix Core</span> userid that has <code class="code_clearBackground" style="font-style: italic;">admin</code>-level access to <span class="PerforceHVE short">Helix server</span>.</li>
+            <li value="3">
+                <p>For the password value, while a plain-text password works, we recommend that you use a ticket value instead. Obtain the ticket value for the <code class="code_clearBackground" style="font-style: italic;">admin_userid </code>during login with this command:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>p4 -p my-helix-versioning-engine:1666 -u admin_userid login -p</pre>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>For <span class="PerforceHVE short">Helix server</span> with the security configurable set to level 3, or when authentication is configured to use LDAP, ticket-based authentication is required.</p>
+                </div>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>When using ticket-based authentication, ensure that the ticket has a very long expiration. We recommend creating a group with an unlimited timeout, and adding <code class="code_clearBackground" style="font-style: italic;">admin_userid </code>user to this group.</p>
+                    <p>An expired ticket causes many Swarm operations to fail.</p>
+                </div>
+                <p>You can determine when the admin userid's ticket will expire with:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>p4 -p </b><i style="font-weight: bold;">my-helix-versioning-engine:1666</i><b> -u </b><i style="font-weight: bold;">admin_userid</i><b> -P </b><i style="font-weight: bold;">ticket_value</i><b> login -s</b></pre>
+                <p>For more information about tickets, see the section "Ticket-based authentication" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4sag/index.html" target="_blank"><i><span class="Perforcegd-p4sag">Helix Versioning Engine Administrator Guide:&#160;Fundamentals</span></i></a>.</p>
+            </li>
+            <li value="4">For the host value, replace <code class="code_clearBackground" style="font-style: italic;">my.mx.host </code>with the hostname of the mail exchanger service that Swarm should use to send its email notifications.</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Since this configuration file contains the credentials for a <span class="PerforceHelix short">Helix Core</span><i>admin</i>-level user, we recommend that this file's ownership and permissions be adjusted such that only the web server user can read the file, and that no user can write the file.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Optional_additional_Swarm_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.swarm.optional"></a>Optional additional Swarm configuration</h2>
+        <p>Swarm provides optional functionality that could be enabled at this time:</p>
+        <ul>
+            <li value="1"><a href="integrations.jira.html" title="JIRA integration" alt="JIRA integration">JIRA integration</a>
+            </li>
+            <li value="2"><a href="integrations.libreoffice.html" title="LibreOffice" alt="LibreOffice">LibreOffice</a>
+            </li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Swarm_hostname" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.swarm.optional.hostname"></a>Swarm hostname</h3>
+        <p>Swarm normally auto-detects the hostname it operates under. In some system configuration, the auto-detection logic might not choose the correct hostname, such as when there are multiple virtual hosts configured for a single Swarm instance. When auto-detection chooses the wrong hostname, email notifications, worker startup, and more could be affected.</p>
+        <p>If you need to specify the Swarm hostname, see <a href="admin.environment.html#admin.environment.hostname" class="MCXref xref">hostname</a> for details.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

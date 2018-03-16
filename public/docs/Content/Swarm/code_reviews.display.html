@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Review display</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/InformalTable.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.display.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Review_display" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Review display</h1>
+        <p>During a code review, reviewers spend most of their time using the review interface:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-review.png" title="The Review interface" alt="Review display image" />
+        </div>
+        <p>The review interface is very similar to the <a href="basics.changelists.html">changelist interface</a>; and provides largely the same functionality, but has several notable differences that are described in the following sections.</p>
+        <h2 data-mc-autonum=""><a name="Test_status" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.test_status"></a>Test status</h2>
+        <p>When <a href="quickstart.integrate_test_suite.html">continuous integration</a> has been configured for a project, test success <img src="../Resources/Images/swarm-button-review_tests-pass.png" title="Test pass icon" alt="Test pass icon image" /> or failure <img src="../Resources/Images/swarm-button-review_tests-fail.png" title="Test fail icon" alt="Test fail icon image" /> is indicated in the review's heading. If your continuous integration tests can provide a URL that provides details of a test run, the indicator becomes linked; click the indicator to see the test details.</p>
+        <p>When you hover your mouse over the test status indicator, <span class="PerforceSwarm short">Swarm</span> indicates the test status and how long ago that status was achieved.</p>
+        <h2 data-mc-autonum=""><a name="Deployment_status" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.deployment_status"></a>Deployment status</h2>
+        <p>When <a href="quickstart.review_deployment.html">automated deployment</a> has been configured for a project, the deployment success <img src="../Resources/Images/swarm-button-review_deployment-success.png" title="Deployment status success icon" alt="Deployment status success icon image" /> or failure <img src="../Resources/Images/swarm-button-review_deployment-failure.png" title="Deployment status failure icon" alt="Deployment status failure icon image" /> is indicated in the review's heading. If your deployment program can provide a URL that provides details of the deployment, the indicator becomes linked; click the indicator to see the deployment results. </p>
+        <h2 data-mc-autonum=""><a name="Review_state" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.state"></a>Review state</h2>
+        <p>The <b>Request Review</b> button is replaced with the review state drop-down button that indicates the review's current disposition. See <a href="code_reviews.states.html" class="MCXref xref">States</a> for more information.</p>
+        <h2 data-mc-autonum=""><a name="Edit_description" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.description"></a>Edit description</h2>
+        <p>An <b>Edit Description</b> icon <img src="../Resources/Images/swarm-icon-edit_description.png" title="Edit description icon" alt="" /> appears in the review's description, which allows you to update the description to reflect any updates have been made during the review.</p>
+        <h2 data-mc-autonum=""><a name="Tasks" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.tasks"></a>Tasks</h2>
+        <p>A <i>Tasks</i> area appears below the review's description. This area summarizes the number of comments that have been flagged as tasks, with separate counts for open, addressed, and verified tasks. See <a href="basics.comments.html#basics.comments.tasks" class="MCXref xref">Tasks</a> for more details. </p>
+        <p>Click the  Task list button <img src="../Resources/Images/swarm-button-list.png" title="Task list icon" alt="" /> to display a dialog listing all tasks associated with the review:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-dialog-tasks.png" title="Tasks dialog" alt="Tasks dialog image" />
+        </div>
+        <p>Within the <b>Tasks</b> dialog, you can filter the tasks by the reporter (the userid of the user who created the task), and/or by task state; click:</p>
+        <ul>
+            <li value="1">The <b>red flag</b> button to display only open tasks (comments that need to be addressed).</li>
+            <li value="2">The <b>green check mark</b> button to display only addressed tasks (comments that have been addressed).</li>
+            <li value="3">The <b>blue double-check</b> mark button to display only verified tasks (comments that have been addressed and verified).</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Archived tasks do not appear in the Tasks dialog.</p>
+        </div>
+        <p>To view a particular task, click once on a task within the <b>Tasks</b> dialog to select it, and then click the <b>View</b> button. Or, double-click on a task. Either way, the <b>Tasks</b> dialog closes and <span class="PerforceSwarm short">Swarm</span> adjusts the review display so that the chosen task is in view.</p>
+        <h2 data-mc-autonum=""><a name="Reviewers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.reviewers"></a>Reviewers</h2>
+        <p>A <i>Reviewers</i> area appears below the review's description whenever a review has one or more reviewers, or you are logged in.</p>
+        <p>
+            <img src="../Resources/Images/swarm-thumb-reviewers.png" title="The Reviewers area" alt="Reviewers area image" />
+        </p>
+        <p>This area includes, from left to right, the <a href="code_reviews.activities.html#code_reviews.activities.edit_reviewers">edit reviewers button </a><img src="../Resources/Images/swarm-icon-edit_description.png" title="Edit reviewers button" alt="" />, the current up and down vote counts, the avatars of current reviewer groups, and the avatars of the current reviewers.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>By default, reviewer group members are not displayed in the <i>Individuals </i>area of the reviews page when they interact with a review (vote, comment, update, commit, archive,  etc.). This avoids overloading the <i>Individuals </i>area with individual avatars if you have large reviewer groups. </p>
+            <p>An exception to this behavior is when a member of a reviewer group is also  an individual <a href="code_reviews.responsibility.html#code_reviews.responsibility.required">required reviewer</a>, in this case their avatar will be displayed in the <i>Individuals </i>area. </p>
+            <p>See <a href="admin.reviews.html#admin.expand_group_reviewers" class="MCXref xref">Expand group reviewers</a> for details on displaying reviewer group members when they interact with a review. </p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Group_reviewer" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Group reviewer</h3>
+        <p>If you are a member of a group that is a reviewer on the review,  click your individual avatar to vote on the review. See the <a href="#code_reviews.display.individual_user" class="MCXref xref">Individual reviewer</a> table for details. Your vote is registered for the group, and is also displayed on your individual avatar. Click on the group avatar to see how individual members have voted on the review:</p>
+        <p>
+            <img src="../Resources/Images/swarm-dropdown-group_reviewer.png" title="Group reviewer dropdown" alt="Group reviewer dropdown image" />
+        </p>
+        <p>You must be the review author, a project member, a project moderator, or a  user with super privileges to change the group settings: </p>
+        <ul>
+            <li value="1"><b>Make votes optional:</b> <ul><li value="1">If any group member votes down the review, the group avatar displays a badge indicating that the group has voted down the review.  </li><li value="2">If at least one group member votes up the review and <b>no</b> members of the group vote down the review, the group avatar displays a badge indicating that the group has voted up the review. </li></ul></li>
+            <li value="2"><b>Make one vote required:</b> Indicated by a star badge with a 1 over the group avatar. <ul><li value="1">If any group member votes down the review, the group avatar displays a badge indicating that the group has voted down the review. </li><li value="2">If at least one group member votes up the review and <b>no</b> members of the group vote down the review, the group avatar displays a badge indicating that the group has voted up the review. See  <a href="code_reviews.responsibility.html">Required reviewers</a> for details.</li></ul></li>
+            <li value="3"><b>Make all votes required:</b> Indicated by a star badge  over the group avatar. <ul><li value="1">If any group member votes down the review, the group avatar displays a badge indicating that the group has voted down the review. </li><li value="2">If all the group members vote up the review and <b>no</b> members of the group vote down the review, the group avatar displays a badge indicating that the group has voted up the review. See  <a href="code_reviews.responsibility.html">Required reviewers</a> for details.</li></ul></li>
+            <li value="4"><b>Withdraw group from review:</b> Removes the group from the review. </li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Individual_reviewer" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.individual_user"></a>Individual reviewer</h3>
+        <p>When an individual reviewer has voted on a review, their avatar displays a badge indicating whether they voted up or down. <a href="code_reviews.responsibility.html">Required reviewers</a> have a star badge over their avatar.</p>
+        <p>If you are logged in and viewing a review you did not author, your avatar appears to the right of any other reviewers and its appearance varies according to the following conditions:</p>
+        <table style="width: 100%;mc-table-style: url('../Resources/TableStyles/InformalTable.css');" class="TableStyle-InformalTable" cellspacing="0">
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <tbody>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><b>When you are not yet a reviewer, or you are a member of a reviewer group who has not yet voted:</b> Clicking your avatar presents a menu allowing you to vote up or down and thereby become an individual reviewer, or simply join the review as an individual reviewer without voting. </p>
+                        <p>When a member of a reviewer group votes they automatically become an individual reviewer as well. </p>
+                        <p>
+                            <img src="../Resources/Images/swarm-dropdown-reviewer-not_reviewing.png" title="Menu options when you are not yet a reviewer" alt="Image of menu options when you are not yet a reviewer" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p><b>When you are an individual reviewer  who has not yet voted:</b> No badge appears on your avatar and clicking your avatar presents a menu allowing you to vote up or down, change whether your individual vote is required or not, or leave the review. </p>
+                        <p> If you are also a member of a reviewer group and you click <b>Leave Review</b>,  you will remain a member of the reviewer group.</p>
+                        <p>
+                            <img src="../Resources/Images/swarm-dropdown-reviewer-reviewing.png" title="Menu options when you are a reviewer" alt="Image of menu options when you are a reviewer" />
+                        </p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <p><b>When you are an individual reviewer who has  voted, or a member of a reviewer group who has voted:</b> Your avatar displays a badge indicating your vote. Clicking your avatar presents a menu allowing you to clear or change your vote, change whether your individual vote is required or not, or leave the review. </p>
+                        <p> If you are also a member of a reviewer group and you click<b> Leave Review</b>,  your vote is cleared but you will remain a member of the reviewer group. </p>
+                        <p>
+                            <img src="../Resources/Images/swarm-dropdown-reviewer-voted.png" title="Menu options after you have voted" alt="Image of menu options after you have voted" />
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyA-Regular-NoBackground">
+                        <p><b>When you are a required reviewer, or a member of reviewer group that requires all votes:</b> Your avatar displays a star badge indicating that the review cannot be approved until you vote up. Clicking your avatar presents a menu allowing you to change your vote, make your vote optional, or leave the review. </p>
+                        <p>If you are also a member of a reviewer group and you click <b>Leave Review</b>,  you will remain a member of the reviewer group. <b>Make my Vote Optional</b> is not available for members of "all votes required" reviewer groups.</p>
+                        <p>
+                            <img src="../Resources/Images/swarm-dropdown-reviewer-required.png" title="Menu options after you have voted" alt="Image of menu options after you have voted" />
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>When a review is updated, if the review's list of files, file content, or file-types changes, any votes cast on the review become <i>stale</i>. The vote counts are reset, and the vote indicators become muted.</p>
+        <p style="color: #000000;">If you hover your mouse over a reviewer with a stale vote, a tooltip appears displaying the userid, how they voted, and on which version of the review; each version is represented as a point on the <a href="#code_reviews.display.timeline" class="MCXref xref">Review timeline</a>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Stale vote handling is not supported for Git-created reviews.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Disable_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.disable_notifications"></a>Disable notifications</h2>
+        <p>When you become a review participant, by joining the review or being <a href="basics.notable.html#basics.notable.mentions">@mentioned</a> in a comment or in the review's description, you receive notifications for any events associated with the review. If you find that the notifications become more of a burden than benefit and you wish to continue being a review participant, you can disable notifications:</p>
+        <ol>
+            <li value="1"> Click your avatar in the reviewers area to display your reviewer options.</li>
+            <li value="2">Click <b>Disable Notifications</b>.</li>
+        </ol>
+        <p>Once notifications are disabled, you no longer receive notifications. However, if you are <a href="basics.notable.html#basics.notable.mentions">@mentioned</a> in a subsequent review comment, you do receive a notification for that comment; regular notifications remain disabled. This approach ensures that you don't miss anything that other reviewers or the review author deems important.</p>
+        <h2 data-mc-autonum=""><a name="Changing_the_review_author" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.change_author"></a>Changing the review author</h2>
+        <p>If the <a href="admin.reviews.html#admin.reviews.allow_author_change">configuration option</a> to allow users to change the author of a review is enabled, then an extra icon is displayed to the left of the Tasks and Reviewers icons. By default this option is disabled, so talk to your <span class="PerforceSwarm short">Swarm</span> Administrator if you require this feature.</p>
+        <p>
+            <img src="../Resources/Images/swarm-review-author_change_option.png" title="Review author change" alt="Review author change image" />
+        </p>
+        <p>If the author icon is displayed, then clicking the edit icon will open a dialog that allows the author of this review to be changed. This is useful if the original author is no longer available, or ownership has passed to a different developer.</p>
+        <h2 data-mc-autonum=""><a name="Review_timeline" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.timeline"></a>Review timeline</h2>
+        <p>A slider control, called the Review Timeline, appears just above the list of files. If the review's files have been updated at least once, this slider allows you to browse and compare arbitrary versions of the review's files by dragging the version point(s) on the slider.</p>
+        <p>
+            <img src="../Resources/Images/swarm-slider-review_timeline.png" title="Review timeline slider" alt="Review timeline slider image" />
+        </p>
+        <p>A Review Timeline tooltip Each point on the slider represents a version of the review's files, with the oldest version on the left and newer versions on the right. Hover your mouse over each point to see a tooltip displaying the version number, who created it and when, plus the changelist containing a copy of that version's files.</p>
+        <p>If you adjust the slider while files within the review are expanded, <span class="PerforceSwarm short">Swarm</span> keeps those same files expanded whenever new versions need to be displayed.</p>
+        <p>The button to the left of the slider with two dots toggles <i>diff</i> mode for arbitrary versions of the review's files. In diff mode, the slider shows a bar indicating which two versions are being compared, and the endpoints of the slider can be dragged to any of the available points to compare any earlier version of the review with any later version.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-slider-review_timeline-diff.png" title="Review timeline in diff mode" alt="Image of review timeline in diff mode" />
+        </div>
+        <p>Hovering your mouse over the bar shows a tooltip displaying the versions being compared, and the changelists that contain the files. When a review has many, many versions, <span class="PerforceSwarm short">Swarm</span> maintains a minimum distance between version dots, which then requires horizontal scrolling.</p>
+        <p>Dragging one of the version points to the edge of the timeline display area causes the timeline to scroll in the direction of the drag motion, until the end of the timeline is reached. Alternately, click either the  <img src="../Resources/Images/swarm-button-review_timeline-left.png" title="The Review Timeline scroll left" alt="" /> button or <img src="../Resources/Images/swarm-button-review_timeline-right.png" title=" The Review Timeline scroll right button" alt="" /> buttons, or drag the scrollbar itself, to adjust the scroll position.</p>
+        <p>When you release the version point, <span class="PerforceSwarm short">Swarm</span> adjusts the scroll amount to place the version dots within view, when possible.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>It is good to remember that a review consists of one or more <span class="PerforceSwarm short">Swarm</span>-managed changelists. When comparing versions of a review, <span class="PerforceSwarm short">Swarm</span> is showing any differences between the selected versions, not the review author's personal changelist. See <a href="code_reviews.model.html#code_reviews.model.internal" class="MCXref xref">Internal representation</a> for details.</p>
+        </div>
+        <p>For involved reviews that have many revisions and many comments, it can sometimes be difficult to determine whether the points expressed in comments have been addressed. To help with such situations, click the <b>Filter comments </b>icon <img src="../Resources/Images/swarm-button-comments_filter.png" title="The comments filter button " alt="Comment filter button image" /> to limit the displayed comments to the current review version.</p>
+        <h2 data-mc-autonum=""><a name="File_listing" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.files"></a>File listing</h2>
+        <p>The file listing header displays:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-review_version_heading.png" title="The file listing heading for a code review" alt="Image of the file listing heading for a code review" />
+        </div>
+        <ul>
+            <li value="1">The current version of the files in the review.</li>
+            <li value="2">Which changelist contains a shelved copy of the review's files.</li>
+            <li value="3">The common path for all of the files in the review.</li>
+        </ul>
+        <p>In diff mode, the file listing header displays:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-review_version_heading-diff.png" title="The file listing heading for a code review while in diff mode" alt="Image of the file listing heading for a code review while in diff mode" />
+        </div>
+        <ul>
+            <li value="1">Which two versions of the review's files are being compared.</li>
+            <li value="2">Which changelists contain the files being compared.</li>
+            <li value="3">The common path for all of the files in both versions of the review.</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="History_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.history"></a>History tab</h2>
+        <p>The <b>History</b> tab presents a list of the events that affect this review, including:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-review-history.png" title="A Review's History" alt="Review history image" />
+        </div>
+        <ul>
+            <li value="1">When the review was started</li>
+            <li value="2">When a new reviewer joins the review</li>
+            <li value="3">When the review's state changes</li>
+            <li value="4">When the review's files are updated</li>
+            <li value="5">When a reviewer votes on the review</li>
+            <li value="6">When someone comments on the review, or one of its files</li>
+            <li value="7">When tests pass or fail, provided continuous integration is configured</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Mark_as_read" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.mark_as_read"></a>Mark as read</h2>
+        <p>Beside each file in a review is a <b>Mark as Read</b> button <img src="../Resources/Images/swarm-button-mark_as_read.png" title="Mark as Read button" alt="Mark as Read button image" />, which help you keep track of which files you have reviewed. The read flag is remembered independently for each user. If the content of a file is changed in an update to the review, the read flag automatically clears. This is particularly useful when a code review consists of many files.</p>
+        <p>When clicked, the button's colors invert and the associated file is visually muted, to make it easy to distinguish read files from unread files:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diffs-marked_read.png" title="A file marked as read" alt="File marked as read image" />
+        </div>
+        <p>If a file has been marked as read, click the button a second time to reset the status to unread.</p>
+        <h2 data-mc-autonum=""><a name="Identifying_reviews_created_with_Git_Fusion" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.display.git_fusion"></a>Identifying reviews created with Git Fusion</h2>
+        <p>Git Fusion-initiated reviews include the Git logo beside the main review identifier. This indicator is important because <span class="PerforceHelix short">Helix Core</span> users cannot update Git Fusion-initiated reviews.</p>
+        <p>
+            <img src="../Resources/Images/swarm-thumb-gf_review.png" title="A Review heading with the Git logo" alt="Image of a review heading with Git logo" />
+        </p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

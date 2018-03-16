@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Add a group</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/groups.add.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Add_a_group" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Add a group</h1>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>You must have <i>super</i> privileges in <span class="PerforceHVE short">Helix server</span> (<code class="code_clearBackground" style="font-weight: bold;">p4d</code>), or have <i>admin</i> privileges in <code class="code_clearBackground" style="font-weight: bold;">p4d</code> version 2012.1 or later, to create a group. If you do not have sufficient permissions, <span class="PerforceSwarm short">Swarm</span> does not display the <b>Add Group</b> button.</p>
+        </div>
+        <ol>
+            <li value="1">Click the <b>Groups</b> link in the main toolbar to display the groups listing page.</li>
+            <li value="2">
+                <p>Click the <b>Add Group</b> button.</p>
+                <p>The Add Group Settings tab appears.</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-page-add_group.png" title="The Add Group settings tab" alt="" />
+                </div>
+            </li>
+            <li value="3">Provide a name for the group.</li>
+            <li value="4"><b>Optional:</b> provide a description.</li>
+            <li value="5">
+                <p><b>Optional:</b> specify an owner. This field auto-suggests users within <span class="PerforceHVE short">Helix server</span> as you type.</p>
+                <p>Once specified, modifying the group's definition is restricted to group owners and users with <i>super</i> privileges in <span class="PerforceHVE short">Helix server</span>.</p>
+                <p>If you do not specify an owner, you must specify at least one member (below).</p>
+            </li>
+            <li value="6">
+                <p><b>Optional:</b> specify group members. This field auto-suggests projects, groups, and users within <span class="PerforceHVE short">Helix server</span> as you type (up to a combined limit of 20 entries).</p>
+                <p>If you specify a project, the project's members become members of the group. If you specify a group, that group becomes a sub-group of your new group, and all of its members (and members of any of its sub-groups) become members of your new group.</p>
+                <p>If you do not specify any members, you must specify at least one owner (above).</p>
+            </li>
+            <li value="7">
+                <p>You now have two options, either:</p>
+                <ul>
+                    <li value="1">Click <b>Save</b> to finish adding the group. By default  group members will be emailed when a new review is requested. </li>
+                    <li class="L0" value="2">
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>The <b>Save</b> button is disabled if any required fields are empty.</p>
+                        </div>
+                    </li>
+                    <li class="L0" value="3">or</li>
+                    <li value="4"><b>Optional:</b> configure email notifications for the group in the Add Group, Notifications tab. See the next step for details.</li>
+                </ul>
+            </li>
+            <li value="8">
+                <p><a name="group_email.configuration"></a> <b>Optional:</b> click the  <b>Notifications </b>tab to configure group email notifications. </p>
+                <p>
+                    <img src="../Resources/Images/swarm-page-add_group_notifications.png" title="The Add Group notifications tab" alt="" />
+                </p>
+            </li>
+            <li value="9">
+                <p> <b>Optional:</b> add a group mailing list address by selecting <b>Use mailing list instead of notifying by individual group member's emails (must add email address)</b> and entering a valid group email address. </p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <ul>
+                        <li value="1"><b>Group mailing list enabled:</b> notifications are sent to the group email address. </li>
+                        <li value="2"><b>Group mailing list disabled:</b> notifications are sent to the group members individual email addresses. </li>
+                    </ul>
+                </div>
+                <p>The format of the email address is validated as you type. </p>
+                <p>
+                    <img src="../Resources/Images/swarm-group-email_validation_invalid.png" title="Email format invalid" alt="Invalid email format image" />
+                </p>
+                <p>
+                    <img src="../Resources/Images/swarm-group-email_validation_valid.png" title="&#160;Email format validated" alt="Valid email format image" />
+                </p>
+            </li>
+            <li value="10">
+                <p>Group members can be notified when a member of the group starts a review. Group members can be notified when a change is committed by, or on behalf of, a changelist owner who is also a member of this group.  These settings are always available even if the group mailing list is not enabled. </p>
+                <p>Select which actions send a notification to the group: </p>
+                <ul>
+                    <li value="1"><b>Email members when a review is requested</b>: When any member of this group creates a review,  this group will be notified. </li>
+                    <li value="2"><b>Email members when a change is committed</b>: When a change is committed into <span class="PerforceCompany short">Perforce</span>, if the owner of the changelist is a member of this group, this group will be notified. </li>
+                    <li class="L0" value="3">
+                        <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+                            <p>When a user commits a changelist in <span class="PerforceSwarm short">Swarm</span>, it is committed on behalf of the changelist owner. If the changelist owner is a member of this group, this group will be notified.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>Members of your group may receive notification emails even if group notifications are disabled as they may be members of a project, or follow a project or user, or <span class="PerforceSwarm short">Swarm</span>'s review daemon functionality may be enabled. See the <a href="basics.notifications.html">notifications overview</a> for details.</p>
+                </div>
+            </li>
+            <li value="11">
+                <p>Group notification settings allow you to configure which notifications are sent to the group mailing list when events occur within <span class="PerforceSwarm short">Swarm</span> (the group mailing list must be enabled). This allows you to limit the number of emails sent to the group mailing list. These settings apply across all projects.  </p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The following group notification settings are only available if the group mailing list address is configured. </p>
+                </div>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>Defaults for these options are configured by the <span class="PerforceSwarm short">Swarm</span> administrator, and they may force some of these options to on or off. See <a href="admin.notifications.html#admin.notifications.global" class="MCXref xref">Global settings</a> for how this is configured.</p>
+                </div>
+                <p>
+                    <img src="../Resources/Images/swarm-page-add_group_notifications_email_form.png" title="Group email notification form" alt="" />
+                </p>
+                <p>Toggle notifications for each event on or off to control whether the group receives an email when that event occurs.</p>
+                <p>Clicking <b>Reset to default</b> resets the options back to system defaults.</p>
+            </li>
+            <li value="12">
+                <p> Click <b>Save</b>.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The <b>Save</b> button is disabled if any required fields are empty.</p>
+                </div>
+            </li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

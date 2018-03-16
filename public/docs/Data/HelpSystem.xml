@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebHelpSystem DefaultUrl="Content/Swarm/about.html" Toc="Data/Tocs/Swarm.js" Index="Data/Index.js" Concepts="Data/Concepts.js" Glossary="Data/Glossary.js" SearchDatabase="Data/Search.js" Alias="Data/Alias.xml" Synonyms="Data/Synonyms.xml" SearchFilterSet="Data/Filters.js" PathToScriptsFolder="Resources/Scripts/" SkinName="Swarm w glossary" SkinID="Helix" Multilingual="false" Skins="Swarm w glossary" BuildTime="2/19/2018 8:54:44 AM" BuildVersion="13.3.6547.24746" TargetType="WebHelp2" SkinTemplateFolder="Skin/" InPreviewMode="false" TopNavTocPath="true" MoveOutputContentToRoot="false" ReplaceReservedCharacters="false" MakeFileLowerCase="false" UseCustomTopicFileExtension="true" CustomTopicFileExtension="html" PreventExternalUrls="false" EnableResponsiveOutput="true" IncludeGlossarySearchResults="true" ResultsPerPage="20" xml:lang="en-us" LanguageName="English" SearchEngine="MadCapSearch">
+    <!-- saved from url=(0016)http://localhost -->
+    <CatapultSkin Version="2" SkinType="WebHelp2" Comment="HTML5 skin" Anchors="Width,Height" Width="800" Height="600" Top="0" Left="0" Bottom="0" Right="0" Tabs="TOC,Glossary" DefaultTab="TOC" UseBrowserDefaultSize="True" UseDefaultBrowserSetup="True" RemoveImagesOnSave="false" EnableResponsiveOutput="true" Title="[%=Perforce.Manual Title%] ([%=Perforce.VersionNumber%])" AutoSyncTOC="true" NavigationLinkTop="true" SkinID="Helix" CommentsInTopic="false" DisplayCommunitySearchResults="false" DisplayNotificationOptions="false" Name="Swarm w glossary" SkinClass="_Skins_Swarm_w_glossary" HideNavOnStartup="False" LogoUrl="">
+        <Toolbar EnableCustomLayout="true" Buttons="RemoveHighlight|Print|Separator|PreviousTopic|NextTopic">
+            <Script>function GetCurrentTopicLink() {
+
+   var link = parent.frames["topic"].location.href; prompt("Copy the URL for this topic:", link.replace("Content/","default_CSH.htm#"));
+}
+
+$(document).ready(function(){
+	$("#header&gt;a").after('&lt;div id="header-title"&gt;&lt;/div&gt;');
+	$("#header-title").text(document.title);
+});
+
+
+$(document).ready(function(){
+	$("#responsiveHeader&gt;a").after('&lt;div id="responsive-header-title"&gt;&lt;/div&gt;');
+	$("#responsive-header-title").text(document.title);
+});
+
+
+$('&lt;link&gt;')
+	.appendTo($('head'))
+	.attr({type: 'text/css', rel: 'stylesheet'})
+	.attr('href', 'Content/Resources/Stylesheets/skin_swarm.css');
+
+$('&lt;link&gt;')
+	.appendTo($('head'))
+	.attr({type: 'text/css', rel: 'stylesheet'})
+	.attr('href', 'content/resources/stylesheets/skin_swarm.css');
+
+$('head')
+	.append(' &lt;!-- Google Tag Manager --&gt;&lt;script src="content/resources/google-analytics/google-tag-manager.js"&gt;&lt;/script&gt;&lt;!-- End Google Tag Manager --&gt;');</Script>
+        </Toolbar>
+        <WebHelpOptions NavigationPaneWidth="350" TabletBreakpoint="980" />
+    </CatapultSkin>
+</WebHelpSystem>

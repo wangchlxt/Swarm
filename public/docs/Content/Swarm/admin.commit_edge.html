@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Commit-edge deployment</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.commit_edge.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Commit-edge_deployment" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Commit-edge deployment</h1>
+        <p><span class="PerforceSwarm short">Swarm</span> can connect to a <span class="PerforceHVE short">Helix server</span> configured to use the <i>commit-edge architecture</i>, which is a specific replication configuration that employs a <i>commit</i> server and one or more <i>edge</i> servers. This configuration distributes the compute, storage, and network requirements for improved performance and geographic distribution.</p>
+        <p>When <span class="PerforceSwarm short">Swarm</span> is connected to a commit server, the first worker detects this situation and sets a key in the <span class="PerforceHVE short">Helix server</span>, <code class="code_clearBackground">P4.Swarm.CommitURL</code>, to an auto-detected URL. This allows any other <span class="PerforceSwarm short">Swarm</span> instances that may be connected to edge servers to share reviews amongst all edge servers.</p>
+        <p>For more information on <span class="PerforceHVE short">Helix server</span>'s commit-edge architecture, see the "Commit-edge Architecture chapter" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4dist/index.html" target="_blank"><i><span class="Perforcegd-p4dist">Helix Versioning Engine Administrator Guide:&#160;Multi-Site Deployment</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="P4V_Authentication" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.commit_edge.p4v"></a><span class="PerforceP4V">P4V</span> Authentication</h2>
+        <p>When using <span class="PerforceP4V">P4V</span>'s <span class="PerforceSwarm short">Swarm</span> integration in a commit-edge deployment, users may encounter authentication errors; such errors can result from incorrect configuration of login tickets in distributed environments. Essentially, the problem is that while <span class="PerforceP4V">P4V</span> is connected to an edge server, <span class="PerforceSwarm short">Swarm</span> is connected to the commit server, and the login tickets do not match.</p>
+        <p>If <span class="PerforceP4V">P4V</span> users see the <code class="code_clearBackground">error Host requires authentication</code>, the solution we recommend is to forward login requests to the commit server. This can be achieved by executing the following two commands as a user with <i>operator</i> or <i>super</i> privileges in the <span class="PerforceHVE short">Helix server</span>:</p><pre class="programlisting"><span style="font-weight: normal;">$</span><b>p4 configure set auth.id=</b><i style="font-weight: bold;">authid</i><br /><span style="font-weight: normal;">$</span><b>p4 configure set rpl.forward.login=1</b></pre>
+        <p>Replace <code style="font-style: italic;">authid</code> with the authentication identifier for your <span class="PerforceHVE short">Helix server</span>.</p>
+        <p>For more information, see our Knowledge Base article <a href="http://answers.perforce.com/articles/KB/11958" target="_blank">Single Ticket Login in Distributed Environments</a>, and the <code style="font-weight: bold;">p4 serverid</code> command in the <a href="http://www.perforce.com/perforce/doc.current/manuals/cmdref/index.html" target="_blank"><i><span class="Perforcegd-cmdref">P4 Command Reference</span></i></a>.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

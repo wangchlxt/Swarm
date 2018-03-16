@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Set up a recurring task to spawn workers</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.worker.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Set_up_a_recurring_task_to_spawn_workers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Set up a recurring task to spawn workers</h1>
+        <p>To ensure that incoming <span class="PerforceHelix short">Helix Core</span> events are automatically processed by Swarm, it is important to set up a cron job to do this. The cron job can be installed on any host, although you may want to place this on the Swarm host.</p>
+        <p>The recurring task to invoke <span class="PerforceSwarm short">Swarm</span> workers, installed in a later step, requires either of:</p>
+        <ul>
+            <li value="1">
+                <p>curl<br /><a href="https://curl.haxx.se/download.html" target="_blank">https://curl.haxx.se/download.html</a></p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>For Windows, <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> depends on <code class="code_clearBackground">MSVCR100.dll</code>. You can get a copy by installing the <b>Microsoft Visual C++ Redistributable Package</b>, available for:</p>
+                    <ul>
+                        <li value="1">32-bit systems: <a href="https://www.microsoft.com/download/en/details.aspx?id=5555" target="_blank">https://www.microsoft.com/download/en/details.aspx?id=5555</a></li>
+                        <li value="2">64-bit systems: <a href="https://www.microsoft.com/download/en/details.aspx?id=14632" target="_blank">https://www.microsoft.com/download/en/details.aspx?id=14632</a></li>
+                    </ul>
+                    <p>If you install <span class="PerforceSwarm short">Swarm</span> with HTTPS, <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> requires recent CA certificates (or HTTPS connections silently fail). You can get a copy of the <code class="code_clearBackground">cacert.pem</code> from:</p>
+                    <p><a href="https://curl.haxx.se/docs/caextract.html" target="_blank">https://curl.haxx.se/docs/caextract.html</a>
+                    </p>
+                    <p>Once downloaded, copy <code class="code_clearBackground">cacert.pem</code> to the same folder where you installed <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code>, and rename it to <code class="code_clearBackground">curl-ca-bundle.crt</code>.</p>
+                </div>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If <code class="code_clearBackground" style="font-weight: bold;">curl </code>(or <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> on Windows) cannot execute as expected, trigger execution may block or fail. For example, if <code class="code_clearBackground">MSVCR100.dll</code> is missing from a Windows system, invoking <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> causes a dialog to appear.</p>
+                    <p>Prior to configuring the <a href="setup.perforce.html#setup.perforce.triggers" title="Setup triggers" alt="Setup triggers">triggers</a>, verify that <code class="code_clearBackground" style="font-weight: bold;">curl</code> executes. On Linux systems, run:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">$ </span>curl -h</pre>
+                    <p>On Windows systems, run:</p><pre class="programlisting"><span style="font-weight: normal;">C:\&gt;</span> curl.exe -h</pre>
+                    <p>The start of the output should be similar to:</p><pre class="screen" xml:space="preserve">Usage: curl [options...] &lt;url&gt;
+Options: (H) means HTTP/HTTPS only, (F) means FTP only
+     --anyauth       Pick "any" authentication method (H)
+ -a, --append        Append to target file when uploading (F/SFTP)
+     --cacert FILE   CA certificate to verify peer against (SSL)
+     --capath DIR    CA directory to verify peer against (SSL)
+...[truncated for brevity]...</pre>
+                    <p>For a more thorough test that actually fetches content over a network, try the following test:</p>
+                    <ul>
+                        <li value="1">
+                            <p>For Linux systems, run:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>curl https://www.perforce.com/</pre>
+                        </li>
+                        <li value="2">
+                            <p>For Windows systems, run:</p><pre class="programlisting" xml:space="preserve"> <span style="font-weight: normal;">C:\&gt;</span> curl.exe https://www.perforce.com/</pre>
+                        </li>
+                    </ul>
+                    <p>The output should look like HTML.</p>
+                </div>
+            </li>
+        </ul>
+        <ul>
+            <li value="1">
+                <p>wget<br /><a href="https://ftp.gnu.org/gnu/wget/" target="_blank">https://ftp.gnu.org/gnu/wget/</a></p>
+                <p><a href="http://gnuwin32.sourceforge.net/packages/wget.htm" target="_blank">http://gnuwin32.sourceforge.net/packages/wget.htm</a> (for Windows)</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you are using Powershell on Windows systems, be aware that Powershell includes aliases for <code class="code_clearBackground" style="font-weight: bold;">curl </code>and <code class="code_clearBackground" style="font-weight: bold;">wget </code>that call the Powershell command <code class="code_clearBackground" style="font-weight: bold;">Invoke-WebRequest </code>instead of <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> or <code class="code_clearBackground" style="font-weight: bold;">wget.exe</code>. <code class="code_clearBackground" style="font-weight: bold;">Invoke-WebRequest </code>has different command-line options than either <code class="code_clearBackground" style="font-weight: bold;">curl </code>or <code class="code_clearBackground" style="font-weight: bold;">wget</code>, which can be confusing.</p>
+                    <p>If you want to remove the built-in aliases for <code class="code_clearBackground" style="font-weight: bold;">curl </code>and <code class="code_clearBackground" style="font-weight: bold;">wget </code>from Powershell, follow these steps:</p>
+                    <ol>
+                        <li value="1">
+                            <p>Create a Powershell profile (only if you have not already done so):</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>New-Item $profile -force -itemtype file</pre>
+                        </li>
+                        <li value="2">
+                            <p>Edit your profile:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>notepad $profile</pre>
+                        </li>
+                        <li value="3">
+                            <p>Add the following line to your profile:</p><pre class="screen">remove-item alias:curl<br />remove-item alias:wget</pre>
+                        </li>
+                        <li value="4">Save the profile and close <code class="code_clearBackground">notepad</code>.</li>
+                        <li value="5">
+                            <p>Reload your profile:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>. $profile</pre>
+                        </li>
+                    </ol>
+                </div>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p><code class="code_clearBackground">curl</code> or <code class="code_clearBackground">wget</code> must be installed or workers do not spawn and Swarm cannot process any events. See below for verification steps.</p>
+                </div>
+            </li>
+        </ul>
+        <ol>
+            <li value="1">Create a file named <code class="code_clearBackground">helix-swarm</code> in <code class="code_clearBackground">/etc/cron.d</code>.</li>
+            <li value="2">Edit <code class="code_clearBackground">/etc/cron.d/helix-swarm</code> to contain one of the following blocks; select a block depending on whether your system has <code>curl</code> or <code>wget</code> installed.<ul><li value="1"><p>If you have <code class="code_clearBackground">curl</code> installed:</p><pre class="programlisting" lang="bash"># This ensures that a worker is fired up every minute<br />* * * * * nobody curl -so /dev/null -m5 https://<i>myswarm.url</i>/queue/worker</pre></li><li value="2"><p>If you have <code class="code_clearBackground">wget</code> installed:</p><pre class="programlisting" lang="bash"># This ensures that a worker is fired up every minute<br />* * * * * nobody wget -q -O /dev/null -T5 https://<i>myswarm.url</i>/queue/worker</pre></li></ul></li>
+            <li value="3">
+                <p>Replace <code class="code_clearBackground" style="font-style: italic;">myswarm.url</code> above with the actual URL you have configured for Swarm (which may include a <a href="setup.post.html#setup.post.subfolder">sub-folder</a> or a <a href="setup.post.html#setup.post.port">custom port</a>).</p>
+                <p>If the cron job is running on the Swarm host, and you have specified the correct <code>hostname</code> item in the <a href="admin.environment.html">Environment</a> configuration, this can be set to <code>localhost</code>.</p>
+                <p>In the example configuration lines above, where you see <code>-m5</code> or <code>-T5</code>, the <code>5</code> is the number of seconds that the cron task will wait for a response from the Swarm host. When the cron task is installed on the Swarm host, such as in the Swarm OVA, that value could be reduced to <code>1</code> seconds (e.g. <code>-m1</code> or <code>-T1</code>).</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you configure Swarm to use HTTPS, and you install a self-signed certificate, the cron jobs need to be adjusted to avoid certificate validity test which could cause silent failures to process events.</p>
+                    <ul>
+                        <li value="1">If you have <code class="code_clearBackground">curl</code> installed:<pre class="programlisting" lang="bash"># This ensures that a worker is fired up every minute<br />* * * * * nobody curl -so /dev/null <b>--insecure</b> -m5 https://<i>myswarm.url</i>/queue/worker</pre></li>
+                        <li value="2">If you have <code class="code_clearBackground">wget</code> installed:<pre class="programlisting" lang="bash"># This ensures that a worker is fired up every minute<br />* * * * * nobody wget -q -O /dev/null <b>--no-check-certificate</b> -T5 https://<i>myswarm.url</i>/queue/worker</pre></li>
+                    </ul>
+                </div>
+            </li>
+            <li value="4">Save the edited file.</li>
+        </ol>
+        <p>You are now all set to start using Swarm. Enjoy!</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If the recurring task is disabled, or stops functioning for any reason, logged-in users see the following error message when Swarm detects that no workers are running:</p>
+            <div class="img">
+                <img src="../Resources/Images/swarm-screen-no_workers.png" title="Error message that appears without running workers" alt="" />
+            </div>
+        </div>
+        <h2 data-mc-autonum=""><a name="curl_wget_verification" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.worker.verification"></a>curl/wget verification</h2>
+        <p>The cron job depends on having <code>curl</code> or <code>wget</code> installed, as indicated in <a href="setup.dependencies.html" class="MCXref xref">Runtime dependencies</a>.</p>
+        <p>To verify that <code>curl</code> or <code>wget</code> is installed, use the <code>which</code> command. For example:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>which curl</b></pre>
+        <p>If you see any output, the referenced command is installed.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

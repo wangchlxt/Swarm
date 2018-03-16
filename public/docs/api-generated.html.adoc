@@ -1,0 +1,4720 @@
+This chapter describes the REST-like API provided by Swarm, which can be used to
+automate common Swarm interactions or integrate with external systems.
+
+[[api.authentication]]
+[discrete]
+== Authentication
+
+Swarm's API requires an authenticated connection for all data-modifying
+endpoints. Authenticated connections are achieved using HTTP Basic Access
+Authentication.
+
+NOTE: If the <<admin.security.require_login,`require_login`>> configuration flag
+is set to `true`, all API endpoints require authentication.
+
+For example:
+
+[source,bash,subs="quotes"]
+$ ``**curl -u "_apiuser_:__password__" https://_myswarm.url_/api/v8/projects**``
+
+Swarm accepts a ticket from the Helix Versioning Engine (previous versions
+of Swarm required this ticket to be host-unlocked, this is no longer true
+since Swarm 2017.1). It may also be possible to use a password in place of
+the ticket.
+  
+To acquire a ticket, run the following command:
+
+[source,bash,subs="quotes"]
+$ ``**p4 -p _myp4host:1666_ -u _apiuser_ login -p**``
+
+[IMPORTANT]
+====
+For a Helix Versioning Engine that has been configured for security level
+3, passwords are not accepted.
+
+For more information on security levels, see: +
+https://www.perforce.com/perforce/doc.current/manuals/p4sag/#P4SAG/DB5-49899.html[Helix
+Versioning Engine Administrator Guide: Fundamentals^]
+====
+
+NOTE: If you use a ticket to authenticate against the Swarm API and the ticket
+expires, you need to acquire a new ticket to continue using the API.
+
+If you make a request that requires authentication and you have not
+authenticated, the response is:
+
+[source,json]
+----
+{
+  "error": "Unauthorized"
+}
+----
+
+[discrete]
+== Requests
+
+Swarm's API includes endpoints that provide, create, and update information
+within Swarm.
+
+If you make a request against an endpoint that is not supported, the
+response is:
+
+[source,bash]
+----
+{
+  "error": "Method Not Allowed"
+}
+----
+
+[discrete]
+=== GET information
+
+Use HTTP <literal>GET</literal> requests to ask for information from the API.
+
+For example, to get the list of reviews:
+
+[source,bash,subs="quotes"]
+$ ``**curl https://_myswarm.url_/api/v8/reviews**``
+
+Certain API calls support a `fields` parameter that allows you to specify which
+fields to include in the response, enabling more compact data sets. The
+following endpoints support fields:
+
+* `/api/v8/projects`
+* `/api/v8/reviews`
+* `/api/v8/reviews/{id}`
+
+Fields can be expressed as a comma-separated list, or using array-notation. For
+example:
+
+[source,bash,subs="quotes"]
+$ ``**curl 'https://_myswarm.url_/api/v8/reviews?fields=id,description,participants'**``
+
+Or:
+
+[source,bash,subs="quotes"]
+$ ``**curl 'https://_myswarm.url_/api/v8/reviews?fields[]=id,fields[]=description,fields[]=participants'**``
+
+[discrete]
+=== POST new information
+
+Use HTTP <literal>POST</literal> requests to create information via the API.
+
+For example, to create a review using form-encoded values:
+
+[source,bash,subs="quotes"]
+$ ``**curl -u "_apiuser_:__password__" -d"change=_12345_" https://_myswarm.url_/api/v8/reviews**``
+
+The response should be similar to:
+
+[source]
+----
+{
+  "isValid": true,
+  "id": 12206
+}
+----
+
+To create a review using JSON:
+
+[source,bash,subs="quotes"]
+$ ``**curl -u "_apiuser_:__password__" -H "Content-type: application/json" \
+  -d'{"change": _12345_}' https://_myswarm.url_/api/v8/reviews**``
+
+[discrete]
+=== Update
+
+Use HTTP <literal>PATCH</literal> requests to update information via the API.
+
+If your HTTP client does not support `PATCH` requests, you can emulate this
+behavior by submitting an HTTP `POST` with a `"?_method=PATCH"` parameter.
+
+[discrete]
+== Pagination
+
+Most Swarm endpoints that provide data include the ability to paginate their
+results.
+
+Each time data is requested, up to `max` results are included in the
+response, as is a value called `lastSeen`. `lastSeen` identifies the `id` of the
+last entry included in the results. If there are no further results, `lastSeen`
+is `null`.
+
+To get the next set of results, include `after` set to the value of `lastSeen`
+in the API request. Entries up to and including the `id` specified by `after` are
+excluded from the response, and the next `max` entries are included.
+
+See the
+<<api.endpoints.Activity.listActivity.usageExamples,Activity endpoint>> for
+example usage that demonstrates pagination.
+
+[discrete]
+== Responses
+
+Swarm's API responses are JSON formatted.
+
+[discrete]
+== API versions
+
+The current Swarm API version is `v8`. Here is a list of historical API
+versions:
+
+[options="header",frame="none",cols="100a,100a,100a,300a"]
+|===
+| API version
+| Swarm Release
+| Date
+| Description
+
+| v8
+| 2017.4
+| December 2017
+| Include support for default reviewers on a project or project branch.
+
+| v7
+| 2017.3
+| October 2017
+| Include support for groups as participants of a review and groups as moderators of a project branch.
+
+| v6
+| 2017.1
+| May 2017
+| Include support for activity dashboard, archiving of inactive reviews, cleaning completed reviews and for voting reviews up and down.
+
+| v5
+| 2016.3
+| December 2016
+| Include support for limiting comments to a specific review version.
+
+| v4
+| 2016.2
+| October 2016
+| Include support for private projects, as well as file-level and line-level
+  inline comments.
+
+| v3
+| 2016.1 SP1
+| September 2016
+| Include new endpoint for comments.
+
+| v2
+| 2016.1
+| May 2016
+| Include new endpoints for projects, groups, etc.
+
+| v1.2
+| 2015.3
+| October 2015
+| Add author filter to the list reviews endpoint.
+
+| v1.1
+| 2014.4
+| January 2015
+| Addition of required reviewers, and `apiVersions`.
+
+| v1
+| 2014.3
+| July 2014
+| Initial release.
+|===
+
+
+[[api.endpoints]]
+== API Endpoints
+
+This section includes coverage for each of the major endpoints provided by the
+API.
+
+[[api.endpoints.Activity]]
+=== Activity : Swarm Activity List
+
+[[api.endpoints.Activity.listActivity]]
+==== GET /api/v8/activity
+
+[.summary]
+Summary: List Activity Entries 
+
+[[api.endpoints.Activity.listActivity.notes]]
+===== Description
+
+
+Retrieve the Activity List. 
+[[api.endpoints.Activity.listActivity.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+| Default Value
+
+| ``change``
+
+| Optionally filter activity entries by associated Changelist ID. This only includes records for which there is an activity entry in Swarm.
+| integer
+| form
+| No
+| 
+
+| ``stream``
+
+| Optional activity stream to query for entries. This can include user-initiated actions (`user-alice`), activity relating to a user's followed projects/users (`personal-alice`), review streams (`review-1234`), and project streams (`project-exampleproject`).
+| string
+| form
+| No
+| 
+
+| ``type``
+
+| Type of activity, e.g., `change`, `comment`, `job`, or `review`.
+| string
+| form
+| No
+| 
+
+| ``after``
+
+| An activity ID to seek to. Activity entries up to and including the specified ID are excluded from the results and do not count towards `max`. Useful for pagination. Commonly set to the `lastSeen` property from a previous query.
+| integer
+| query
+| No
+| 
+
+| ``max``
+
+| Maximum number of activity entries to return. This does not guarantee that `max` entries are returned. It does guarantee that the number of entries returned won't exceed `max`. Server-side filtering may exclude some activity entries for permissions reasons.
+| integer
+| query
+| No
+| 100
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+| 
+|===
+
+[[api.endpoints.Activity.listActivity.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "activity": [
+    {
+      "id": 123,
+      "action": "committed",
+      "behalfOf": null,
+      "behalfOfExists": false,
+      "change": 1,
+      "date": "2016-01-15T12:12:12-08:00",
+      "depotFile": null,
+      "description": "test\n",
+      "details": [],
+      "followers": [],
+      "link": ["change", {"change": 1}],
+      "preposition": "into",
+      "projectList": {"restricted": ["main"]},
+      "projects": {"restricted": ["main"]},
+      "streams": ["review-2", "user-foo", "personal-foo", "project-restricted"],
+      "target": "change 1",
+      "time": 1404776681,
+      "topic": "changes/1",
+      "type": "change",
+      "url": "/changes/1",
+      "user": "bruno",
+      "userExists": true
+    }
+  ],
+  "lastSeen": 1
+}
+----
+
+
+[[api.endpoints.Activity.listActivity.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Fetching review history
+
+To get the latest activity entries on a review:
+
+```bash
+curl -u "username:password" "https://myswarm.url/api/v8/activity?stream=review-1234\
+&fields=id,date,description,type\
+&max=2"
+```
+
+You can tweak `max` and `fields` to fetch the data that works best for you.
+
+Swarm responds with an array of activity entities, and a `lastSeen` value that can be used for pagination:
+
+```json
+{
+  "activity": [
+    {
+      "id": 10,
+      "date": "2016-04-15T16:10:32-07:00",
+      "description": "This is a test comment.",
+      "type": "comment"
+    },
+    {
+      "id": 9,
+      "date": "2016-03-31T13:48:15-07:00",
+      "description": "Updating RELNOTE review",
+      "type": "review"
+    }
+  ],
+  "lastSeen": 9
+}
+```
+
+[discrete]
+===== Activity pagination
+
+To get the second page of activity entries for a review (based on the previous example):
+
+```bash
+curl -u "username:password" "https://myswarm.url/api/v8/activity?stream=review-1234\
+&fields=id,date,description,type\
+&max=2\
+&lastSeen=9"
+```
+
+Swarm again responds with a list of activity entities and a `lastSeen` value:
+
+```json
+{
+  "activity": [
+    {
+      "id": 8,
+      "date": "2016-03-30T12:12:12-07:00",
+      "description": "This is the first test comment.",
+      "type": "comment"
+    },
+    {
+      "id": 7,
+      "date": "2016-03-29T12:13:14-07:00",
+      "description": "Updating RELNOTE review",
+      "type": "review"
+    }
+  ],
+  "lastSeen": 7
+}
+```
+
+
+
+
+[[api.endpoints.Activity.addActivity]]
+==== POST /api/v8/activity
+
+[.summary]
+Summary: Create Activity Entry 
+
+[[api.endpoints.Activity.addActivity.notes]]
+===== Description
+
+
+Creates an entry in the Activity List. Note: admin-level privileges are required for this action. 
+[[api.endpoints.Activity.addActivity.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``type``
+
+| Type of activity, used for filtering activity streams (values can include `change`, `comment`, `job`, `review`).
+| string
+| form
+| Yes
+
+| ``user``
+
+| User who performed the action.
+| string
+| form
+| Yes
+
+| ``action``
+
+| Action that was performed - past-tense, e.g., `created` or `commented on`.
+| string
+| form
+| Yes
+
+| ``target``
+
+| Target that the action was performed on, e.g., `issue 1234`.
+| string
+| form
+| Yes
+
+| ``topic``
+
+| Optional topic for the activity entry. Topics are essentially comment thread IDs. Examples: `reviews/1234` or `jobs/job001234`.
+| string
+| form
+| No
+
+| ``description``
+
+| Optional description of object or activity to provide context.
+| string
+| form
+| No
+
+| ``change``
+
+| Optional changelist ID this activity is related to. Used to filter activity related to restricted changes.
+| integer
+| form
+| No
+
+| ``streams[]``
+
+| Optional array of streams to display on. This can include user-initiated actions (`user-alice`), activity relating to a user's followed projects/users (`personal-alice`), review streams (`review-1234`), and project streams (`project-exampleproject`).
+| array (of strings)
+| form
+| No
+
+| ``link``
+
+| Optional URL for `target`.
+| string
+| form
+| No
+|===
+
+[[api.endpoints.Activity.addActivity.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "activity": {
+    "id": 123,
+    "action": "ate",
+    "behalfOf": null,
+    "change": null,
+    "depotFile": null,
+    "details": [],
+    "description": "",
+    "followers": [],
+    "link": "",
+    "preposition": "for",
+    "projects": [],
+    "streams": [],
+    "target": "the manual",
+    "time": 1404776681,
+    "topic": "",
+    "type": "comment",
+    "user": "A dingo"
+  }
+}
+----
+
+
+[[api.endpoints.Activity.addActivity.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Creating an activity entry
+
+To create a plain activity entry:
+
+```bash
+curl -u "username:password" -d "type=job" -d "user=jira" -d "action=punted" -d "target=review 123" \
+     "https://myswarm.url/api/v8/activity"
+```
+
+JSON Response:
+
+```json
+{
+  "activity": {
+    "id": 1375,
+    "action": "punted",
+    "behalfOf": null,
+    "change": null,
+    "depotFile": null,
+    "description": "",
+    "details": [],
+    "followers": [],
+    "link": "",
+    "preposition": "for",
+    "projects": [],
+    "streams": [],
+    "target": "review 123",
+    "time": 1461607739,
+    "topic": "",
+    "type": "job",
+    "user": "jira"
+  }
+}
+```
+
+[discrete]
+===== Linking an activity entry to a review
+
+Linking activity entries to reviews is useful. This involves providing `link`, `stream`, and `topic` fields in
+the activity data. The `link` field is used to make the `review 123` string in the activity entry clickable.
+The `stream` field is needed so that the activity entry can be attached to the review in the Swarm interface.
+The `topic` field is used to link the activity entry to the comment thread for that topic, in the event that a
+user wants to comment on the activity.
+
+To create a fully linked activity entry:
+
+```bash
+curl -u "username:password" -d "type=job" -d "user=jira" -d "action=punted" -d "target=review 123" \
+     -d "streams[]=review-123" \
+     -d "link=reviews/123" \
+     -d "topic=reviews/123" \
+     "https://myswarm.url/api/v8/activity"
+```
+
+Swarm responds with an activity entity:
+
+```json
+{
+  "activity": {
+    "id": 1375,
+    "action": "punted",
+    "behalfOf": null,
+    "change": null,
+    "depotFile": null,
+    "description": "",
+    "details": [],
+    "followers": [],
+    "link": "reviews/123",
+    "preposition": "for",
+    "projects": [],
+    "streams": ["review-123"],
+    "target": "review 123",
+    "time": 1461607739,
+    "topic": "reviews/123",
+    "type": "job",
+    "user": "jira"
+  }
+}
+```
+
+
+
+
+
+[[api.endpoints.Changes]]
+=== Changes : API controller providing a service for changes
+
+[[api.endpoints.Changes.]]
+==== GET /api/v8/changes/{change}/affectsprojects
+
+[.summary]
+Summary: Get projects, and branches, affected by a given change id. 
+
+[[api.endpoints.Changes..notes]]
+===== Description
+
+
+All authenticated users are able to use this API. 
+[[api.endpoints.Changes..successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+    "change": {
+        "id":"1050",
+        "projects": {
+            "jam": [
+                "live",
+                "main"
+            ]
+        }
+    }
+}
+----
+
+
+
+
+[[api.endpoints.Changes.]]
+==== GET /api/v8/changes/{change}/defaultreviewers
+
+[.summary]
+Summary: Get default reviewers for a given change id. 
+
+[[api.endpoints.Changes..notes]]
+===== Description
+
+
+All authenticated users are able to use this API. 
+[[api.endpoints.Changes..successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+"change": {
+    "id": "1050",
+    "defaultReviewers": {
+        "groups": {
+            "group1": {"required": "1"},
+            "group2": {}
+        },
+        "users": {
+            "user1": {},
+            "user2": {"required": "true"}
+        }
+    }
+}
+}
+----
+
+
+
+
+
+[[api.endpoints.Comments]]
+=== Comments : Swarm Comments
+
+[[api.endpoints.Comments.getComments]]
+==== GET /api/v8/comments/
+
+[.summary]
+Summary: Get List of Comments 
+
+[[api.endpoints.Comments.getComments.notes]]
+===== Description
+
+
+List comments. 
+[[api.endpoints.Comments.getComments.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+| Default Value
+
+| ``after``
+
+| A comment ID to seek to. Comments up to and including the specified ID are excluded from the results and do not count towards `max`. Useful for pagination. Commonly set to the `lastSeen` property from a previous query.
+| integer
+| query
+| No
+| 
+
+| ``max``
+
+| Maximum number of comments to return. This does not guarantee that `max` comments are returned. It does guarantee that the number of comments returned won't exceed `max`.
+| integer
+| query
+| No
+| 100
+
+| ``topic``
+
+| Only comments for given topic are returned. Examples: `reviews/1234`, `changes/1234` or `jobs/job001234`.
+| string
+| query
+| No
+| 
+
+| ``context[version]``
+
+| If a `reviews/1234` topic is provided, limit returned comments to a specific version of the provided review.
+| integer
+| query
+| No
+| 
+
+| ``ignoreArchived``
+
+| Prevents archived comments from being returned. (v5+)
+| boolean
+| query
+| No
+| 
+
+| ``tasksOnly``
+
+| Returns only comments that have been flagged as tasks. (v5+)
+| boolean
+| query
+| No
+| 
+
+| ``taskStates``
+
+| Limit the returned comments to ones that match the provided task state (one or more of `open`, `closed`, `verified`, or `comment`). (v5+)
+| array (of strings)
+| query
+| No
+| 
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show for each comment. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+| 
+|===
+
+[[api.endpoints.Comments.getComments.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "topic": "",
+  "comments": {
+    "51": {
+      "id": 51,
+      "attachments": [],
+      "body": "Short loin ground round sin reprehensible, venison west participle triple.",
+      "context": [],
+      "edited": null,
+      "flags": [],
+      "likes": [],
+      "taskState": "comment",
+      "time": 1461164347,
+      "topic": "reviews/885",
+      "updated": 1461164347,
+      "user": "bruno"
+    }
+  },
+  "lastSeen": 51
+}
+----
+
+[NOTE]
+`lastSeen` can often be used as an offset for pagination, by using the value
+in the `after` parameter of subsequent requests.
+ 
+
+[discrete]
+===== When no results are found, the `comments` array is empty:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "topic": "jobs/job000011",
+  "comments": [],
+  "lastSeen": null
+}
+----
+
+
+[[api.endpoints.Comments.getComments.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Listing comments
+
+To list comments:
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/comments\
+?topic=reviews/911&max=2&fields=id,body,time,user"
+```
+
+Swarm responds with a list of the first two comments for review 911 and a `lastSeen` value for pagination:
+
+```json
+{
+  "topic": "reviews/911",
+  "comments": {
+    "35": {
+      "id": 35,
+      "body": "Excitation thunder cats intelligent man braid organic bitters.",
+      "time": 1461164347,
+      "user": "bruno"
+    },
+    "39": {
+      "id": 39,
+      "body": "Chamber tote bag butcher, shirk truffle mode shabby chic single-origin coffee.",
+      "time": 1461164347,
+      "user": "swarm_user"
+    }
+  },
+  "lastSeen": 39
+}
+```
+
+[discrete]
+===== Paginating a comment listing
+
+To obtain the next page of a comments list (based on the previous example):
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/comments\
+?topic=reviews/911&max=2&fields=id,body,time,user&after=39"
+```
+
+Swarm responds with the second page of results, if any comments are present after the last seen comment:
+
+```json
+{
+  "topic": "reviews/911",
+  "comments": {
+    "260": {
+      "id": 260,
+      "body": "Reprehensible do lore flank ham hock.",
+      "time": 1461164349,
+      "user": "bruno"
+    },
+    "324": {
+      "id": 324,
+      "body": "Sinter lo-fi temporary, nihilist tote bag mustache swag consequence interest flexible.",
+      "time": 1461164349,
+      "user": "bruno"
+    }
+  },
+  "lastSeen": 324
+}
+```
+
+
+
+
+[[api.endpoints.Comments.addComment]]
+==== POST /api/v8/comments/
+
+[.summary]
+Summary: Add A Comment 
+
+[[api.endpoints.Comments.addComment.notes]]
+===== Description
+
+
+Add a comment to a topic (such as a review or a job) 
+[[api.endpoints.Comments.addComment.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+| Default Value
+
+| ``topic``
+
+| Topic to comment on. Examples: `reviews/1234`, `changes/1234` or `jobs/job001234`.
+| string
+| form
+| Yes
+| 
+
+| ``body``
+
+| Content of the comment.
+| string
+| form
+| Yes
+| 
+
+| ``taskState``
+
+| Optional task state of the comment. Valid values when adding a comment are `comment` and `open`. This creates a plain comment or opens a task, respectively.
+| string
+| form
+| No
+| comment
+
+| ``flags[]``
+
+| Optional flags on the comment. Typically set to `closed` to archive a comment.
+| array (of strings)
+| form
+| No
+| 
+
+| ``context[file]``
+
+| File to comment on. Valid only for `changes` and `reviews` topics. Example: `//depot/main/README.txt`.
+| string
+| form
+| No
+| 
+
+| ``context[leftLine]``
+
+| Left-side diff line to attach the inline comment to.  Valid only for `changes` and `reviews` topics. If this is specified, `context[file]` must also be specified.
+| integer
+| form
+| No
+| 
+
+| ``context[rightLine]``
+
+| Right-side diff line to attach the inline comment to.  Valid only for `changes` and `reviews` topics. If this is specified, `context[file]` must also be specified.
+| integer
+| form
+| No
+| 
+
+| ``context[content]``
+
+| Optionally provide content of the specified line and its four preceding lines. This is used to specify a short excerpt of context in case the lines being commented on change during the review.  When not provided, Swarm makes an effort to build the content on its own - as this involves file operations, it could become slow.
+| array (of strings)
+| form
+| No
+| 
+
+| ``context[version]``
+
+| With a `reviews` topic, this field specifies which version to attach the comment to.
+| integer
+| form
+| No
+| 
+|===
+
+[[api.endpoints.Comments.addComment.successExamples]]
+===== Successful Response contains Comment entity:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "comment": {
+    "id": 42,
+    "attachments": [],
+    "body": "Best. Comment. EVER!",
+    "context": [],
+    "edited": null,
+    "flags": [],
+    "likes": [],
+    "taskState": "comment",
+    "time": 123456789,
+    "topic": "reviews/2",
+    "updated": 123456790,
+    "user": "bruno"
+  }
+}
+----
+
+
+[[api.endpoints.Comments.addComment.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Create a comment on a review
+
+To create a comment on a review:
+
+```bash
+curl -u "username:password" \
+     -d "topic=reviews/2" \
+     -d "body=This is my comment. It is an excellent comment. It contains a beginning, a middle, and an end." \
+     "https://my-swarm-host/api/v8/comments"
+```
+
+JSON Response:
+
+```json
+{
+  "comment": {
+    "id": 42,
+    "attachments": [],
+    "body": "This is my comment. It is an excellent comment. It contains a beginning, a middle, and an end.",
+    "context": [],
+    "edited": null,
+    "flags": [],
+    "likes": [],
+    "taskState": "comment",
+    "time": 123456789,
+    "topic": "reviews/2",
+    "updated": 123456790,
+    "user": "username"
+  }
+}
+```
+
+[discrete]
+===== Open a task on a review
+
+To create a comment on a review, and flag it as an open task:
+
+```bash
+curl -u "username:password" \
+     -d "topic=reviews/2" \
+     -d "taskState=open" \
+     -d "body=If you could go ahead and attach a cover page to your TPS report, that would be great." \
+     "https://my-swarm-host/api/v8/comments"
+```
+
+JSON Response:
+
+```json
+{
+  "comment": {
+    "id": 43,
+    "attachments": [],
+    "body": "If you could go ahead and attach a cover page to your TPS report, that would be great.",
+    "context": [],
+    "edited": null,
+    "flags": [],
+    "likes": [],
+    "taskState": "open",
+    "time": 123456789,
+    "topic": "reviews/2",
+    "updated": 123456790,
+    "user": "username"
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Comments.editComment]]
+==== PATCH /api/v8/comments/{id}
+
+[.summary]
+Summary: Edit A Comment 
+
+[[api.endpoints.Comments.editComment.notes]]
+===== Description
+
+
+Edit a comment 
+[[api.endpoints.Comments.editComment.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| ID of the comment to be edited
+| integer
+| path
+| Yes
+
+| ``topic``
+
+| Topic to comment on. Examples: `reviews/1234`, `changes/1234` or `jobs/job001234`.
+| string
+| form
+| No
+
+| ``body``
+
+| Content of the comment.
+| string
+| form
+| Yes
+
+| ``taskState``
+
+| Optional task state of the comment. Note that certain transitions (such as moving from `open` to `verified`) are not possible without an intermediate step (`addressed`, in this case). Examples: `comment` (not a task), `open`, `addressed`, `verified`.
+| string
+| form
+| No
+
+| ``flags[]``
+
+| Optional flags on the comment. Typically set to `closed` to archive a comment.
+| array (of strings)
+| form
+| No
+|===
+
+[[api.endpoints.Comments.editComment.successExamples]]
+===== Successful Response contains Comment entity:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "comment": {
+    "id": 1,
+    "attachments": [],
+    "body": "Best. Comment. EVER!",
+    "context": [],
+    "edited": 123466790,
+    "flags": [],
+    "likes": [],
+    "taskState": "comment",
+    "time": 123456789,
+    "topic": "reviews/42",
+    "updated": 123456790,
+    "user": "bruno"
+  }
+}
+----
+
+
+[[api.endpoints.Comments.editComment.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Edit and archive a comment on a review
+
+To edit and archive a comment on a review:
+
+```bash
+curl -u "username:password" \
+     -X PATCH \
+     -d "flags[]=closed" \
+     -d "body=This comment wasn't as excellent as I may have lead you to believe. A thousand apologies." \
+     "https://my-swarm-host/api/v8/comments/42"
+```
+
+JSON Response:
+
+```json
+{
+  "comment": {
+    "id": 42,
+    "attachments": [],
+    "body": "This comment wasn't as excellent as I may have lead you to believe. A thousand apologies.",
+    "context": [],
+    "edited": 123466790,
+    "flags": ["closed"],
+    "likes": [],
+    "taskState": "comment",
+    "time": 123456789,
+    "topic": "reviews/2",
+    "updated": 123456790,
+    "user": "username"
+  }
+}
+```
+
+[discrete]
+===== Flag a task as addressed on a review
+
+To flag an open task as addressed on a review:
+
+```bash
+curl -u "username:password" \
+     -X PATCH \
+     -d "taskState=addressed" \
+     "https://my-swarm-host/api/v8/comments/43"
+```
+
+JSON Response:
+
+```json
+{
+  "comment": {
+    "id": 43,
+    "attachments": [],
+    "body": "If you could go ahead and attach a cover page to your TPS report, that would be great.",
+    "context": [],
+    "edited": 123466790,
+    "flags": ["closed"],
+    "likes": [],
+    "taskState": "comment",
+    "time": 123456789,
+    "topic": "reviews/2",
+    "updated": 123456790,
+    "user": "username"
+  }
+}
+```
+
+
+
+
+
+[[api.endpoints.Groups]]
+=== Groups : Swarm Groups
+
+[[api.endpoints.Groups.listGroups]]
+==== GET /api/v8/groups/
+
+[.summary]
+Summary: Get List of Groups 
+
+[[api.endpoints.Groups.listGroups.notes]]
+===== Description
+
+
+Returns the complete list of groups in Swarm. 
+[[api.endpoints.Groups.listGroups.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+| Default Value
+
+| ``after``
+
+| A group ID to seek to. Groups prior to and including the specified ID are excluded from the results and do not count towards `max`. Useful for pagination. Commonly set to the `lastSeen` property from a previous query.
+| string
+| query
+| No
+| 
+
+| ``max``
+
+| Maximum number of groups to return. This does not guarantee that `max` groups are returned. It does guarantee that the number of groups returned won't exceed `max`.
+| integer
+| query
+| No
+| 100
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show for each group. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+| 
+
+| ``keywords``
+
+| Keywords to limit groups on. Only groups where the group ID, group name (if set), or description contain the specified keywords are returned.
+| string
+| query
+| No
+| 
+|===
+
+[[api.endpoints.Groups.listGroups.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "groups": [
+    {
+      "Group": "test-group",
+      "MaxLockTime": null,
+      "MaxResults": null,
+      "MaxScanRows": null,
+      "Owners": [],
+      "PasswordTimeout": null,
+      "Subgroups": [],
+      "Timeout": 43200,
+      "Users": ["bruno"],
+      "config": {
+        "description": "Our testing group",
+        "emailAddress": "test-group3@host.domain",
+        "emailFlags": [],
+        "name": "Test Group",
+        "useMailingList": true
+      }
+    }
+  ]
+}
+----
+
+
+[[api.endpoints.Groups.listGroups.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Listing groups
+
+To list groups:
+
+```bash
+curl -u "username:password" \
+     "https://myswarm.url/api/v8/groups?keywords=test-group&fields=Group,Owners,Users,config&max=2"
+```
+
+Swarm responds with a list of groups:
+
+```json
+{
+  "groups": [
+    {
+      "Group": "test-group",
+      "Owners": [],
+      "Users": ["bruno"],
+      "config": {
+        "description": "Our testing group",
+        "emailAddress": "test-group@host.domain",
+        "emailFlags": {
+          "reviews": "1",
+          "commits": "0"
+        },
+        "name": "Test Group",
+        "useMailingList: true
+      }
+    },
+    {
+      "Group": "test-group2",
+      "Owners": [],
+      "Users": ["bruno"],
+      "config": {
+        "description": "Our second testing group",
+        "emailAddress": "test-group2@host.domain",
+        "emailFlags": [],
+        "name": "Test Group 2",
+        "useMailingList: true
+      }
+    }
+  ],
+  "lastSeen": "test-group2"
+}
+```
+
+[discrete]
+===== Paginating the groups list
+
+Based on the previous example, we can pass a lastSeen value of `test-group2` to see if there are any subsequent
+groups in Swarm.
+
+```bash
+curl -u "username:password" \
+     "https://myswarm.url/api/v8/groups?keywords=test-group&fields=Group,config&max=2&lastSeen=test-group2"
+```
+
+Swarm responds with a list of groups (minus the Owners and Users fields, as we haven't requested them):
+
+```json
+{
+  "groups": [
+    {
+      "Group": "test-group3",
+      "config": {
+        "description": "Our 3rd testing group",
+        "emailAddress": "test-group3@host.domain",
+        "emailFlags": [],
+        "name": "Test Group 3",
+        "useMailingList": true
+      }
+    }
+  ],
+  "lastSeen": "test-group3"
+}
+```
+
+
+
+
+[[api.endpoints.Groups.getGroup]]
+==== GET /api/v8/groups/{id}
+
+[.summary]
+Summary: Get Group Information 
+
+[[api.endpoints.Groups.getGroup.notes]]
+===== Description
+
+
+Retrieve information about a group. 
+[[api.endpoints.Groups.getGroup.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Group ID
+| string
+| path
+| Yes
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show for each group. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+|===
+
+[[api.endpoints.Groups.getGroup.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "group": {
+    "Group": "test-group",
+    "MaxLockTime": null,
+    "MaxResults": null,
+    "MaxScanRows": null,
+    "Owners": [],
+    "PasswordTimeout": null,
+    "Subgroups": [],
+    "Timeout": 43200,
+    "Users": ["bruno"],
+    "config": {
+      "description": "Our testing group",
+      "emailFlags": [],
+      "name": "Test Group"
+    }
+  }
+}
+----
+
+
+[[api.endpoints.Groups.getGroup.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Fetching a group
+
+To fetch an individual group:
+
+```bash
+curl -u "username:password" "https://myswarm.url/api/v8/groups/my-group"
+```
+
+Swarm responds with the group entity:
+
+```json
+{
+  "group": {
+    "Group": "test-group",
+    "LdapConfig": null,
+    "LdapSearchQuery": null,
+    "LdapUserAttribute": null,
+    "MaxLockTime": null,
+    "MaxResults": null,
+    "MaxScanRows": null,
+    "Owners": [],
+    "Users": ["bruno"],
+    "config": {
+      "description": "Our testing group",
+      "emailAddress": "test-group@host.domain",
+      "emailFlags": {
+        "reviews": "1",
+        "commits": "0"
+      },
+      "name": "Test Group",
+      "useMailingList": true
+    }
+  }
+}
+```
+
+[discrete]
+===== Limiting returned fields
+
+To limit the returned fields when fetching an individual group:
+
+```bash
+curl -u "username:password" "https://myswarm.url/api/v8/groups/my-group?fields=Group,Owners,Users,config"
+```
+
+Swarm responds with the group entity:
+
+```json
+{
+  "group": {
+    "Group": "test-group",
+    "Owners": [],
+    "Users": ["bruno"],
+    "config": {
+      "description": "Our testing group",
+      "emailFlags": [],
+      "name": "Test Group"
+    }
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Groups.createGroup]]
+==== POST /api/v8/groups/
+
+[.summary]
+Summary: Create a new Group 
+
+[[api.endpoints.Groups.createGroup.notes]]
+===== Description
+
+
+Creates a new group in Swarm. 
+[[api.endpoints.Groups.createGroup.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``Group``
+
+| Group identifier string.
+| string
+| form
+| Yes
+
+| ``Users``
+
+| An optional array of group users. At least one of Users, Owners, or Subgroups is required.
+| array
+| form
+| No
+
+| ``Owners``
+
+| An optional array of group owners. At least one of Users, Owners, or Subgroups is required.
+| array
+| form
+| No
+
+| ``Subgroups``
+
+| An optional array of subgroups. At least one of Users, Owners, or Subgroups is required.
+| array
+| form
+| No
+
+| ``config[name]``
+
+| An optional full name for the group.
+| string
+| form
+| No
+
+| ``config[description]``
+
+| An optional group description.
+| string
+| form
+| No
+
+| ``config[emailAddress]``
+
+| The email address for this group.
+| string
+| form
+| No
+
+| ``config[emailFlags][reviews]``
+
+| Email members when a new review is requested.
+| boolean
+| form
+| No
+
+| ``config[emailFlags][reviews]``
+
+| Email members when a new review is requested.
+| boolean
+| form
+| No
+
+| ``config[useMailingList]``
+
+| Whether to use the configured email address or expand individual members addresses.
+| boolean
+| form
+| No
+|===
+
+[[api.endpoints.Groups.createGroup.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "group": {
+    "Group": "test-group",
+    "MaxLockTime": null,
+    "MaxResults": null,
+    "MaxScanRows": null,
+    "Owners": [],
+    "PasswordTimeout": null,
+    "Subgroups": [],
+    "Timeout": null,
+    "Users": ["alice"],
+    "config": {
+      "description": "Test test test",
+      "emailAddress": "test-group@host.domain",
+      "emailFlags": [],
+      "name": "TestGroup",
+      "useMailingList": true
+    }
+  }
+}
+----
+
+
+[[api.endpoints.Groups.createGroup.usageExamples]]
+===== Creating a group
+
+
+[IMPORTANT]
+====
+* Only users with _super_ privileges in the Helix Versioning Engine (`*p4d*`), or users
+  with _admin_ privileges in `*p4d*` versions 2012.1 or newer, can create groups.
+* This API version is only capable of setting specific fields: `Group`, `Users`, `Owners`,
+  `Subgroups`, `config`.
+  Any other fields specified in the creation request are ignored.
+====
+
+To create a new group:
+
+```bash
+curl -u "username:password" \
+     -d "Group=my-group" \
+     -d "Owners[]=alice" \
+     -d "Owners[]=bob" \
+     -d "Users[]=bruno" \
+     -d "Users[]=user2" \
+     -d "config[description]=This group is special to me." \
+     -d "config[name]=My Group" \
+     -d "config[emailFlags][reviews]=1" \
+     -d "config[emailFlags][commits]=0" \
+     -d "config[emailAddress]=my-group@host.domain" \
+     -d "config[useMailingList]=false" \
+     "https://myswarm.url/api/v8/groups"
+```
+
+Assuming that the authenticated user has permission, Swarm responds with the new group entity:
+
+```json
+{
+  "group": {
+    "Group": "my-group",
+    "MaxLockTime": null,
+    "MaxResults": null,
+    "MaxScanRows": null,
+    "Owners": ["username"],
+    "PasswordTimeout": null,
+    "Subgroups": [],
+    "Timeout": null,
+    "Users": [],
+    "config": {
+      "description": "This group is special to me.",
+      "emailFlags": {
+        "reviews": "1",
+        "commits": "0"
+      },
+      "name": "My Group",
+      "useMailingList": true
+    }
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Groups.patchGroup]]
+==== PATCH /api/v8/groups/{id}
+
+[.summary]
+Summary: Edit a Group 
+
+[[api.endpoints.Groups.patchGroup.notes]]
+===== Description
+
+
+Change the settings of a group in Swarm. Only super users and group owners can perform this action. 
+[[api.endpoints.Groups.patchGroup.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Group ID
+| string
+| path
+| Yes
+
+| ``Users``
+
+| An optional array of group users.
+| array
+| form
+| No
+
+| ``Owners``
+
+| An optional array of group owners.
+| array
+| form
+| No
+
+| ``Subgroups``
+
+| An optional array of group subgroups.
+| array
+| form
+| No
+
+| ``config[name]``
+
+| An optional full name for the group.
+| string
+| form
+| No
+
+| ``config[description]``
+
+| An optional group description.
+| string
+| form
+| No
+
+| ``config[emailAddress]``
+
+| The email address for this group.
+| string
+| form
+| No
+
+| ``config[emailFlags][commits]``
+
+| Email members when a change is committed.
+| boolean
+| form
+| No
+
+| ``config[emailFlags][reviews]``
+
+| Email members when a new review is requested.
+| boolean
+| form
+| No
+
+| ``config[useMailingList]``
+
+| Whether to use the configured email address or expand individual members addresses.
+| boolean
+| form
+| No
+|===
+
+[[api.endpoints.Groups.patchGroup.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "group": {
+    "Group": "test-group",
+    "Users": [],
+    "Owners": [],
+    "Subgroups": [],
+    "config": {
+      "description": "New Group Description",
+      "name": "TestGroup",
+      "useMailingList": true
+    }
+  }
+}
+----
+
+
+[[api.endpoints.Groups.patchGroup.usageExamples]]
+===== Editing a group
+
+
+[IMPORTANT]
+====
+* Only users with _super_ privileges in the Helix Versioning Engine, or group owners, can
+  edit groups.
+* This API version is only capable of modifying specific fields: `Users`, `Owners`,
+  `Subgroups`, `config`.
+  Any other fields specified in the edit request are ignored.
+====
+
+Here is how to update the `name`, `description`, and `emailFlags`
+configuration of the group `my-group`:
+
+```bash
+curl -u "username:password" -X PATCH \
+     -d "config[description]=This group is special to me." \
+     -d "config[name]=My Group" \
+     -d "config[emailFlags][commits]=1" \
+     "https://myswarm.url/api/v8/groups/my-group"
+```
+
+Assuming that the authenticated user has permission, Swarm
+responds with the modified group entity:
+
+```json
+{
+  "group": {
+    "Group": "my-group",
+    "Users": [],
+    "Owners": [],
+    "Subgroups": [],
+    "config": {
+      "description": "This group is special to me.",
+      "emailAddress": "test-group@host.domain",
+      "emailFlags": {
+        "reviews": "1",
+        "commits": "1"
+      },
+      "name": "My Group",
+      "useMailingList": true
+    }
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Groups.deleteGroup]]
+==== DELETE /api/v8/groups/{id}
+
+[.summary]
+Summary: Delete a Group 
+
+[[api.endpoints.Groups.deleteGroup.notes]]
+===== Description
+
+
+Delete a group. Only super users and group owners can perform this action. 
+[[api.endpoints.Groups.deleteGroup.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Group ID.
+| string
+| path
+| Yes
+|===
+
+[[api.endpoints.Groups.deleteGroup.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "id": "test-group"
+}
+----
+
+
+[[api.endpoints.Groups.deleteGroup.usageExamples]]
+===== Deleting a group
+
+
+[IMPORTANT]
+Only _super_ users and group owners can delete groups.
+
+```bash
+curl -u "username:password" -X DELETE "https://myswarm.url/api/v8/groups/my-group"
+```
+
+Assuming that the authenticated user has permission, Swarm
+responds with the `id` of the deleted group:
+
+```json
+{
+  "id": "my-group"
+}
+```
+
+
+
+
+
+[[api.endpoints.Index]]
+=== Index : Basic API controller providing a simple version action
+
+[[api.endpoints.Index.version]]
+==== GET /api/v8/version
+
+[.summary]
+Summary: Show Version Information 
+
+[[api.endpoints.Index.version.notes]]
+===== Description
+
+
+This can be used to determine the currently-installed Swarm version, and also to check that Swarm's API is responding as expected. 
+[[api.endpoints.Index.version.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+    "year": "2017",
+    "version": "SWARM/2017.3-MAIN/8499605 (2017/10/25)"
+}
+----
+
+[NOTE]
+Note: `year` refers to the year of the Swarm release, not necessarily the current year.
+ 
+
+
+
+
+
+[[api.endpoints.Projects]]
+=== Projects : Swarm Projects
+
+[[api.endpoints.Projects.listProjects]]
+==== GET /api/v8/projects/
+
+[.summary]
+Summary: Get List of Projects 
+
+[[api.endpoints.Projects.listProjects.notes]]
+===== Description
+
+
+Returns a list of projects in Swarm that are visible to the current user. Administrators will see all projects, including private ones. 
+[[api.endpoints.Projects.listProjects.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show for each project. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+|===
+
+[[api.endpoints.Projects.listProjects.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "projects": [
+    {
+      "id": "testproject3",
+      "branches": [
+        {
+          "id": "main",
+          "name": "main",
+          "paths": ["//depot/main/TestProject/..."],
+          "moderators": [],
+          "moderators-groups": []
+        }
+      ],
+      "deleted": false,
+      "description": "Test test test",
+      "followers": [],
+      "jobview": "subsystem=testproject",
+      "members": ["alice"],
+      "name": "TestProject",
+      "owners": [],
+      "private": false,
+      "subgroups": []
+    }
+  ]
+}
+----
+
+
+[[api.endpoints.Projects.listProjects.usageExamples]]
+===== Listing projects
+
+
+To list all projects:
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/projects?fields=id,description,members,name"
+```
+
+Pagination is not currently supported by this endpoint. Swarm responds with a list of all projects:
+
+```json
+{
+  "projects": [
+    {
+      "id": "testproject1",
+      "description": "Test test test",
+      "members": ["alice"],
+      "name": "TestProject"
+    },
+    {
+      "id": "testproject2",
+      "description": "Test test test",
+      "members": ["alice"],
+      "name": "TestProject"
+    }
+  ]
+}
+```
+
+Project administrators wishing to see the `tests` and `deploy` fields must fetch projects
+individually.
+
+
+
+
+[[api.endpoints.Projects.getProject]]
+==== GET /api/v8/projects/{id}
+
+[.summary]
+Summary: Get Project Information 
+
+[[api.endpoints.Projects.getProject.notes]]
+===== Description
+
+
+Retrieve information about a project. 
+[[api.endpoints.Projects.getProject.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Project ID
+| string
+| path
+| Yes
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show for each project. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+|===
+
+[[api.endpoints.Projects.getProject.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "project": {
+    "id": "testproject4",
+    "defaults": [],
+    "branches": [
+      {
+        "id": "main",
+        "name": "main",
+        "paths": ["//depot/main/TestProject/..."],
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": []
+      }
+    ],
+    "deleted": false,
+    "description": "Test test test",
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject",
+    "owners": [],
+    "private": false,
+    "subgroups": []
+  }
+}
+----
+
+
+[[api.endpoints.Projects.getProject.usageExamples]]
+===== Fetching a project
+
+
+To fetch an individual project:
+
+```bash
+curl -u "username:password" \
+     "https://my-swarm-host/api/v8/projects/testproject2?fields=id,description,members,name"
+```
+
+Swarm responds with a project entity:
+
+```json
+{
+  "project": {
+    "id": "testproject2",
+    "defaults": [],
+    "description": "Test test test",
+    "members": ["alice"],
+    "name": "TestProject 2"
+  }
+}
+```
+
+Project administrators have access to additional fields (`tests` and `deploy`) when fetching
+individual projects using this endpoint.
+
+
+
+
+[[api.endpoints.Projects.createProject]]
+==== POST /api/v8/projects/
+
+[.summary]
+Summary: Create a new Project 
+
+[[api.endpoints.Projects.createProject.notes]]
+===== Description
+
+
+Creates a new project in Swarm. 
+[[api.endpoints.Projects.createProject.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``name``
+
+| Project Name (is also used to generate the Project ID)
+| string
+| form
+| Yes
+
+| ``members``
+
+| An array of project members.
+| array
+| form
+| Yes
+
+| ``subgroups``
+
+| An optional array of project subgroups.
+| array
+| form
+| No
+
+| ``owners``
+
+| An optional array of project owners.
+| array
+| form
+| No
+
+| ``description``
+
+| An optional project description.
+| string
+| form
+| No
+
+| ``private``
+
+| Private projects are visible only to Members, Moderators, Owners, and Administrators. (Default: false) 
+| boolean
+| form
+| No
+
+| ``deploy``
+
+| Configuration for automated deployment. Example: {&quot;enabled&quot;: true, &quot;url&quot;: &quot;pass:q[http://localhost/?change={change}]&quot;}
+| array
+| form
+| No
+
+| ``tests``
+
+| Configuration for testing/continuous integration.
+| array
+| form
+| No
+
+| ``branches``
+
+| Optional branch definitions for this project.
+| array
+| form
+| No
+
+| ``jobview``
+
+| An optional jobview for associating certain jobs with this project.
+| string
+| form
+| No
+
+| ``emailFlags[change_email_project_users]``
+
+| Email members, moderators and followers when a change is committed.
+| boolean
+| form
+| No
+
+| ``emailFlags[review_email_project_members]``
+
+| Email members and moderators when a new review is requested.
+| boolean
+| form
+| No
+
+| ``defaults``
+
+| An optional array of defaults at a project level (for example default reviewers).
+| array
+| form
+| No
+|===
+
+[[api.endpoints.Projects.createProject.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "project": {
+    "id": "testproject5",
+    "defaults": [],
+    "branches": [
+      {
+        "id": "main",
+        "name": "main",
+        "paths": ["//depot/main/TestProject/..."],
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": []
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "Test test test",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+----
+
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "project": {
+    "id": "testproject6",
+    "defaults": {"user2":{"required":true}},
+    "branches": [
+      {
+        "id": "main",
+        "name": "main",
+        "paths": ["//depot/main/TestProject/..."],
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": {
+             "reviewers":{
+                 "groups":{"swarm-group-group1":{"required":"1"}},
+                 "users":{"user1":{"required":true}}
+             }
+        }
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "New Project Description",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+----
+
+
+[[api.endpoints.Projects.createProject.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Creating a new project
+
+To create a project:
+
+```bash
+curl -u "username:password" \
+     -d "name=TestProject 3" \
+     -d "description=The third iteration of our test project." \
+     -d "members[]=alice" \
+     -d "members[]=bob" \
+     "https://my-swarm-host/api/v8/projects/"
+```
+
+Swarm responds with the new project entity:
+
+```json
+{
+  "project": {
+    "id": "testproject3",
+    "defaults": [],
+    "branches": [],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "The third iteration of our test project.",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice", "bob"],
+    "name": "TestProject 3",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+[discrete]
+===== Creating a private project with branches
+
+Specifying a branch requires using array notation and providing at least two fields (`name` and `paths`) for
+each branch you wish to create. Creating more than one branch involves incrementing the `branches[0]` specifier
+for each branch - an example of this accompanies the PATCH endpoint documentation.
+
+Projects are public by default. Marking a project as Private requires using `{private: true}` in JSON, and
+using `-d "private=1"` in regular form-encoded requests.
+
+IMPORTANT: Form-encoded requests only accept `0` for false in boolean values -- using the word `false` will be
+evaluated as a non-zero (and therefore non-false) value.
+
+```bash
+curl -u "username:password" \
+     -d "name=TestProject 4" \
+     -d "private=1" \
+     -d "members[]=bob" \
+     -d "branches[0][name]=Branch One" \
+     -d "branches[0][paths][]=//depot/main/TestProject/..." \
+     "https://my-swarm-host/api/v8/projects"
+```
+
+Swarm responds with the new project entity:
+
+```json
+{
+  "project": {
+    "id": "testproject-4",
+    "defaults": [],
+    "branches": [
+      {
+        "paths": [
+          "//depot/main/TestProject/..."
+        ],
+        "name": "Branch One",
+        "id": "branch-one",
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": []
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": null,
+    "emailFlags": [],
+    "jobview": null,
+    "members": ["bob"],
+    "name": "TestProject 4",
+    "owners": [],
+    "private": true,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+[discrete]
+===== Creating a project to add default reviewers (
+
+```bash
+curl -u "<user>:<password>" \
+     -H "Content-Type: application/json" \
+     -X PATCH \
+     -d '"name": "testproject-4", \
+         "members": ["bob"], \
+         "defaults":{"reviewers":{"user2":{"required":true}} \
+         "branches":[{ \
+           "name":"Branch One", \
+           "paths":{"//depot/main/TestProject/..."} \
+           "defaults":{"reviewers":{"swarm-group-group1":{"required":"1"},"user1":{"required":true}}]' \
+     "https://my-swarm-host/api/v8/projects/testproject-4"
+```
+
+Or without JSON content:
+
+```bash
+curl -u "username:password" \
+     -X PATCH \
+     -d "name=TestProject 4" \
+     -d "members[]=bob" \
+     -d "defaults[reviewers][user2][required]=true" \
+     -d "branches[0][name]=Branch One" \
+     -d "branches[0][paths][]=//depot/main/TestProject/..." \
+     -d "branches[0][defaults][reviewers][swarm-group-group1][required]=1" \
+     -d "branches[0][defaults][reviewers][user1][required]=true" \
+     "https://my-swarm-host/api/v8/projects/testproject-4"
+```
+
+Swarm responds with project entity similar to:
+
+```json
+{
+  "project": {
+    "id": "testproject-4",
+    "defaults": ["user2":["required":true]]],
+    "branches": [
+      {
+        "paths": [
+          "//depot/main/TestProject/..."
+        ],
+        "name": "Branch One",
+        "id": "branch-one",
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": ["reviewers":["swarm-group-group1":["required":"1"], "user1":["required":true]]]
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": null,
+    "emailFlags": [],
+    "jobview": null,
+    "members": ["bob"],
+    "name": "TestProject 4",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Projects.patchProject]]
+==== PATCH /api/v8/projects/{id}
+
+[.summary]
+Summary: Edit a Project 
+
+[[api.endpoints.Projects.patchProject.notes]]
+===== Description
+
+
+Change the settings of a project in Swarm. If a project has owners set, only the owners can perform this action. 
+[[api.endpoints.Projects.patchProject.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Project ID
+| string
+| path
+| Yes
+
+| ``name``
+
+| Project Name (changing the project name does not change the project ID)
+| string
+| form
+| No
+
+| ``members``
+
+| An array of project members.
+| array
+| form
+| No
+
+| ``subgroups``
+
+| An optional array of project subgroups.
+| array
+| form
+| No
+
+| ``owners``
+
+| An optional array of project owners.
+| array
+| form
+| No
+
+| ``description``
+
+| Your project description.
+| string
+| form
+| No
+
+| ``private``
+
+| Private projects are visible only to Members, Moderators, Owners, and Administrators. (Default: false) 
+| boolean
+| form
+| No
+
+| ``deploy``
+
+| Configuration for automated deployment. Example: {&quot;enabled&quot;: true, &quot;url&quot;: &quot;pass:q[http://localhost/?change={change}]&quot;}
+| array
+| form
+| No
+
+| ``tests``
+
+| Configuration for testing/continuous integration.
+| array
+| form
+| No
+
+| ``branches``
+
+| Optional branch definitions for this project.
+| array
+| form
+| No
+
+| ``jobview``
+
+| A jobview for associating certain jobs with this project.
+| string
+| form
+| No
+
+| ``emailFlags[change_email_project_users]``
+
+| Email members, moderators and followers when a change is committed.
+| boolean
+| form
+| No
+
+| ``emailFlags[review_email_project_members]``
+
+| Email members and moderators when a new review is requested.
+| boolean
+| form
+| No
+
+| ``defaults``
+
+| An optional array of defaults at a project level (for example default reviewers).
+| array
+| form
+| No
+|===
+
+[[api.endpoints.Projects.patchProject.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "project": {
+    "id": "testproject7",
+    "branches": [
+      {
+        "id": "main",
+        "name": "main",
+        "paths": ["//depot/main/TestProject/..."],
+        "moderators": [],
+        "moderators-groups": []
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "New Project Description",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+----
+
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "project": {
+    "id": "testproject8",
+    "defaults": {"user2":{"required":true}},
+    "branches": [
+      {
+        "id": "main",
+        "name": "main",
+        "paths": ["//depot/main/TestProject/..."],
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": {
+             "reviewers":{
+                 "groups":{"swarm-group-group1":{"required":"1"}},
+                 "users":{"user1":{"required":true}}
+             }
+         }
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "New Project Description",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+----
+
+
+[[api.endpoints.Projects.patchProject.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Editing a project
+
+To edit a project:
+
+NOTE: It is safe to edit a project without specifying branches, but the instructions for adding
+branches contain important information for modifying branch configuration.
+
+```bash
+curl -u "username:password" \
+     -X PATCH
+     -d "description=Witness the power of a fully operational Swarm project." \
+     "https://my-swarm-host/api/v8/projects/testproject3"
+```
+
+Swarm responds with the updated project entity:
+
+```json
+{
+  "project": {
+    "id": "testproject3",
+    "branches": [],
+    "defaults": [],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": "Witness the power of a fully operational Swarm project.",
+    "followers": [],
+    "jobview": "subsystem=testproject",
+    "members": ["alice"],
+    "name": "TestProject 3",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+[discrete]
+===== Editing a project to add a moderated branch and make the project public
+
+Specifying a branch requires using array notation and providing at least two fields (`name` and `paths`) for
+each branch you wish to create. Creating more than one branch involves incrementing the `branches[0]` specifier
+for each branch.
+
+IMPORTANT: If you have existing branches, you must specify all of them in the query to avoid data loss.
+This operation sets the value of the entire `branches` property to match the provided input.
+
+Marking a private project as Public requires using `{private: false}` in JSON, or using `-d "private=0"` in
+regular form-encoded requests.
+
+IMPORTANT: Form-encoded requests only accept `0` for false in boolean values -- using the word `false` will be
+evaluated as a non-zero (and therefore non-false) value.
+
+```bash
+curl -u "username:password" \
+     -X PATCH \
+     -d "private=0" \
+     -d "branches[0][name]=Branch One" \
+     -d "branches[0][paths][]=//depot/main/TestProject/..." \
+     -d "branches[1][name]=Branch Two" \
+     -d "branches[1][paths][]=//depot/main/SecondBranch/..." \
+     -d "branches[1][moderators][]=bob" \
+     -d "branches[1][moderators-groups][]=group1" \
+     "https://my-swarm-host/api/v8/projects/testproject-4"
+```
+
+Swarm responds with the new project entity:
+
+```json
+{
+  "project": {
+    "id": "testproject-4",
+    "branches": [
+      {
+        "paths": [
+          "//depot/main/TestProject/..."
+        ],
+        "name": "Branch One",
+        "id": "branch-one",
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": []
+      },
+      {
+        "paths": [
+          "//depot/main/SecondBranch/..."
+        ],
+        "name": "Branch Two",
+        "id": "branch-two",
+        "moderators": ["bob"],
+        "moderators-groups": ["group1"],
+        "defaults": []
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": null,
+    "emailFlags": [],
+    "jobview": null,
+    "members": ["bob"],
+    "name": "TestProject 4",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+[discrete]
+===== Editing a project to add default reviewers
+
+```bash
+curl -u "<user>:<password>" \
+     -H "Content-Type: application/json" \
+     -X PATCH \
+     -d '"defaults":{"reviewers":{"user2":{"required":true}} \
+         "branches":[{ \
+           "name":"Branch One", \
+           "paths":{"//depot/main/TestProject/..."} \
+           "defaults": { \
+               "reviewers":{ \
+                   "groups":{"group1":{"required":"1"}}, \
+                   "users":{"user1":{"required":true}} \
+               } \
+           }]' \
+     "https://my-swarm-host/api/v8/projects/testproject-4"
+```
+
+Or without JSON content:
+
+```bash
+curl -u "username:password" \
+     -X PATCH \
+     -d "name=TestProject 4" \
+     -d "members[]=bob" \
+     -d "defaults[reviewers][user2][required]=true" \
+     -d "branches[0][name]=Branch One" \
+     -d "branches[0][paths][]=//depot/main/TestProject/..." \
+     -d "branches[0][defaults][reviewers][groups][group1][required]=1" \
+     -d "branches[0][defaults][reviewers][users][user1][required]=true" \
+     "https://my-swarm-host/api/v8/projects/testproject-4"
+```
+
+Swarm responds with project entity similar to:
+
+```json
+{
+  "project": {
+    "id": "testproject-4",
+    "defaults": ["user2":["required":true]]],
+    "branches": [
+      {
+        "paths": [
+          "//depot/main/TestProject/..."
+        ],
+        "name": "Branch One",
+        "id": "branch-one",
+        "moderators": [],
+        "moderators-groups": [],
+        "defaults": {
+               "reviewers":{
+                   "groups":{"group1":{"required":"1"}},
+                   "users":{"user1":{"required":true}}
+               }
+           }
+      }
+    ],
+    "deleted": false,
+    "deploy": {"url": "", "enabled": false},
+    "description": null,
+    "emailFlags": [],
+    "jobview": null,
+    "members": ["bob"],
+    "name": "TestProject 4",
+    "owners": [],
+    "private": false,
+    "subgroups": [],
+    "tests": {"url": "", "enabled": false}
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Projects.deleteProject]]
+==== DELETE /api/v8/projects/{id}
+
+[.summary]
+Summary: Delete a Project 
+
+[[api.endpoints.Projects.deleteProject.notes]]
+===== Description
+
+
+Mark a Swarm project as deleted. The project ID and name cannot be reused. If a project has owners set, only the owners can perform this action. 
+[[api.endpoints.Projects.deleteProject.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Project ID
+| string
+| path
+| Yes
+|===
+
+[[api.endpoints.Projects.deleteProject.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "id": "testproject"
+}
+----
+
+
+[[api.endpoints.Projects.deleteProject.usageExamples]]
+===== Deleting a project
+
+
+Super users, administrators, and owners can delete projects. Members can delete projects that have no
+owners set.
+
+```bash
+curl -u "username:password" -X DELETE "https://my-swarm-host/api/v8/projects/testproject3"
+```
+
+Assuming that the authenticated user has permission, Swarm responds with the id of the deleted project:
+
+```json
+{
+  "id": "testproject3"
+}
+```
+
+
+
+
+
+[[api.endpoints.Reviews]]
+=== Reviews : Swarm Reviews
+
+[[api.endpoints.Reviews.dashboardAction]]
+==== GET /api/v8/dashboards/action
+
+[.summary]
+Summary: Get reviews for action dashboard 
+
+[[api.endpoints.Reviews.dashboardAction.notes]]
+===== Description
+
+
+Gets reviews for the action dashboard for the authenticated user 
+[[api.endpoints.Reviews.dashboardAction.successExamples]]
+===== Successful Commit contains Review and Commit Entities:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "lastSeen": 120,
+  "reviews": [
+    {
+      "id": 7,
+      "author": "swarm_admin",
+      "changes": [6],
+      "comments": [0,0],
+      "commits": [6],
+      "commitStatus": [],
+      "created": 1485793976,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "test\n",
+      "groups": ["swarm-project-test"],
+      "participants": {"swarm_admin":[]},
+      "pending": false,
+      "projects": {"test":["test"]},
+      "roles": ["moderator|reviewer|required_reviewer|author"],
+      "state": "needsReview",
+      "stateLabel": "Needs Review",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1485958875,
+      "updateDate": "2017-02-01T06:21:15-08:00"
+    }
+  ],
+  "totalCount": null
+}
+----
+
+
+[[api.endpoints.Reviews.dashboardAction.usageExamples]]
+===== Getting reviews for the action dashboard
+
+
+To list reviews:
+```bash
+curl -u "username:password" "http://my-swarm-host/api/v8/dashboards/action"
+```
+Swarm responds with a list of the latest reviews, a `totalCount` field, and a `lastSeen` value for pagination:
+
+```json
+{
+  "lastSeen": 120,
+  "reviews": [
+    {
+      "id": 7,
+      "author": "swarm_admin",
+      "changes": [6],
+      "comments": [0,0],
+      "commits": [6],
+      "commitStatus": [],
+      "created": 1485793976,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "test\n",
+      "groups": ["swarm-project-test"],
+      "participants": {"swarm_admin":[]},
+      "pending": false,
+      "projects": {"test":["test"]},
+      "roles": ["moderator|reviewer|required_reviewer|author"],
+      "state": "needsReview",
+      "stateLabel": "Needs Review",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1485958875,
+      "updateDate": "2017-02-01T06:21:15-08:00"
+    }
+  ],
+  "totalCount": null
+}
+```
+
+
+
+[[api.endpoints.Reviews.getReviews]]
+==== GET /api/v8/reviews/
+
+[.summary]
+Summary: Get List of Reviews 
+
+[[api.endpoints.Reviews.getReviews.notes]]
+===== Description
+
+
+List and optionally filter reviews. 
+[[api.endpoints.Reviews.getReviews.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+| Default Value
+
+| ``after``
+
+| A review ID to seek to. Reviews up to and including the specified `id` are excluded from the results and do not count towards `max`. Useful for pagination. Commonly set to the `lastSeen` property from a previous query.
+| integer
+| query
+| No
+| 
+
+| ``max``
+
+| Maximum number of reviews to return. This does not guarantee that `max` reviews are returned. It does guarantee that the number of reviews returned won't exceed `max`. Server-side filtering may exclude some reviews for permissions reasons.
+| integer
+| query
+| No
+| 1000
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+| 
+
+| ``author[]``
+
+| One or more authors to limit reviews by. Reviews with any of the specified authors are returned. (v1.2+)
+| array (of strings)
+| query
+| No
+| 
+
+| ``change[]``
+
+| One or more change IDs to limit reviews by. Reviews associated with any of the specified changes are returned.
+| array (of integers)
+| query
+| No
+| 
+
+| ``hasReviewers``
+
+| Boolean option to limit to reviews to those with or without reviewers. Use `true` or `false` for JSON-encoded data, `1` for true and or `0` for false for form-encoded data. The presence of the parameter without a value is evaluated as true.
+| boolean
+| query
+| No
+| 
+
+| ``ids[]``
+
+| One or more review IDs to fetch. Only the specified reviews are returned. This filter cannot be combined with the `max` parameter.
+| array (of integers)
+| query
+| No
+| 
+
+| ``keywords``
+
+| Keywords to limit reviews by. Only reviews where the description, participants list or project list contain the specified keywords are returned.
+| string
+| query
+| No
+| 
+
+| ``participants[]``
+
+| One or more participants to limit reviews by. Reviews with any of the specified participants are returned.
+| array (of strings)
+| query
+| No
+| 
+
+| ``project[]``
+
+| One or more projects to limit reviews by. Reviews affecting any of the specified projects are returned.
+| array (of strings)
+| query
+| No
+| 
+
+| ``state[]``
+
+| One or more states to limit reviews by. Reviews in any of the specified states are returned.
+| array (of strings)
+| query
+| No
+| 
+
+| ``passesTests``
+
+| Boolean option to limit reviews by tests passing or failing. Use `true` or `false` for JSON-encoded data, `1` for true and `0` for false for form-encoded data. The presence of the parameter without a value is evaluated as true.
+| string
+| query
+| No
+| 
+
+| ``notUpdatedSince``
+
+| Option to fetch unchanged reviews. Requires the date to be in the format YYYY-mm-dd, for example 2017-01-01. Reviews to be returned are determined by looking at the last updated date of the review.
+| string
+| query
+| No
+| 
+
+| ``hasVoted``
+
+| Should have the value 'up' or 'down' to filter reviews that have been voted up or down by the current authenticated user.
+| string
+| query
+| No
+| 
+
+| ``myComments``
+
+| True or false to support filtering reviews that include comments by the current authenticated user.
+| boolean
+| query
+| No
+| 
+|===
+
+[[api.endpoints.Reviews.getReviews.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "lastSeen": 12209,
+  "reviews": [
+    {
+      "id": 12206,
+      "author": "swarm",
+      "changes": [12205],
+      "comments": 0,
+      "commits": [],
+      "commitStatus": [],
+      "created": 1402507043,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "Review Description\n",
+      "participants": {
+        "swarm": []
+      },
+      "pending": true,
+      "projects": [],
+      "state": "needsReview",
+      "stateLabel": "Needs Review",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1402518492
+    }
+  ],
+  "totalCount": 1
+}
+----
+
+[NOTE]
+Swarm returns `null` for `totalCount` if no search filters were provided.
+`lastSeen` can often be used as an offset for pagination, by using the value
+in the `after` parameter of subsequent requests.
+ 
+
+[discrete]
+===== When no results are found, the `reviews` array is empty:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "lastSeen": null,
+  "reviews": [],
+  "totalCount": 0
+}
+----
+
+
+[[api.endpoints.Reviews.getReviews.usageExamples]]
+===== Examples of usage
+
+[discrete]
+===== Listing reviews
+
+To list reviews:
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews?max=2&fields=id,description,author,state"
+```
+
+Swarm responds with a list of the latest reviews, a `totalCount` field, and a `lastSeen` value for pagination:
+
+```json
+{
+  "lastSeen": 120,
+  "reviews": [
+    {
+      "id": 123,
+      "author": "bruno",
+      "description": "Adding .jar that should have been included in r110\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 120,
+      "author": "bruno",
+      "description": "Fixing a typo.\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": null
+}
+```
+
+The `totalCount` field is populated when keywords are supplied. It indicates how many total matches there are.
+If keywords are not supplied the `totalCount` field remains `null`, indicating that the list of all reviews is
+being queried.
+
+[discrete]
+===== Paginating a review listing
+
+To obtain the next page of a reviews list (based on the previous example):
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews\
+?max=2&fields=id,description,author,state&after=120"
+```
+
+Swarm responds with the second page of results, if any reviews are present after the last seen review:
+
+```json
+{
+  "lastSeen": 100,
+  "reviews": [
+    {
+      "id": 110,
+      "author": "bruno",
+      "description": "Updating Java files\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 100,
+      "author": "bruno",
+      "description": "Marketing materials for our new cutting-edge product\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": null
+}
+```
+
+[discrete]
+===== Finding reviews for a change or a list of changes
+
+Given a list of change IDs (5, 6, 7), here is how to check if any of them have reviews attached:
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews\
+?max=2&fields=id,changes,description,author,state&change\[\]=5&change\[\]=6&change\[\]=7"
+```
+
+Swarm responds with a list of reviews that include these changes:
+
+```json
+{
+  "lastSeen": 100,
+  "reviews": [
+    {
+      "id": 110,
+      "author": "bruno",
+      "changes": [5],
+      "description": "Updating Java files\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 100,
+      "author": "bruno",
+      "changes": [6,7],
+      "description": "Marketing materials for our new cutting-edge product\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": 2
+}
+```
+
+If no corresponding reviews are found, Swarm responds with an empty reviews list:
+
+```json
+{
+  "lastSeen": null,
+  "reviews": [],
+  "totalCount": 0
+}
+```
+
+[discrete]
+===== Finding inactive reviews (by checking the last updated date)
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews\
+?max=2&fields=id,changes,description,author,state&notUpdatedSince=2017-01-01"
+```
+
+Swarm responds with a list of reviews that have not been updated since
+the notUpdatedSince date:
+
+```json
+{
+  "lastSeen": 100,
+  "reviews": [
+    {
+      "id": 110,
+      "author": "bruno",
+      "changes": [5],
+      "description": "Updating Java files\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 100,
+      "author": "bruno",
+      "changes": [6,7],
+      "description": "Marketing materials for our new cutting-edge product\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": 2
+}
+```
+[discrete]
+===== Finding reviews I have voted up
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews\
+?max=2&fields=id,changes,description,author,state&hasVoted=up"
+```
+
+Swarm responds with a list of reviews that include these changes:
+
+```json
+{
+  "lastSeen": 100,
+  "reviews": [
+    {
+      "id": 110,
+      "author": "bruno",
+      "changes": [5],
+      "description": "Updating Java files\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 100,
+      "author": "bruno",
+      "changes": [6,7],
+      "description": "Marketing materials for our new cutting-edge product\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": 2
+}
+```
+
+If no corresponding reviews are found, Swarm responds with an empty reviews list:
+
+```json
+{
+  "lastSeen": null,
+  "reviews": [],
+  "totalCount": 0
+}
+```
+[discrete]
+===== Finding reviews I have commented on (current authenticated user)
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews\
+?max=2&fields=id,changes,description,author,state&myComments=true"
+```
+
+Swarm responds with a list of reviews that include these changes:
+
+```json
+{
+  "lastSeen": 100,
+  "reviews": [
+    {
+      "id": 110,
+      "author": "bruno",
+      "changes": [5],
+      "description": "Updating Java files\n",
+      "state": "needsReview"
+    },
+    {
+      "id": 100,
+      "author": "bruno",
+      "changes": [6,7],
+      "description": "Marketing materials for our new cutting-edge product\n",
+      "state": "needsReview"
+    }
+  ],
+  "totalCount": 2
+}
+```
+
+If no corresponding reviews are found, Swarm responds with an empty reviews list:
+
+```json
+{
+  "lastSeen": null,
+  "reviews": [],
+  "totalCount": 0
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.getReview]]
+==== GET /api/v8/reviews/{id}
+
+[.summary]
+Summary: Get Review Information 
+
+[[api.endpoints.Reviews.getReview.notes]]
+===== Description
+
+
+Retrieve information about a review. 
+[[api.endpoints.Reviews.getReview.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Review ID
+| integer
+| path
+| Yes
+
+| ``fields``
+
+| An optional comma-separated list (or array) of fields to show. Omitting this parameter or passing an empty value shows all fields.
+| string
+| query
+| No
+|===
+
+[[api.endpoints.Reviews.getReview.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+    "id": 12204,
+    "author": "bruno",
+    "changes": [10667],
+    "commits": [10667],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r10145\n",
+    "participants": {
+      "alex_qc": [],
+      "bruno": {
+        "vote": 1,
+        "required": true
+      },
+      "vera": []
+    },
+    "reviewerGroups": {
+      "group1" : [],
+      "group2" : {
+        "required" : true
+      },
+      "group3" : {
+        "required" : true,
+        "quorum": "1"
+      }
+    },
+    "pending": false,
+    "projects": {
+      "swarm": ["main"]
+    },
+    "state": "archived",
+    "stateLabel": "Archived",
+    "testDetails": {
+      "url": "http://jenkins.example.com/job/project_ci/123/"
+    },
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913
+  }
+}
+----
+
+
+[[api.endpoints.Reviews.getReview.errorExamples]]
+===== Example 404 Response:
+[source]
+----
+HTTP/1.1 404 Not Found
+
+{
+  "error": "Not Found"
+}
+----
+
+
+[[api.endpoints.Reviews.getReview.usageExamples]]
+===== Fetching a review
+
+
+To fetch a review:
+
+```bash
+curl -u "username:password" "https://my-swarm-host/api/v8/reviews/123"
+```
+
+Swarm responds with a review entity:
+
+```json
+{
+  "review": {
+    "id": 123,
+    "author": "bruno",
+    "changes": [122,124],
+    "commits": [124],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r110\n",
+    "groups": [],
+    "participants": {
+      "alex_qc": [],
+      "bruno": {
+        "vote": 1,
+        "required": true
+      },
+      "vera": []
+    },
+    "reviewerGroups": {
+      "group1" : [],
+      "group2" : {
+        "required" : true
+      },
+      "group3" : {
+        "required" : true,
+        "quorum": "1"
+      }
+    },
+    "pending": false,
+    "projects": {
+      "swarm": ["main"]
+    },
+    "state": "archived",
+    "stateLabel": "Archived",
+    "testDetails": {
+      "url": "http://jenkins.example.com/job/project_ci/123/"
+    },
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913,
+    "versions": []
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.createReview]]
+==== POST /api/v8/reviews/
+
+[.summary]
+Summary: Create a Review 
+
+[[api.endpoints.Reviews.createReview.notes]]
+===== Description
+
+
+Pass in a changelist ID to create a review. Optionally, you can also provide a description and a list of reviewers. 
+[[api.endpoints.Reviews.createReview.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``change``
+
+| Change ID to create a review from
+| integer
+| form
+| Yes
+
+| ``description``
+
+| Description for the new review (defaults to change description)
+| string
+| form
+| No
+
+| ``reviewers``
+
+| A list of reviewers for the new review
+| array (of strings)
+| form
+| No
+
+| ``requiredReviewers``
+
+| A list of required reviewers for the new review (v1.1+)
+| array (of strings)
+| form
+| No
+
+| ``reviewerGroups``
+
+| A list of required reviewers for the new review (v7+)
+| array
+| form
+| No
+|===
+
+[[api.endpoints.Reviews.createReview.successExamples]]
+===== Successful Response contains Review Entity:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+    "id": 12205,
+    "author": "bruno",
+    "changes": [10667],
+    "commits": [10667],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r10145\n",
+    "participants": {
+      "bruno": []
+    },
+    "reviewerGroups": {
+      "group1" : [],
+      "group2" : {
+        "required" : true
+      },
+      "group3" : {
+        "required" : true,
+        "quorum": "1"
+      }
+    },
+    "pending": false,
+    "projects": [],
+    "state": "archived",
+    "stateLabel": "Archived",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913
+  }
+}
+----
+
+
+[[api.endpoints.Reviews.createReview.usageExamples]]
+===== Starting a review
+
+
+To start a review for a committed change or a non-empty shelved changelist specifying reviewer groups:
+
+```bash
+curl -u "username:password" \
+     -d "change=122" \
+     -d "reviewerGroups[0][name]=group1" \
+     -d "reviewerGroups[1][name]=group2" \
+     -d "reviewerGroups[1][required]=true" \
+     -d "reviewerGroups[2][name]=group3" \
+     -d "reviewerGroups[2][required]=true" \
+     -d "reviewerGroups[2][quorum]=1" \
+     "https://my-swarm-host/api/v8/reviews/"
+```
+
+Swarm responds with the new review entity:
+
+```json
+{
+  "review": {
+    "id": 123,
+    "author": "bruno",
+    "changes": [122],
+    "commits": [],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r110\n",
+    "groups": [],
+    "participants": {
+      "bruno": []
+    },
+    "reviewerGroups": {
+      "group1" : [],
+      "group2" : {
+        "required" : true
+      },
+      "group3" : {
+        "required" : true,
+        "quorum": "1"
+      }
+    },
+    "pending": true,
+    "projects": [],
+    "state": "needsReview",
+    "stateLabel": "Needs Review",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913,
+    "versions": []
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.archive]]
+==== POST /api/v8/reviews/archive/
+
+[.summary]
+Summary: Archiving the inactive reviews (v6+) 
+
+[[api.endpoints.Reviews.archive.notes]]
+===== Description
+
+
+Archiving reviews not updated since the date (v6+) 
+[[api.endpoints.Reviews.archive.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``notUpdatedSince``
+
+| Updated since date. Requires the date to be in the format YYYY-mm-dd, for example 2017-01-01
+| string
+| form
+| Yes
+
+| ``description``
+
+| A description that is posted as a comment for archiving.
+| string
+| form
+| Yes
+|===
+
+[[api.endpoints.Reviews.archive.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "archivedReviews": [
+    {
+      "id": 836,
+      "author": "swarm",
+      "changes": [789],
+      "commits": [],
+      "commitStatus": [],
+      "created": 1461164339,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "Review description\n",
+      "groups": [],
+      "participants": {
+        "swarm": []
+      },
+      "pending": false,
+      "projects": [],
+      "state": "archived",
+      "stateLabel": "Archived",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1478191607
+    }
+  ],
+  "failedReviews": []
+}
+----
+
+
+[[api.endpoints.Reviews.archive.usageExamples]]
+===== Archiving reviews inactive since 2016/06/30
+
+
+To archive reviews not updated since 2016/06/30 inclusive:
+
+```bash
+curl -u "username:password" -d "notUpdatedSince=2016-06-30" \
+     "https://my-swarm-host/api/v8/reviews/archive/"
+```
+
+Swarm responds with the list of archived reviews and failed reviews if there are any:
+
+```json
+{
+  "archivedReviews":[
+    {
+      "id": 911,
+      "author": "swarm",
+      "changes": [601],
+      "commits": [],
+      "commitStatus": [],
+      "created": 1461164344,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "Touch up references on html pages.\n",
+      "groups": [],
+      "participants": {
+        "swarm":[]
+      },
+      "pending": false,
+      "projects": [],
+      "state": "archived",
+      "stateLabel": "Archived",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1478191605
+    },
+    {
+      "id": 908,
+      "author": "earl",
+      "changes": [605],
+      "commits": [],
+      "commitStatus": [],
+      "created": 1461947794,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "Remove (attempted) installation of now deleted man pages.\n",
+      "groups": [],
+      "participants": {
+        "swarm": []
+      },
+      "pending": false,
+      "projects": [],
+      "state": "archived",
+      "stateLabel": "Archived",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1478191605
+    }
+  ],
+  "failedReviews":[
+    {
+    }
+  ]
+}
+```
+
+If no reviews are archived, Swarm responds with an empty reviews list:
+
+```json
+{
+  "archivedReviews": [],
+  "failedReviews": []
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.addChange]]
+==== POST /api/v8/reviews/{id}/changes/
+
+[.summary]
+Summary: Add Change to Review 
+
+[[api.endpoints.Reviews.addChange.notes]]
+===== Description
+
+
+Links the given change to the review and schedules an update. 
+[[api.endpoints.Reviews.addChange.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Review ID
+| integer
+| path
+| Yes
+
+| ``change``
+
+| Change ID
+| integer
+| form
+| Yes
+|===
+
+[[api.endpoints.Reviews.addChange.successExamples]]
+===== Successful Response contains Review Entity:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+    "id": 12206,
+    "author": "bruno",
+    "changes": [10667, 12000],
+    "commits": [10667, 12000],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r10145\n",
+    "participants": {
+      "bruno": []
+    },
+    "pending": false,
+    "projects": [],
+    "state": "archived",
+    "stateLabel": "Archived",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913
+  }
+}
+----
+
+
+[[api.endpoints.Reviews.addChange.usageExamples]]
+===== Adding a change to a review
+
+
+You may want to update a review from a shelved or committed change that is different from the initiating
+change. This is done by adding a change to the review.
+
+To add a change:
+
+```bash
+curl -u "username:password" -d "change=124" "https://my-swarm-host/api/v8/reviews/123/changes/"
+```
+
+Swarm responds with the updated review entity:
+
+```json
+{
+  "review": {
+    "id": 123,
+    "author": "bruno",
+    "changes": [122, 124],
+    "commits": [],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r110\n",
+    "groups": [],
+    "participants": {
+      "bruno": []
+    },
+    "pending": true,
+    "projects": [],
+    "state": "needsReview",
+    "stateLabel": "Needs Review",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913,
+    "versions": [
+      {
+        "difference": 1,
+        "stream": null,
+        "change": 124,
+        "user": "bruno",
+        "time": 1399330003,
+        "pending": true,
+        "archiveChange": 124
+      }
+    ]
+  }
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.cleanup]]
+==== POST /api/v8/reviews/{id}/cleanup
+
+[.summary]
+Summary: Clean up a review (v6+) 
+
+[[api.endpoints.Reviews.cleanup.notes]]
+===== Description
+
+
+Clean up a review for the given id. 
+[[api.endpoints.Reviews.cleanup.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``reopen``
+
+| Expected to be a boolean (defaulting to false). If true then an attempt will be made to reopen files into a default changelist
+| boolean
+| form
+| No
+|===
+
+[[api.endpoints.Reviews.cleanup.successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "complete": [
+    {
+      "1": ["2"]
+    }
+  ],
+  "incomplete": []
+}
+----
+
+
+[[api.endpoints.Reviews.cleanup.usageExamples]]
+===== Cleaning up a review with id 1.
+
+
+Cleanup review number 1, reopening any files into the default changelist.
+
+```bash
+curl -u "username:password" -d "reopen=true" \
+     "https://my-swarm-host/api/v8/reviews/1/cleanup"
+```
+
+Swarm responds with the review and the changelists cleaned. Depending on the completion they
+will be either detailed in 'complete' or 'incomplete'. Incomplete changelists will have messages
+indicating why it was not possible to complete:
+
+```json
+  {
+    "complete": [
+      {
+        "1": ["2"]
+      }
+    ],
+    "incomplete": []
+  }
+```
+
+
+
+
+[[api.endpoints.Reviews.state]]
+==== PATCH /api/v8/reviews/{id}/state/
+
+[.summary]
+Summary: Transition the Review State (v2+) 
+
+[[api.endpoints.Reviews.state.notes]]
+===== Description
+
+
+Transition the review to a new state. When transitioning to approved, you can optionally commit the review. (v2+) 
+[[api.endpoints.Reviews.state.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``id``
+
+| Review ID
+| integer
+| path
+| Yes
+
+| ``state``
+
+| Review State. Valid options: needsReview, needsRevision, approved, archived, rejected
+| string
+| form
+| Yes
+
+| ``description``
+
+| An optional description that is posted as a comment for non-commit transitions. Commits that do not include a description default to using the Review description in the resulting change description.
+| string
+| form
+| No
+
+| ``commit``
+
+| Set this flag to true and provide a state of `approved` in order to trigger the *Approve and Commit* action in Swarm.
+| boolean
+| form
+| No
+
+| ``wait``
+
+| Instruct Swarm to wait for a commit to finish before returning.
+| boolean
+| form
+| No
+
+| ``jobs[]``
+
+| When performing an 'Approve and Commit', one or more jobs can be attached to the review as part of the commit process.
+| stringArray
+| form
+| No
+
+| ``fixStatus``
+
+| Provide a fix status for the attached job(s) when performing an 'Approve and Commit'. Possible status values vary by job specification, but often include: open, suspended, closed, review, fixed.
+| string
+| form
+| No
+|===
+
+[[api.endpoints.Reviews.state.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response contains Review Entity:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+    "id": 12207,
+    "author": "bruno",
+    "changes": [10667, 12000],
+    "commits": [],
+    "commitStatus": [],
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r10145\n",
+    "participants": {
+      "bruno": []
+    },
+    "pending": false,
+    "projects": [],
+    "state": "needsRevision",
+    "stateLabel": "Needs Revision",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913
+  },
+  "transitions": {
+    "needsReview": "Needs Review",
+    "approved": "Approve",
+    "rejected": "Reject",
+    "archived": "Archive"
+  }
+}
+----
+
+[discrete]
+===== Successful Commit contains Review and Commit Entities:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+    "id": 12208,
+    "author": "bruno",
+    "changes": [10667, 12000, 12006],
+    "commits": [12006],
+    "commitStatus": {
+      "start": 1399326910,
+      "change": 12006,
+      "status": "Committed",
+      "committer": "bruno",
+      "end": 1399326911
+    },
+    "created": 1399325900,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r10145\n",
+    "participants": {
+      "bruno": []
+    },
+    "pending": false,
+    "projects": [],
+    "state": "needsRevision",
+    "stateLabel": "Needs Revision",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325905
+  },
+  "transitions": {
+    "needsReview": "Needs Review",
+    "needsRevision": "Needs Revision",
+    "rejected": "Reject",
+    "archived": "Archive"
+  },
+  "commit": 12006
+}
+----
+
+
+[[api.endpoints.Reviews.state.usageExamples]]
+===== Committing a review
+
+
+To commit a review:
+
+```bash
+curl -u "username:password" -X PATCH -d "state=approved" -d "commit=1" \
+     "https://my-swarm-host/api/v8/reviews/123/state/"
+```
+
+Swarm responds with the updated review entity, as well as a list of possible transitions for the review:
+
+```json
+{
+  "review": {
+    "id": 123,
+    "author": "bruno",
+    "changes": [122, 124],
+    "commits": [124],
+    "commitStatus": {
+        "start": 1399326910,
+        "change": 124,
+        "status": "Committed",
+        "committer": "bruno",
+        "end": 1399326911
+      },
+    "created": 1399325913,
+    "deployDetails": [],
+    "deployStatus": null,
+    "description": "Adding .jar that should have been included in r110\n",
+    "groups": [],
+    "participants": {
+      "bruno": []
+    },
+    "pending": false,
+    "projects": [],
+    "state": "approved",
+    "stateLabel": "Approved",
+    "testDetails": [],
+    "testStatus": null,
+    "type": "default",
+    "updated": 1399325913,
+    "versions": []
+  },
+    "transitions": {
+      "needsReview": "Needs Review",
+      "approved": "Approve",
+      "rejected": "Reject",
+      "archived": "Archive"
+    }
+}
+```
+
+
+
+
+[[api.endpoints.Reviews.updateReview]]
+==== PATCH /api/v8/reviews/{review_id}
+
+[.summary]
+Summary: Update Review Description 
+
+[[api.endpoints.Reviews.updateReview.notes]]
+===== Description
+
+
+Update the description field of a review. 
+[[api.endpoints.Reviews.updateReview.parameters]]
+===== Parameters
+
+[options="header",frame="none",cols="100a,400a,100a,100a,100a"]
+|===
+| Parameter
+| Description
+| Type
+| Parameter Type
+| Required
+
+| ``review_id``
+
+| Review ID
+| integer
+| path
+| Yes
+
+| ``author``
+
+| The new author for the specified review. (At least one of Author or Description are required.)
+| string
+| form
+| No
+
+| ``description``
+
+| The new description for the specified review. (At least one of Description or Author are required.)
+| string
+| form
+| No
+
+| ``_method``
+
+| Method Override. If your client cannot submit HTTP PATCH, use an HTTP POST with the parameter ?_method=PATCH to override.
+| string
+| query
+| No
+|===
+
+[[api.endpoints.Reviews.updateReview.successExamples]]
+===== Examples of successful responses
+[discrete]
+===== Successful Response:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "review": {
+      "id": 12306,
+      "author": "swarm",
+      "changes": [12205],
+      "comments": 0,
+      "commits": [],
+      "commitStatus": [],
+      "created": 1402507043,
+      "deployDetails": [],
+      "deployStatus": null,
+      "description": "Updated Review Description\n",
+      "participants": {
+        "swarm": []
+      },
+      "pending": true,
+      "projects": [],
+      "state": "needsReview",
+      "stateLabel": "Needs Review",
+      "testDetails": [],
+      "testStatus": null,
+      "type": "default",
+      "updated": 1402518492
+  },
+  "transitions": {
+      "needsRevision": "Needs Revision",
+      "approved": "Approve",
+      "rejected": "Reject",
+      "archived": "Archive"
+  },
+  "canEditAuthor": true
+}
+----
+
+[NOTE]
+Swarm returns `null` for `totalCount` if no search filters were provided.
+`lastSeen` can often be used as an offset for pagination, by using the value
+in the `after` parameter of subsequent requests.
+ 
+
+[discrete]
+===== When no results are found, the `reviews` array is empty:
+
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+  "lastSeen": null,
+  "reviews": [],
+  "totalCount": 0
+}
+----
+
+
+
+
+
+[[api.endpoints.Users]]
+=== Users : Basic API controller providing a simple version action
+
+[[api.endpoints.Users.]]
+==== GET /api/v8/users/{user}/unfollowall
+
+[.summary]
+Summary: Unfollow all Users and Projects 
+
+[[api.endpoints.Users..notes]]
+===== Description
+
+
+Admin and super users are permitted to execute unfollow all against any target user. Other users are only permitted to execute the call if they themselves are the target user 
+[[api.endpoints.Users..successExamples]]
+===== Successful Response:
+[source,json]
+----
+HTTP/1.1 200 OK
+
+{
+    "isValid": true,
+    "messages": "User {user} is no longer following any Projects or Users."
+}
+----
+
+
+
+
+
+[[api.example]]
+== Extended API example
+
+This section includes an extended API example, involving multiple API calls to
+answer a more complicated kind of question than any single API endpoint can
+provide: which reviews does a specific userid need to attend to?
+
+[[api.example.code]]
+=== The code
+
+[source,php]
+----
+include::example_code/reviews.php[]
+----
+
+[[api.example.execution]]
+=== Executing the example
+
+The example is written in PHP. To use it, link:code/reviews.php[download the code^],
+or copy and paste it into a file called `reviews.php`. Then, execute it like this:
+
+[source,bash,subs="quotes"]
+$ *php reviews.php -s _https://myswarm.host:port/_ -r _bob_*
+
+Replace pass:q[``_http://myswarm.host/_``] with the URL to your Swarm installation.
+Replace `_bob_` with the userid you'd like to report on.
+
+To authenticate, insert `username:password@` before the hostname. If your Helix
+Versioning Engine's security counter is set to `3` or higher, you need to
+acquire a ticket and use the ticket in place of the password (see
+<<api.authentication>> for details). If your Swarm is installed on a
+<<setup.post.port,custom port>>, or is installed in a
+<<setup.post.subfolder,sub-folder>>, include those elements in the URL as well.
+For example:
+
+[source,bash,subs="quotes"]
+$ *php reviews.php -s https://me:F0FC33068BA244B1BBD8196CC9166F34@my.host:8080/swarm/ -r _bob_*
+
+If you do not specify the URL correctly, you might see an error like:
+
+[source]
+Unable to call api: file_get_contents(http://...@my.host:8080/swarm/api/v8/reviews?hasReviewers=1&participants%5B0%5D=bob&max=9&fields%5B0%5D=id&fields%5B1%5D=description&fields%5B2%5D=commits): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+
+If there are no errors, and the specified userid does have reviews to attend to,
+the output might look like:
+
+[source]
+1234: Added grapple-grommit support to woozlewobble class. @bob sh ...
+
+`1234` is the id of a review that `bob` should attend to, followed by the first
+60 characters of the review's description.
+
+[[api.reviewCleanup]]
+== Pending Review Cleanup
+
+This section contains an example script that cleans up pending changelists which
+are no longer needed. See the link:admin.review_cleanup.html[review cleanup]
+options for how this can be done automatically when a review is committed.
+
+For pending changelists which were present before this option was available, or for
+reviews which have been contributed to by multiple authors and so require super
+user access to tidy up, there is an API which allows the super user to bulk remove
+such changelists.
+
+The script demonstrates how this API could be used. It isn't meant as a complete
+solution, just a guide to demonstrate what is possible.
+
+
+[[api.reviewCleanup.code]]
+=== The code
+
+[source,php]
+----
+include::example_code/pendingReviewCleanUp.php[]
+----
+
+[[api.reviewCleanup.execution]]
+=== Executing the script
+
+The example is written in PHP, and demonstrates how to make use of the APIs which
+remove unneeded pending changelists. It *must* be run as a super user.
+
+For a full set of instructions on how to use the example script, see the comments
+in the script itself.
+
+Abbreviated instructions:
+
+1. Set the value of the `$swarmURL`, `$username` and `$ticket` variables.
+2. Run the script by using a command similar to the following:
+
+[source,bash,subs="quotes"]
+$ *php pendingReviewCleanUp.php max=10 author=bruno state=approved*
+
+
+

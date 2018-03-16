@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Notifications</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/InformalTable.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.notifications.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Notifications_..100" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Notifications</h1>
+        <p>Provided you have entered a working email address for your userid in <span class="PerforceHVE short">Helix server</span>, <span class="PerforceSwarm short">Swarm</span> sends email notifications to you when various events take place. The table below shows the notifications sent if all of the project, group, and user notifications are enabled, this is the default behavior. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The system-wide default notifications can be changed by the system owner. See <a href="admin.notifications.html#admin.notifications.global" class="MCXref xref">Global settings</a> for details.</p>
+        </div>
+        <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+            <p>Many of the notifications can be disabled, this allows project, group, and user notifications to be customized to limit the number and type of notifications sent. </p>
+            <ul>
+                <li value="1">Project notifications are configured on the <a href="projects.add.html">project settings tab</a>. </li>
+                <li value="2">Group notifications  are configured on the <a href="groups.add.html#group_email.configuration">group Notifications tab</a>. </li>
+                <li value="3">User notifications are configured on the <a href="basics.users.html#basics.users.settings">user Settings tab</a>. </li>
+            </ul>
+        </div>
+        <p style="font-weight: bold;">Legend:</p>
+        <table style="width: 100%;mc-table-style: url('../Resources/TableStyles/InformalTable.css');" class="TableStyle-InformalTable" cellspacing="0">
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <tbody>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>A</b> = Author</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>PM</b> = Project member or project member group</td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /> = role user/group receives notification</td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>R</b> = Reviewer or reviewer group</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>PF</b> = Project follower</td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground"> <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" /> = role user/group does not receive notification</td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>M</b> = Moderator or moderator group</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground"><b>AF</b> = Author follower</td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground"> <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" /> = role not included for this event</td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground"><b>GM</b> = Group member</td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground"><b>CA</b> = Comment author</td>
+                    <td class="TableStyle-InformalTable-BodyA-Regular-NoBackground">&#160;</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>&#160;</p>
+        <table style="mc-table-style: url('../Resources/TableStyles/InformalTable.css');" class="TableStyle-InformalTable" cellspacing="0">
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" style="width: 77px;" />
+            <col class="TableStyle-InformalTable-Column-Regular" />
+            <col class="TableStyle-InformalTable-Column-Regular" style="width: -171px;" />
+            <thead>
+                <tr class="TableStyle-InformalTable-Head-Header1">
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1" rowspan="2">Event</th>
+                    <th class="TableStyle-InformalTable-HeadD-Regular-Header1" colspan="9">Notification sent to one of these roles...</th>
+                </tr>
+                <tr class="TableStyle-InformalTable-Head-Header1">
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">Event by you?</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">A</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">R</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">M</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">GM</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">PM</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">PF</th>
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">AF</th>
+                    <th class="TableStyle-InformalTable-HeadD-Regular-Header1">CA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review is committed in <span class="PerforceSwarm short">Swarm</span></td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.moderators"><sup>3</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review is committed outside of <span class="PerforceSwarm short">Swarm</span></td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.moderators"><sup>3</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A change is committed outside of <span class="PerforceSwarm short">Swarm</span> (see <a href="#basics.notifications.commit" class="MCXref xref">(1) Committed change notifications</a>)</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.moderators"><sup>3</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok_40x33.png" title="Ok icon" style="width: 40;height: 33;" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.commit"><sup>1</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review is started (see <a href="#basics.notifications.review" class="MCXref xref">(2) Review start notifications</a>)</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.moderators"><sup>3</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.review"><sup>2</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A reviewer casts a vote</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove_30x29.png" title="Remove icon" style="width: 30;height: 29;" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review's state changes</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review's reviewers are changed</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review's files are updated</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review's automated tests have finished (see <a href="#basics.notifications.test_finished" class="MCXref xref">(7) Tests have finished</a>) </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review's description is changed</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review comment is created</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove_30x29.png" title="Remove icon" style="width: 30;height: 29;" alt="" /><a href="#basics.notifications.comment"><sup>6</sup></a>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A review comment is edited</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove_30x29.png" title="Remove icon" style="width: 30;height: 29;" alt="" /><a href="#basics.notifications.comment"><sup>6</sup></a>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A committed change comment is created</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" /><a href="#basics.notifications.comment"><sup>6</sup></a>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">A committed change comment is edited</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" /><a href="#basics.notifications.comment"><sup>6</sup></a>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">Someone joins or leaves a review</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.groups"><sup>4</sup></a>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ban-circle.png" title="Ban Circle icon" alt="" />
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">Someone likes a comment you wrote</td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" /><a href="#basics.notifications.disable"><sup>5</sup></a>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">You like a comment you wrote</td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-ok.png" title="Ok icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove.png" title="Remove icon" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove_30x29.png" title="Remove icon" style="width: 30;height: 29;" alt="" />
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyA-Regular-NoBackground">
+                        <img src="../Resources/Images/icon-remove_30x29.png" title="Remove icon" style="width: 30;height: 29;" alt="" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Any custom modules added to <span class="PerforceSwarm short">Swarm</span> may also send notifications.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>Email delivery for events related to restricted changes is disabled by default. See <a href="admin.security.html#admin.security.restricted_changes" class="MCXref xref">Restricted Changes</a> for details on how to enable restricted change notifications.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="@mention_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.mentions"></a>@mention notifications</h2>
+        <h3 data-mc-autonum=""><a name="Users__@mention" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Users: @mention</h3>
+        <p>Using an <a href="basics.notable.html#basics.notable.mentions">@mention</a> in a review, changelist, or comment causes the referenced userid to receive a notification and be included in any future notifications regarding the associated file or review.</p>
+        <p>When a comment is added to a job, Swarm sends a notification to users listed in user fields in the job, users @mentioned in the job description, and the authors of any associated changes.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Typically, you would not receive a notification when you @mention yourself. @mentions themselves do not trigger notifications; they inform who receives notifications. See <a href="admin.email.html#admin.email.notify_self" class="MCXref xref">notify_self</a> for details on how to enable self notification. </p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Groups__@@mention" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="Groups:"></a>Groups: @@mention</h3>
+        <p>Using an <a href="basics.notable.html#basics.notable.mentions">@@mention</a> in a review, changelist, or comment causes the referenced groupid members to receive a notification and be included in any future notifications regarding the associated file or review. </p>
+        <p>When a comment is added to a job, Swarm sends a notification to groups listed in group fields in the job,  groups @@mentioned in the job description, and the authors of any associated changes.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <ul>
+                <li value="1"><b>Group mailing list enabled:</b> notifications are sent to the group email address.</li>
+                <li value="2"><b>Group mailing list disabled:</b> notifications are sent to the group members individual email addresses. </li>
+            </ul>
+        </div>
+        <h2 data-mc-autonum=""><a name="(1)_Committed_change_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.commit"></a>(1) Committed change notifications</h2>
+        <p>Notifications for committed changes are sent by default, but can be disabled or require users to opt-in. Please see the <a href="admin.notifications.html">notification configuration</a> and <a href="projects.add.html">adding a project</a> for more details.</p>
+        <p>When committed change notifications are configured for opt-in, you need to copy the configuration's special depot path to the <code>Reviews:</code> field in your user spec within <span class="PerforceHVE short">Helix server</span>. Once you have done so, <span class="PerforceSwarm short">Swarm</span> can send you committed change notifications for any change that matches a depot path specified in the <code>Reviews:</code> field.</p>
+        <h3 data-mc-autonum=""><a name="Update_Reviews_with_p4" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.commit.via_p4"></a>Update Reviews with p4</h3>
+        <ol>
+            <li value="1">
+                <p>Begin editing your user spec:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>p4 user</b></pre>
+            </li>
+            <li value="2">Edit the <code>Reviews:</code> field to include the special depot path, plus any other paths you want to receive notifications for.</li>
+            <li value="3">Save the spec.</li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Update_Reviews_with_P4V" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.commit.via_p4v"></a>Update Reviews with P4V</h3>
+        <ol>
+            <li value="1">Select <b>Connection &gt; Edit Current User</b>.</li>
+            <li value="2">Edit the <code>Reviews:</code> field to include the special depot path, plus any other paths you want to receive notifications for.</li>
+            <li value="3">Click <b>OK</b>.</li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="(2)_Review_start_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.review"></a>(2) Review start notifications</h2>
+        <p>By default, notifications are sent when a review is started, but can be disabled for a project, group, or user. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If a user or group is added as a reviewer when a new review is created, the reviewer will be notified that the review has been started. This initial notification cannot be muted. </p>
+        </div>
+        <h2 data-mc-autonum=""><a name="(3)_Moderator_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.moderators"></a>(3) Moderator notifications</h2>
+        <p>Moderators and moderator groups are associated with specific project branches. Moderators receive notifications for reviews and commits against the branches they are associated with.</p>
+        <h2 data-mc-autonum=""><a name="(4)_Group_member_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.groups"></a>(4) Group member notifications</h2>
+        <p>Groups can be members of a project,  moderators of a project branch, and  reviewers of a review. The notifications that group members receive will depend on, the role the group has and the group notification settings that are configured for that group. Notifications  received by group members also depend on whether the group has a group mailing list enabled, in this case additional notification settings are available. See <i>Group mailing list enabled</i> below for details. </p>
+        <h3 data-mc-autonum=""><a name="Group_mailing_list_disabled" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.groups.4a"></a>Group mailing list disabled </h3>
+        <p>Group members can be notified when a member of the group starts a review. Group members can also be notified when a change is committed by, or on behalf of, a changelist owner who is also a member of the group. These two notifications can be individually selected as required.  See <a href="groups.add.html" class="MCXref xref">Add a group</a> for details. </p>
+        <p>Notifications are sent to the group members individual email addresses. </p>
+        <h3 data-mc-autonum=""><a name="Group_mailing_list_enabled" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.groups.4b"></a>Group mailing list enabled </h3>
+        <p>Group members can be notified when a member of the group starts a review. Group members can also be notified when a change is committed by, or on behalf of, a changelist owner who is also a member of the group. These two notifications can be individually selected as required. </p>
+        <p>Additional notifications are available if the group mailing list address is enabled. See <a href="groups.add.html" class="MCXref xref">Add a group</a> for details.  </p>
+        <p>Notifications are sent to the group email address. </p>
+        <h2 data-mc-autonum=""><a name="(5)_Disable_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.disable"></a>(5) Disable notifications</h2>
+        <p>By default, notifications for events in a review are sent to all reviewers. Reviewers can disable notifications during a review to avoid further email notifications. Once notifications are disabled for a reviewer, they can be re-enabled when they are specifically <a href="basics.notable.html#basics.notable.mentions">@mentioned</a>; reviewers can disable notifications again after they have been re-enabled. See <a href="code_reviews.display.html#code_reviews.display.disable_notifications" class="MCXref xref">Disable notifications</a> for details.</p>
+        <h2 data-mc-autonum=""><a name="(6)_Comment_author_notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.comment"></a>(6) Comment author notifications</h2>
+        <p>By default, notifications are not sent to comment authors, but <span class="PerforceSwarm short">Swarm</span> can be configured to send notifications of comments to comment authors. See <a href="admin.email.html#admin.email.notify_self" class="MCXref xref">notify_self</a> for details.</p>
+        <h2 data-mc-autonum=""><a name="(7)_Tests_have_finished" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notifications.test_finished"></a>(7) Tests have finished</h2>
+        <p>By default, notifications are sent when:</p>
+        <ul>
+            <li value="1">Automated tests have  failed for a review.</li>
+            <li value="2">The first time automated tests pass for a review after a test failure for that review. </li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

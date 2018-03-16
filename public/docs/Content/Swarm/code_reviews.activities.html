@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Activities</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.activities.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Activities" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Activities</h1>
+        <p>This section describes the major activities that affect code reviews, including starting a review, updating a review, and fetching a review's files.</p>
+        <h2 data-mc-autonum=""><a name="Start_a_review" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.start"></a>Start a review</h2>
+        <p>To start a code review, choose one of the following approaches:</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If your <span class="PerforceHVE short">Helix server</span> is configured as a commit-edge deployment, and your normal connection is to an edge server, <span class="PerforceSwarm short">Swarm</span> refuses to start reviews for shelved changes that have not been promoted to the commit server.</p>
+            <p>Within <span class="PerforceSwarm short">Swarm</span>, this means that the <b>Request Review</b> button does not appear for unpromoted shelved changes. Outside of <span class="PerforceSwarm short">Swarm</span>, attempts to start reviews for unpromoted shelved changelists appear to do nothing. Ask your <span class="PerforceHVE short">Helix server</span> administrator for assistance if you cannot start a review.</p>
+            <p>An administrator of the <span class="PerforceHVE short">Helix server</span> can automatically promote shelved changes to the commit server by setting the configurable <code class="code_clearBackground">dm.shelve.promote</code> to <code class="code_clearBackground">1</code>.</p>
+        </div>
+        <ul>
+            <li value="1">When you use <span class="PerforceSwarm short">Swarm</span> to view a shelved or submitted changelist, click the <b>Request Review</b> button to request a review of that changelist. </li>
+            <li class="L0" value="2">Requesting a review on a shelved changelist uses the <a href="code_reviews.model.html#code_reviews.model.precommit" title="Pre-commit model" alt="Pre-commit model">pre-commit</a> model and requesting a review on a submitted changelist uses the <a href="code_reviews.model.html#code_reviews.model.postcommit" title="Post-commit model" alt="Post-commit model">post-commit</a> model.</li>
+            <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                <p>To view a shelved or submitted changelist, use a <a href="basics.notable.html#basics.notable.quick_urls" title="Quick url description" alt="Quick url description">Quick URL</a>. For example, if your change is <b>54321</b>, visit the URL:<code class="code_clearBackground"> https://myswarm.url/54321</code></p>
+            </div>
+            <li value="3">
+                <p>When you are about to shelve or submit files:</p>
+                <ol>
+                    <li value="1">
+                        <p>Include <code>#review</code> within your changelist (separated from other text with whitespace, or on a separate line).</p>
+                        <p>Once the review begins, <span class="PerforceSwarm short">Swarm</span> replaces <code>#review</code> with <code>#review-12345</code>, where <code>12345</code> is the review's identifier.</p>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>The <code class="code_clearBackground">#review</code> keyword is customizable. For details, see <a href="admin.review_keyword.html" title="Review keyword" alt="Review keyword" class="MCXref xref">Review keyword</a>.</p>
+                        </div>
+                    </li>
+                    <li value="2">At this time, you can add reviewers to the code review by using <a href="basics.notable.html#basics.notable.mentions" title="@mention description" alt="@mention description">@mention</a> for users, and <a href="basics.notable.html#basics.notable.mentions" title="@@mention description" alt="@@mention description">@@mention</a> for groups in the changelist description for each desired reviewer. </li>
+                    <p>If your <code>@mention</code> or <code>@@mention</code> includes an asterisk (<code>*</code>) before the <i>userid</i> or <i>groupid</i>, for example <code>@*userid</code>, that user or all of the group members become required reviewers. If your <code>@@mention</code> includes an exclamation mark (<code>!</code>) before the <i>groupid</i>, for example <code>@@!groupid</code>, the members of that group become required reviewers but only one member of the group is required to vote. See <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" title="Required reviewers" alt="Required reviewers" class="MCXref xref">Required reviewers</a> for details. </p>
+                    <li value="3">Complete your shelve or submit operation.</li>
+                </ol>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If you shelve a changelist and subsequently edit the description to include <code class="code_clearBackground">#review</code>, a review is <b>not started</b>. You must re-shelve the files after adding <code class="code_clearBackground">#review</code>.</p>
+                </div>
+                <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+                    <p>You can also start a <span class="PerforceSwarm short">Swarm</span> review with <span class="PerforceP4V">P4V</span>, <span class="PerforceP4VS">P4VS</span>, and <span class="PerforceP4Eclipse">P4Eclipse</span>. See below for details:</p>
+                    <ul>
+                        <li value="1"><b>P4V:</b> see the "<a href="https://www.perforce.com/perforce/doc.current/manuals/p4v/#P4V/chapter.swarm.html#Swarm_integration_features" target="_blank" title="Link to the Swarm integration features chapter in the P4V user guide" alt="Link to the Swarm integration features chapter in the P4V user guide">Swarm integration features</a>" chapter of the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4v/index.html" target="_blank"><i><span class="Perforcegd-p4v">P4V User Guide</span></i></a>. </li>
+                        <li value="2"><b>P4VS:</b> see the "<a href="https://www.perforce.com/perforce/doc.current/manuals/p4vs/#P4VS/chapter.managing.html" target="_blank" title="Link to the Managing files chapter of the P4VS user guide" alt="Link to the Managing files chapter of the P4VS user guide">Managing files</a>" chapter of the <a href="https://www.perforce.com/perforce/doc.current/manuals/p4vs/" title="Link to the P4VS User Guide" alt="Link to the P4VS User Guide" target="_blank">P4VS User Guide</a>.  </li>
+                        <li value="3"><b>P4Eclipse:</b> see the "<a href="https://www.perforce.com/perforce/doc.current/manuals/p4eclipse/topics/swarm_review.html" target="_blank" title="Link to the Reviewing changes chapter in the  P4Eclipse user guide" alt="Link to the Reviewing changes chapter in the  P4Eclipse user guide">Reviewing changes</a>" chapter of the <a href="https://www.perforce.com/perforce/doc.current/manuals/p4eclipse/" target="_blank" title="Link to the P4Eclipse user guide" alt="Link to the P4Eclipse user guide">P4Eclipse User Guide</a>. </li>
+                    </ul>
+                </div>
+            </li>
+            <li value="4">
+                <p>When you are using <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">Git Fusion<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Git Fusion integrates Git with Helix, offering enterprise-ready Git repository management, and workflows that allow Git and Helix users to collaborate on the same projects using their preferred tools.</span></a>, you can start a review by pushing your changes to a target branch using the following command:</p><pre class="programlisting" xml:space="preserve">$ git push origin <i>task1</i>:review/<i>master</i>/new</pre>
+                <p><code style="font-style: italic;">task1</code> is the name of the current Git task branch, and <code style="font-style: italic;">master</code> is the target branch that the proposed changes are intended for.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>The target branch must be mapped to a named <span class="PerforceHelix short">Helix Core</span> branch in the Git Fusion repo configuration.</p>
+                    <p>See the "<a href="https://www.perforce.com/perforce/doc.current/manuals/git-fusion/Content/Git-Fusion/repos.lightweight_to_fullypopulated.html" target="_blank" title="Link to the Converting a lightweight branch into a fully-populated branch topic in the Git Fusion user guide" alt="Link to the Converting a lightweight branch into a fully-populated branch topic in the Git Fusion user guide">Converting a lightweight branch into a fully-populated branch</a>" topic in the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a> for details.</p>
+                </div>
+                <p>When the command completes, the output indicates the <code style="font-style: italic;">review id</code> that has been created:</p><pre class="screen">remote: Perforce: <span class="PerforceSwarm short">Swarm</span> review assigned: review/master/<i>1234</i></pre>
+                <p>where <code style="font-style: italic;">1234</code> is the review id that was just created.</p>
+                <p>For more information on Git Fusion, see the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a>.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you are using <span class="PerforceP4V">P4V</span> and its <span class="PerforceSwarm short">Swarm</span> integration, and you encounter the error <code class="code_clearBackground">Host requires authentication</code>, ask your <span class="PerforceHVE long">Helix Versioning Engine</span> administrator for assistance. See <a href="admin.commit_edge.html#admin.commit_edge.p4v" title="P4V Authentication" alt="P4V Authentication" class="MCXref xref">P4V Authentication</a> for details.</p>
+                </div>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Update_a_review" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.update"></a>Update a review</h2>
+        <p>To update a code review, use one of the following approaches:</p>
+        <ul>
+            <li value="1">
+                <p>For a <i>pre-commit</i> review that you authored:</p>
+                <ol>
+                    <li value="1">Edit the files</li>
+                    <li value="2">Shelve the files</li>
+                </ol>
+                <p>You can repeat these steps as many times as necessary.  </p>
+            </li>
+            <li value="2">
+                <p>For a <i>post-commit</i> review, or a review where you are not the author:</p>
+                <ol>
+                    <li value="1"><a href="#code_reviews.activities.fetch" title="Fetch the review's files procedure" alt="Fetch the review's files procedure">Fetch the review's files</a> into a new changelist</li>
+                    <li value="2">Edit the files</li>
+                    <li value="3">Update the changelist's description to include <code>#review-12345</code> (separated from other text with whitespace, or on a separate line)</li>
+                    <li value="4">Shelve the changelist's files</li>
+                </ol>
+                <p>Once these steps are complete, further updates involve editing the files, and then shelving the changelist's files.</p>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If you use an invalid review identifier, it will appear that nothing happens. <span class="PerforceSwarm short">Swarm</span> is currently unable to notify you of this situation.</p>
+                </div>
+            </li>
+            <li value="3">
+                <p>When you are working with <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">Git Fusion<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Git Fusion integrates Git with Helix, offering enterprise-ready Git repository management, and workflows that allow Git and Helix users to collaborate on the same projects using their preferred tools.</span></a>:</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>You can only update <span class="PerforceGit Fusion">Git Fusion</span>-initiated reviews using <span class="PerforceGit Fusion">Git Fusion</span>.</p>
+                </div>
+                <p>In the following example, the current Git task branch is <code style="font-style: italic;">task1</code>, the target branch is <code style="font-style: italic;">master</code>, the review id is <code style="font-style: italic;">1234</code>, the Git Fusion hostname is <code style="font-style: italic;">gfserver</code>, and the remote repo name is <code style="font-style: italic;">p4gf_repo</code>.</p>
+                <ol>
+                    <li value="1">
+                        <p>Fetch the review's head version:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$</span> git fetch --prune origin<br /><span style="font-weight: normal;">From <i>gfserver</i>:<i>p4gf_repo</i></span><br style="font-weight: normal;" /><span style="font-weight: normal;">* [new_branch]      review/<i>master</i>/<i>1234</i> -&gt; origin/review/<i>master</i>/<i>1234</i></span><br style="font-weight: normal;" /><span style="font-weight: normal;">x [deleted]         (none)     -&gt; origin/review/<i>dev</i>/new</span></pre>
+                        <p>The <code>--prune</code> option lets the local Git repo delete the unwanted <code>review/<i>master</i>/new</code> reference created by the initial <code class="code_clearBackground">git push origin <i>task1</i>:review/<i>master</i>/new</code> command.</p>
+                    </li>
+                    <li value="2">
+                        <p>Check out the review's head version:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>git checkout review/<i>master</i>/<i>1234</i></pre>
+                    </li>
+                    <li value="3">Edit the files as required.</li>
+                    <li value="4">
+                        <p>Add the edited files to the index of files, in preparation for the next commit.</p>
+                        <p>There are several ways to do this. For example, to add all modified files to the index, run:</p><pre class="programlisting"><span style="font-weight: normal;">$</span> git add -A</pre>
+                    </li>
+                    <li value="5">
+                        <p>Commit the files in Git:</p><pre class="programlisting"><span style="font-weight: normal;">$</span> git commit -m "made some changes"</pre>
+                    </li>
+                    <li value="6">
+                        <p>Push the Git changes to the review:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>git push origin review/<i>master</i>/<i>1234</i></pre>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>If you get review feedback that is better expressed as a Git rebase and cleaned up history, you can make your changes and push them as a new review.</p>
+                            <p>You <b>cannot</b> clean up history and then push your changes to the <i>same</i> review.</p>
+                        </div>
+                        <p>For more information on <span class="PerforceGit Fusion">Git Fusion</span>, see the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a>.</p>
+                    </li>
+                </ol>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Fetch_a_review's_files" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.fetch"></a>Fetch a review's files</h2>
+        <p>First, determine the changelist containing the review's files:</p>
+        <ol>
+            <li value="1">Visit the review's page.</li>
+            <li value="2">
+                <p>The current review version's changelist appears in the file list heading:</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-thumb-pre_commit_change_number.png" title="A pre-commit review's changelist in the file heading" alt="" />
+                </div>
+                <p>In this example, the changelist is <code>697707</code>. You use the identified changelist in place of shelved changelist below.</p>
+            </li>
+            <li value="3">Decide whether you will use <a href="#code_reviews.activities.fetch.via_p4" title="P4 procedure" alt="P4 procedure">p4</a>, <a href="#code_reviews.activities.fetch.via_p4v" title="P4V procedure" alt="P4V procedure">P4V</a>, or <a href="#code_reviews.activities.fetch.via_gf" title="Git Fusion procedure" alt="Git Fusion procedure">Git Fusion</a> to fetch the files, and follow the instructions in the appropriate section below.</li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Using_P4" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.fetch.via_p4"></a>Using P4</h3>
+        <ol>
+            <li value="1">
+                <p>For a <b>shelved changelist</b>, use a command-line shell and type:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>p4 unshelve -s shelved changelist</pre>
+            </li>
+            <li value="2">
+                <p>For a committed changelist, use a command-line shell and type:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>p4 sync @committed changelist</pre>
+            </li>
+        </ol>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Your client's view mappings need to include the changelist's path.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Using_P4V" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.fetch.via_p4v"></a>Using <span class="PerforceP4V">P4V</span></h3>
+        <p><b>For a shelved changelist:</b>
+        </p>
+        <ol>
+            <li value="1">Select <b>Search &gt; Go To</b>.</li>
+            <li value="2">Change the select box to <b>Pending Changelist</b>.</li>
+            <li value="3">Type in the <i>shelved changelist</i> number and click <b>OK</b>.</li>
+            <li value="4">Select the files in the <b>Shelved Files</b> area.</li>
+            <li value="5">Right-click and select <b>Unshelve</b>.</li>
+            <li value="6">Click <b>Unshelve</b>.</li>
+        </ol>
+        <p><b>For a committed changelist:</b>
+        </p>
+        <ol>
+            <li value="1">Select <b>Search &gt; Go To</b>.</li>
+            <li value="2">Change the select box to <b>Submitted Changelist</b>.</li>
+            <li value="3">Type in the <i>submitted changelist</i> number and click <b>OK</b>.</li>
+            <li value="4">Select the files in the <b>Files</b> area.</li>
+            <li value="5">Right-click and select <b>Get this Revision</b>.</li>
+            <li value="6">Click <b>Close</b>.</li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Using_Git_Fusion" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.fetch.via_gf"></a>Using <span class="PerforceGit Fusion">Git Fusion</span></h3>
+        <p>In the following example, the current local task branch is <code style="font-style: italic;">task1</code>, the target branch is <code style="font-style: italic;">master</code>, the review id is <code style="font-style: italic;">1234</code>, the Git Fusion hostname is <code style="font-style: italic;">gfserver</code>, and the remote repo name is <code style="font-style: italic;">p4gf_repo</code>.</p>
+        <ol>
+            <li value="1">
+                <p>Fetch the review's head version:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>git fetch --prune origin<br /><span style="font-weight: normal;">From <i>gfserver</i>:<i>p4gf_repo</i></span><br style="font-weight: normal;" /><span style="font-weight: normal;">* [new_branch]      review/<i>master</i>/<i>1234</i> -&gt; origin/review/<i>master</i>/<i>1234</i></span><br style="font-weight: normal;" /><span style="font-weight: normal;">x [deleted]         (none)     -&gt; origin/review/<i>dev</i>/new</span></pre>
+                <p>The <code>--prune</code> option lets the local Git repo delete the unwanted <code>review/<i>master</i>/new</code> reference created by the initial git <code class="code_clearBackground"><b>push origin </b><i style="font-weight: bold;">task1</i><b>:review/</b><i style="font-weight: bold;">master</i><b>/new</b></code> command.</p>
+            </li>
+            <li value="2">
+                <p>Check out the review's head version:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>git checkout review/master/1234</pre>
+            </li>
+        </ol>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>You can only update <span class="PerforceGit Fusion">Git Fusion</span>-initiated reviews using <span class="PerforceGit Fusion">Git Fusion</span>.</p>
+        </div>
+        <p>For more information on <span class="PerforceGit Fusion">Git Fusion</span>, see the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="Edit_reviewers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.activities.edit_reviewers"></a>Edit reviewers</h2>
+        <p>A review author, or users with <i>admin</i> or <i>super</i> privileges are always able to edit the reviewers for a review. Reviewers are always able to join or leave reviews, or to change whether their vote is required or optional.</p>
+        <p>Additionally, the following individuals may edit reviewers:</p>
+        <ul>
+            <li value="1">If the review is <a href="code_reviews.responsibility.html#code_reviews.responsibility.moderators" title="Moderator responsibilities" alt="Moderator responsibilities">moderated</a>, the moderators. </li>
+            <li value="2">If the review is part of a project, but not moderated, all project members.</li>
+            <li value="3">If the review is not part of a project, any authenticated user.</li>
+        </ul>
+        <p>To edit reviewers for a review:</p>
+        <ol>
+            <li value="1">Navigate to a review.</li>
+            <li value="2">Click the edit reviewers button <img src="../Resources/Images/swarm-icon-edit_description.png" title="Edit Reviewers button" alt="" />, which appears just to the left of reviewer avatars.<p>The <b>Reviewers</b> dialog is displayed.</p><div class="img"><img src="../Resources/Images/swarm-dialog-reviewers.png" title="Reviewers dialog" alt="" /></div></li>
+            <li value="3">
+                <p>Add or remove reviewers, or change the vote requirement.</p>
+                <p>Use the reviewer search field to find users and groups by name, <i>userid</i>, <i>groupid</i>. The field auto-completes as you type, click on the user or group to add to the review.</p>
+                <ul>
+                    <li value="1"><b>Groups:</b> click the star icon to the left of the <i>groupid </i>, and select whether the group is a required reviewer (one vote), a required reviewer (all votes), or an optional reviewer. A solid star means that all group member votes are required to approve a review, a solid star with a 1 inside means at least one group member must vote up and no group members vote down to approve a review, and the outlined star means that the group vote is optional.</li>
+                    <li value="2"><b>Users:</b> click the star icon to the left of the <i>userid </i>to toggle whether their vote is required or not. A solid star means that their vote is required to approve a review, whereas the outlined star means that their vote is optional.</li>
+                </ul>
+                <p>Click the <b>X</b> icon to the right of the <i>userid </i>or <i>groupid </i>to remove that reviewer from the review.</p>
+            </li>
+            <li value="4">Click the <b>Save</b> button to save any changes made.</li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

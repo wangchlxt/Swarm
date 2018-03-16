@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Trigger options</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.trigger.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Trigger_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Trigger options</h1>
+        <p>The <span class="PerforceSwarm short">Swarm</span> trigger script, <code>swarm-trigger.pl</code>, provides the following command line options and configuration items.</p>
+        <h2 data-mc-autonum=""><a name="Command-line_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.trigger.options"></a>Command-line options</h2>
+        <h3 data-mc-autonum=""><a name="Synopsis" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.trigger.options.synopsis"></a>Synopsis</h3><pre class="programlisting">swarm-trigger.pl -t type -v ID [-p port] [-r] [-g group] [-c config_file]</pre><pre class="programlisting">swarm-trigger.pl -o</pre><pre class="programlisting">swarm-trigger.pl -h</pre>
+        <h3 data-mc-autonum=""><a name="Informational_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.trigger.options.informational"></a>Informational options</h3>
+        <p>The following options perform no processing, and simply provide information useful to a <span class="PerforceSwarm short">Swarm</span> administrator. These are not intended to be used within trigger entries in the <span class="PerforceHVE short">Helix server</span>.</p>
+        <ul>
+            <li value="1">
+                <p><b>-h</b>
+                </p>
+                <p>Displays a list of the available options, some guidance on its usage, and a copy of the trigger table entries that should be configured in the <span class="PerforceHVE short">Helix server</span> to execute the script in its current path.</p>
+            </li>
+            <li value="2">
+                <p><b>-o</b>
+                </p>
+                <p>Displays a copy of the trigger table entries that should be configured in the <span class="PerforceHVE short">Helix server</span> to execute the script in its current path.</p>
+            </li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Operational_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.trigger.options.operational"></a>Operational options</h3>
+        <p>The following command-line options are used in the trigger table entries in the <span class="PerforceHVE short">Helix server</span> to specify how the <span class="PerforceSwarm short">Swarm</span> trigger script should be executed.</p>
+        <ul>
+            <li value="1">
+                <p><code class="code_clearBackground">-t <i>type</i></code>
+                </p>
+                <p>Specifies the type of processing that the trigger script undertakes. <code style="font-style: italic;">type</code> can be one of:</p>
+                <ul>
+                    <li value="1"><code>changesave</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-save</code> events for change forms, and informs <span class="PerforceSwarm short">Swarm</span> when a changelist is created or modified.</li>
+                    <li value="2"><code>commit</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>change-commit</code> events, and informs <span class="PerforceSwarm short">Swarm</span> when a changelist is committed.</li>
+                    <li value="3">
+                        <p><code>enforce</code>: this type is used to verify that commits to specific depot paths are associated with approved reviews. If a commit includes a file within the specified depot path, and it is not associated with a review (or a review that is not approved), the commit is rejected.</p>
+                        <p>Using the enforce type prevents users from committing changes to specific depot paths without those changes being reviewed and approved,</p>
+                    </li>
+                    <li value="4"><code>group</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-commit</code> events for group forms, and informs <span class="PerforceSwarm short">Swarm</span> when a group is created or modified.</li>
+                    <li value="5"><code>groupdel</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-delete</code> events for group forms, and informs <span class="PerforceSwarm short">Swarm</span> when a group is deleted.</li>
+                    <li value="6"><code>job</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-commit</code> events for job forms, and informs <span class="PerforceSwarm short">Swarm</span> when a job is created or modified.</li>
+                    <li value="7"><code>shelve</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>shelve-commit</code> events, and informs <span class="PerforceSwarm short">Swarm</span> when a changelist is shelved, which can create or update a review.</li>
+                    <li value="8">
+                        <p><code>strict</code>: this type is used to verify that the file content in a commit matches the file content of its associated approved review. If one or more files in a commit do not match the content of the file in its associated review, the commit is rejected.</p>
+                        <p>Using the <code>strict</code> type prevents users from making changes to the file content after a review has been approved and then submitting the unapproved changes.</p>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p><code class="code_clearBackground">strict</code> implies <code class="code_clearBackground">enforce</code>.</p>
+                        </div>
+                    </li>
+                    <li value="9"><code>user</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-commit</code> events for user forms, which informs <span class="PerforceSwarm short">Swarm</span> when a user is added or modified.</li>
+                    <li value="10"><code>userdel</code>: this type should be used with <span class="PerforceHelix short">Helix Core</span> <code>form-delete</code> events for user forms, which informs <span class="PerforceSwarm short">Swarm</span> when a user is deleted.</li>
+                </ul>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>You cannot mix <span class="PerforceSwarm short">Swarm</span> trigger types with unrelated <span class="PerforceHelix short">Helix Core</span> events; the behavior is undetermined, and the information required for each type of processing may not be available to the trigger.</p>
+                </div>
+            </li>
+            <li value="2">
+                <p><code class="code_clearBackground">-v ID</code>
+                </p>
+                <p>Specifies <code style="font-style: italic;">ID</code>, which is the identifier for the current trigger type.</p>
+                <p>When the <code style="font-style: italic;">type</code> is <code>job</code>, <code>user</code>, <code>userdel</code>, <code>group</code>, <code>groupdel</code>, or <code>changesave</code>, <code style="font-style: italic;">ID</code> should be <code style="font-style: normal;">%formname%</code> to specify the specific form identifier <span class="PerforceSwarm short">Swarm</span> should process.</p>
+                <p>When the <code style="font-style: italic;">type</code> is <code>shelve</code>, <code>commit</code>, <code>enforce</code>, or <code>strict</code>, <code style="font-style: italic;">ID</code> should be <code>%change%</code> to specify the specific changelist <span class="PerforceSwarm short">Swarm</span> should process.</p>
+            </li>
+            <li value="3">
+                <p><code class="code_clearBackground">-p <i>port</i></code> <b>(optional)</b></p>
+                <p>Specifies the <span class="PerforceHVE short">Helix server</span> port (<code>P4PORT</code>). This value is optional, and is only used for types <code>enforce</code> or <code>strict</code> as the trigger has to run its own commands against the <span class="PerforceHVE short">Helix server</span> during its processing.</p>
+            </li>
+            <li value="4">
+                <p><code class="code_clearBackground">-r </code> <b>(optional)</b></p>
+                <p>Specifies that, when types <code>enforce</code> or <code>strict</code> are being processed, the verifications should only be performed on commits that are currently in review.</p>
+            </li>
+            <li value="5">
+                <p><code class="code_clearBackground">-g <i>group</i></code> <b>(optional)</b></p>
+                <p>Specifies a <code style="font-style: italic;">group</code> to exclude from <code style="font-style: normal;">enforce</code> or <code>strict</code> verifications. Members of the group (including sub-groups) are not subject to <code style="font-style: normal;">enforce</code> or <code>strict</code> verifications.</p>
+            </li>
+            <li value="6">
+                <p><code class="code_clearBackground">-c <i>config_file</i></code> <b>(optional)</b></p>
+                <p>Specifies an optional <code style="font-style: italic;">config_file</code> which is used to specify configuration items.</p>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Configuration_items" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.trigger.configuration_items"></a>Configuration items</h2>
+        <p>The following configuration items are used in the <code>swarm-trigger.conf</code> (or another file, if the <code>-c</code> option is used in the trigger entries).</p>
+        <ul>
+            <li value="1">
+                <p><code class="code_clearBackground">SWARM_HOST</code><b> (required)</b>
+                </p>
+                <p>Specifies the host URL of your <span class="PerforceSwarm short">Swarm</span> instance, with the leading <code>http://</code> or <code>https://</code>. For example: <code>https://myswarm.url</code></p>
+            </li>
+            <li value="2">
+                <p><code class="code_clearBackground">SWARM_TOKEN</code><b> (required)</b>
+                </p>
+                <p>A token used when talking to <span class="PerforceSwarm short">Swarm</span>. To obtain the token, log into <span class="PerforceSwarm short">Swarm</span> as a user with <i>super</i> privileges and select <b><a href="basics.notable.html#basics.notable.about" class="MCXref xref">About Swarm</a></b> from the user menu in the main navigation bar.</p>
+                <p>You can also manually create additional tokens. Tokens are empty files stored within <code class="code_clearBackground"><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a>/data/queue/tokens</code> (the filename is the token and is reported on the <b>About <span class="PerforceSwarm short">Swarm</span></b> dialog), that should be readable by the web server.</p>
+                <p>You might manually create additional tokens to allow other processes to talk to <span class="PerforceSwarm short">Swarm</span>, such as JIRA build tasks, and to selectively invalidate access to <span class="PerforceSwarm short">Swarm</span> without interfering with regular <span class="PerforceSwarm short">Swarm</span> operations.</p>
+            </li>
+            <li value="3">
+                <p><code class="code_clearBackground">ADMIN_USER</code> <b>(optional)</b></p>
+                <p>When <code>enforce</code> or <code>strict</code> verifications are to be performed, you may need specify a username of a user in the <span class="PerforceHVE short">Helix server</span> that has admin privileges. If you do not specify a username, the trigger script uses the <span class="PerforceHelix short">Helix Core</span> user set in the environment.</p>
+            </li>
+            <li value="4">
+                <p><code class="code_clearBackground">ADMIN_TICKET_FILE</code> <b>(optional)</b></p>
+                <p>When <code>enforce</code> or <code>strict</code> verifications are to be performed, you may need specify the path to the <code>.p4tickets</code> file, if your <span class="PerforceHVE short">Helix server</span> tickets file is not the default <code>$HOME/.p4tickets</code>.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>Ensure that the ticket belongs to a user with <i>admin</i> privileges in the <span class="PerforceHVE short">Helix server</span>, and is a member of a group with an <code class="code_clearBackground">unlimited</code> or very long ticket timeout. If this user's authentication times out, enforce and <code class="code_clearBackground">strict</code> verifications stop working.</p>
+                </div>
+            </li>
+            <li value="5">
+                <p><code class="code_clearBackground">P4_PORT</code> <b>(optional)</b></p>
+                <p>When <code>enforce</code> or <code>strict</code> verifications are to be performed, you may need to set the port value (<code>P4PORT</code>) of the <span class="PerforceHVE short">Helix server</span>, particularly if the <span class="PerforceHVE short">Helix server</span> is on a non-standard port, or if the <span class="PerforceHVE short">Helix server</span> is not using the default hostname.</p>
+            </li>
+            <li value="6">
+                <p><code class="code_clearBackground">P4</code> <b>(optional)</b></p>
+                <p>Specifies the full path to <code>p4</code>, the <span class="PerforceHelix short">Helix Core</span> command-line client. This is only required when <code>p4</code> is not found in the <code>PATH</code> of the <span class="PerforceHVE short">Helix server</span> environment, and when <code>enforce</code> or <cite>strict</cite> verifications are to be performed.</p>
+            </li>
+            <li value="7">
+                <p><code class="code_clearBackground">EXEMPT_FILE_COUNT</code> (<b>optional)</b></p>
+                <p>When set to a positive integer, commits with a file count greater or equal to this value are exempt from <code>enforce</code> or <code>strict</code> verifications.</p>
+            </li>
+            <li value="8">
+                <p><code class="code_clearBackground">EXEMPT_EXTENSIONS</code> <b>(optional)</b></p>
+                <p>A comma-separated list of file extensions. Commits with files having <i>only</i> these extensions are exempt from <code>enforce</code> or <code>strict</code> verifications.</p>
+            </li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Models</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.model.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Models" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Models</h1>
+        <p>There are three code review models: pre-commit, post-commit, and the Git Fusion model. Which model you use for code reviews with <span class="PerforceSwarm short">Swarm</span> is up to you.</p>
+        <h2 data-mc-autonum=""><a name="Pre-commit_model" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.precommit"></a>Pre-commit model</h2>
+        <p>The pre-commit model is possible due to <span class="PerforceHVE short">Helix server</span>'s <i>shelving</i> feature. Shelving enables you to temporarily make copies of your files available to other users without committing the changes into the depot. Shelving can be a very handy way for developers to create a backup, or to handle local workspace changes that might otherwise lose work in progress, without having to commit code that might destabilize a codebase.</p>
+        <p><span class="PerforceSwarm short">Swarm</span> uses the shelving feature in <span class="PerforceHVE short">Helix server</span> to manage code reviews. Shelving allows reviewers to easily acquire a copy of the code to be reviewed, and allows updates to the reviewed code prior to submission.</p>
+        <p>For more information on shelving, see "Shelving work in progress"&#160;in <a href="http://www.perforce.com/perforce/doc.current/manuals/p4guide/index.html" target="_blank"><i><span class="Perforcegd-p4guide">Helix Versioning Engine User Guide</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="Post-commit_model" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.postcommit"></a>Post-commit model</h2>
+        <p>The post-commit model can be used if your team's development processes preclude the use of shelving. Code must be committed to the <span class="PerforceHVE short">Helix server</span> before code review can begin, which reduces the opportunity to fix problems before, for example, a continuous integration system notices problems. However, code reviews can be started for any existing code regardless of how long it has been committed.</p>
+        <h2 data-mc-autonum=""><a name="Git_Fusion_model" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.git_fusion"></a>Git Fusion model</h2>
+        <p><span class="PerforceCompany short">Perforce</span> Git Fusion provides repo management for Git repositories, and provides workflows that enable Git and <span class="PerforceHelix short">Helix Core</span> users to collaborate on the same projects using their preferred tools.</p>
+        <p>The Git Fusion model is similar to the pre-commit model; changes in your local repo can be pushed for review to a named <span class="PerforceHelix short">Helix Core</span> branch in the Git fusion repo configuration, making your proposed changes available so that others can review and comment on them prior to committing them to the target branch. Git Fusion and <span class="PerforceSwarm short">Swarm</span> work together to create a review branch and container for the pre-commit collaboration.</p>
+        <p>The Git Fusion model has several limitations that you should be aware of:</p>
+        <ul>
+            <li value="1">
+                <p>The target branch for Git Fusion-created reviews must be a fully populated branch, and must be listed in the repo-specific Git Fusion configuration.</p>
+                <p>See "Setting up Repos" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a> for details on converting a lightweight branch into a fully populated <span class="PerforceHelix short">Helix Core</span> branch.</p>
+            </li>
+            <li value="2">Reviews created with Git Fusion can only be updated from Git Fusion.</li>
+            <li value="3">You cannot clean up history and then push your changes to the same review. If you perform a Git rebase, you should push your changes as a new review.</li>
+            <li value="4">A Git Fusion review does not currently display the individual task branch commits that make up the review. Only the merged commit diffs are shown.</li>
+        </ul>
+        <p>For more information on Git Fusion, see <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="Internal_representation" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.internal"></a>Internal representation</h2>
+        <h3 data-mc-autonum=""><a name="Swarm-managed_changelists" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.internal.changelists"></a><span class="PerforceSwarm short">Swarm</span>-managed changelists</h3>
+        <p>A code review consists of one or more shelved changelists that <span class="PerforceSwarm short">Swarm</span> manages. A shelved changelist is a pending changelist that has a snapshot of its files on a shelf associated with the changelist.</p>
+        <p>When a review is started, <span class="PerforceSwarm short">Swarm</span> creates a new changelist that becomes the review changelist. What happens afterwards varies:</p>
+        <ul>
+            <li value="1">If the review contains uncommitted work (the pre-commit model), <span class="PerforceSwarm short">Swarm</span> copies the shelved files from the user's changelist that initiated the review into the review's changelist.</li>
+            <li value="2">Any time that a user's changelist associated with the review has its shelved files updated, <span class="PerforceSwarm short">Swarm</span> copies the shelved files into its review changelist and creates an archive changelist. An archive changelist is no different from any other pending changelist with shelved files, but it allows <span class="PerforceSwarm short">Swarm</span> to provide versioning and diffs within a review.</li>
+            <li value="3">If the head version of a review is committed (the post-commit model), the review's changelist is emptied of files.</li>
+        </ul>
+        <p>The review's changelist is never actually committed; this allows the review to be opened later with additional shelved changes.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p style="font-weight: bold;"><span class="PerforceSwarm short">Swarm</span>'s managed review changelists should only be deleted if you are uninstalling <span class="PerforceSwarm short">Swarm</span>.</p>
+            <p><span class="PerforceSwarm short">Swarm</span>'s review changelists maintain the history of a review and all of its feedback. The deletion of a <span class="PerforceSwarm short">Swarm</span> shelved changelist causes instability and potentially data loss, and represents a scenario that can be very challenging to recover from, even with the engagement of <span class="PerforceCompany short">Perforce</span> consultants.</p>
+            <p>You can display a list of all of the <span class="PerforceSwarm short">Swarm</span>-managed changelists using the <code class="code_clearBackground" style="font-weight: bold;">p4 changelists</code> command:</p><pre lang="bash" class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>p4 changelists -u swarm</b>
+Change 1212285 on 2015/07/31 by swarm@swarm-96017af4-5615-9819-7af1-6fc1fa537214 *pending* 'Add requirements and instructions'
+Change 1212284 on 2015/07/31 by swarm@swarm-96017af4-5615-9819-7af1-6fc1fa537214 *pending* 'Add requirements and instructions'
+...</pre>
+            <p><i>swarm</i> is the userid with <i>admin</i>-level privileges within the <span class="PerforceHVE short">Helix server</span> that <span class="PerforceSwarm short">Swarm</span> is <a href="setup.swarm.html">configured to use</a>. Use the appropriate userid when you run the <code class="code_clearBackground" style="font-weight: bold;">p4 changelists</code> command.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Swarm-managed_workspaces" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.model.internal.workspaces"></a><span class="PerforceSwarm short">Swarm</span>-managed workspaces</h3>
+        <p>Whenever <span class="PerforceSwarm short">Swarm</span> creates a changelist for a review, it uses a client workspace (or just workspace) associated with the configured <span class="PerforceHelix short">Helix Core</span> userid that has <i>admin</i> privileges. Whenever a user commits a change via <span class="PerforceSwarm short">Swarm</span>'s user interface, <span class="PerforceSwarm short">Swarm</span> uses a workspace associated with that user.</p>
+        <p>To learn more about workspaces, see the section "<span class="PerforceHelix short">Helix Core</span> as a version control implementation" in <a href="http://www.perforce.com/perforce/doc.current/manuals/overview/index.html" target="_blank"><i><span class="Perforcegd-overview">Solutions Overview:&#160;Helix Version Control System</span></i></a>.</p>
+        <p>The workspaces that <span class="PerforceSwarm short">Swarm</span> creates and uses live in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/clients </code>folder.</p>
+        <p>Inside the clients folder, <span class="PerforceSwarm short">Swarm</span> maintains a user-specific folder that contains any workspace folders that may be required. Each user-specific folder is named by converting their <span class="PerforceHelix short">Helix Core</span> userid into hexadecimal to avoid any characters that would be problematic in the filesystem, such as slashes, accents, UTF-8 characters, etc. For example, the folder for the user eedwards would be named <code>6565647761726473</code>.</p>
+        <p>Within the user-specific folder are the folders that become the root of each workspace. Each of these folders is named with a globally-unique identifier (GUID) prefixed with <code>swarm</code>-, for example <code>swarm-438d482b-f107-9a35-c06c-86ac68136b00</code>. Accompanying each folder is a lock file with the same name plus the .lock extension. Finally, the user-specific clients folder contains a management lock file called <code>manage.lock</code>.</p>
+        <p>Here is an example of the folder structure:</p><pre class="programlisting" xml:space="preserve"><i>SWARM_ROOT</i>/<br />	data/<br />		clients/<br />		  6565647761726473/<br />			manage.lock<br />			swarm-438d482b-f107-9a35-c06c-86ac68136b00/<br />			swarm-438d482b-f107-9a35-c06c-86ac68136b00.lock<br />			swarm-8388362a-233d-0cb9-3e90-895eaaa99f6c/<br />			swarm-8388362a-233d-0cb9-3e90-895eaaa99f6c.lock<br />		  736c6f7264/<br />			manage.lock<br />			swarm-da7de4b4-0ecb-12c8-1b35-f3e32bb18033/<br />			swarm-da7de4b4-0ecb-12c8-1b35-f3e32bb18033.lock</pre>
+        <p>Here are the steps <span class="PerforceSwarm short">Swarm</span> takes when it needs to use a client:</p>
+        <ol>
+            <li value="1">Convert the current connection's userid to hexadecimal.</li>
+            <li value="2">Check to see whether a user-specific folder exists within <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/clients</code>; if not, create the folder.</li>
+            <li value="3">
+                <p><a name="step3"></a>Within the user-specific folder, loop over any existing workspace folders and attempt to lock each in turn:</p>
+                <p>If a lock is acquired skip to the next step. Otherwise, perform the following procedure.</p>
+                <p><b>Create workspace procedure:</b>
+                </p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">
+                        <p>Check if the max number of clients for the current user has been reached:</p>
+                        <ul>
+                            <li value="1">If so, wait a short amount of time (50 milliseconds), and start <a href="#step3">step 3</a> again.</li>
+                            <li value="2">If not, proceed to the next step.</li>
+                        </ul>
+                    </li>
+                    <li value="2">Take a lock on <code class="code_clearBackground">manage.lock</code>.</li>
+                    <li value="3">
+                        <p>Check if the max number of clients for the current user has been reached:</p>
+                        <ul>
+                            <li value="1">If so, release the <code class="code_clearBackground">manage.lock</code>, wait a short amount of time (50 milliseconds), and start <a href="#step3">step 3</a> again.</li>
+                            <li value="2">If not, proceed to the next step.</li>
+                        </ul>
+                    </li>
+                    <li value="4">Create a new workspace folder using a GUID-based filename, and take a lock on the folder.</li>
+                    <li value="5">Release the <code class="code_clearBackground">manage.lock</code> lock.</li>
+                </ol>
+            </li>
+            <li value="4">Perform the necessary file operations using the locked workspace folder.</li>
+            <li value="5">
+                <p>Revert the file content within the workspace folder to avoid having constantly growing disk space use.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>There may occasionally be stray files left; <span class="PerforceSwarm short">Swarm</span> is not aggressive about cleaning up.</p>
+                </div>
+            </li>
+            <li value="6"><span class="PerforceSwarm short">Swarm</span> releases the lock on the workspace folder.</li>
+        </ol>
+        <p>Most users should only require 1-2 workspaces, and those are only required if they commit from <span class="PerforceSwarm short">Swarm</span>. The <i>admin</i> user that <span class="PerforceSwarm short">Swarm</span> is configured to use should only use one workspace per configured worker.</p>
+        <p>By default, the number of workspaces that could be active at any given instant is two times the number of configured workers. Since the default worker count is three, <span class="PerforceSwarm short">Swarm</span> would use at most six workspaces simultaneously.</p>
+        <p>If the workspace limit is reached, further file processing is blocked until a workspace becomes available. Potentially, this means that users could encounter timeouts. Configuring <span class="PerforceSwarm short">Swarm</span> to use more workers could solve that issue.</p>
+        <h4><a name="Removal_considerations" data-mc-generated-bookmark="TOC"></a><a name="code_reviews.model.internal.workspaces.removal"></a>Removal considerations</h4>
+        <p>Administrators might wish to remove <span class="PerforceSwarm short">Swarm</span>-managed workspaces. There are a few considerations that should be assessed prior to removal:</p>
+        <ul>
+            <li value="1">
+                <p>Ideally, you should stop the web server (taking <span class="PerforceSwarm short">Swarm</span> out of service) before removing a <span class="PerforceSwarm short">Swarm</span>-managed workspace from the <span class="PerforceSwarm short">Swarm</span> server; this eliminates the risk of removing a workspace that is in use.</p>
+                <p>If you do not stop the web server first, <span class="PerforceSwarm short">Swarm</span> may encounter an error during a submit.</p>
+            </li>
+            <li value="2">Removal of a <span class="PerforceSwarm short">Swarm</span>-managed workspace folder does not remove the client spec from the <span class="PerforceHVE short">Helix server</span>. Unless the client spec is removed, that workspace effectively becomes orphaned. Orphaned clients are, of themselves, not a big concern as the storage and performance impact is negligible.</li>
+            <li value="3">
+                <p>Removal of a <span class="PerforceSwarm short">Swarm</span>-managed workspace's corresponding client spec in the <span class="PerforceHVE short">Helix server</span> can be done. However, <b>you should never remove a client spec that has associated shelved files</b>.</p>
+                <p>Usually, the only client specs that should have associated shelved files belong to the <i>admin</i> account that <span class="PerforceSwarm short">Swarm</span> is configured to use. All other workspaces that may exist for other users are primarily used for submitting changes, and so should not have shelved files associated.</p>
+            </li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

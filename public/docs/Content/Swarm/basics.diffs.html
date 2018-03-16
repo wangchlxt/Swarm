@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Diffs</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.diffs.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Diffs" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Diffs</h1>
+        <p>When you view a changelist or code review, the associated files are presented as <i>diffs</i>, short for differences, showing you how they have changed.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diffs.png" title="initial Diff display" alt="" />
+        </div>
+        <p>The first row of buttons above the files allow you to (left to right):</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-buttons-diff-global.png" title="Diff buttons for all files" alt="" />
+        </div>
+        <ul>
+            <li value="1">Toggle the display of comments</li>
+            <li value="2">Show all diffs as inline</li>
+            <li value="3">Show all diffs as side-by-side</li>
+            <li value="4">Toggle show whitespace for all files</li>
+            <li value="5">Toggle ignore whitespace in diffs</li>
+            <li value="6">Collapse all files</li>
+            <li value="7">Expand all files. By default this button is disabled if there are more than 10 files in the review. For details, see <a href="admin.reviews.html#admin.reviews.expand_all_limit" title="Expand all limit" alt="Expand all limit">Expand All Limit</a></li>
+        </ul>
+        <p>Each file is presented with an icon indicating whether the file was:</p>
+        <ul>
+            <li value="1">
+                <img src="../Resources/Images/swarm-icon-add.png" title="File Added icon" alt="" /> Added/branched/imported</li>
+            <li value="2">
+                <img src="../Resources/Images/swarm-icon-edit.png" title="File Edited/Integrated icon" alt="" /> Edited/integrated</li>
+            <li value="3">
+                <img src="../Resources/Images/swarm-icon-delete.png" title="File Deleted icon" alt="" /> Deleted</li>
+        </ul>
+        <p>The file's presentation can be controlled with (left to right):</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-buttons-diff-local1.png" title="Diff buttons for a single file" alt="" />
+        </div>
+        <ul>
+            <li value="1"><b>Show In-line</b> button, which highlights line additions, modifications, and removals in a single pane.</li>
+            <li value="2"><b>Show Side-by-Side</b> button, which highlights additions, modifications, and removals in two panes, with the older version of the file on the left, and the newer version on the right.</li>
+            <li value="3"><b>Show Whitespace</b> button, which makes whitespace characters more visible; spaces show up as dots, tabs show up as arrows that point to a bar, and line endings show up as down-pointing arrows.</li>
+            <li value="4"><b>Ignore Whitespace</b> button, which toggles the highlighting of whitespace changes in a file, making it easier to identify non-formatting changes. Normally, whitespace is not ignored; an administrator can change the default. See <a href="admin.diffs.html">Diff configuration</a> for details.</li>
+            <li value="5"><b>Show all diffs</b> button toggles between displaying all the diffs for the file and only the first few. The limit of what are shown by default is configurable by the administrator (see <a href="admin.diffs.html#admin.diffs.max_diffs" title="Max diffs" alt="Max diffs">Max Diffs</a>) and defaults to 1500 and if there are fewer than that then this button is hidden (edited and integrated files only).</li>
+            <li value="6"><b>Show Full Context</b> button toggles between displaying only the portions of the file that have changed and the full file (edited and integrated files only).</li>
+            <li value="7"><b>Show File</b> button, displayed only for edited or integrated files, opens a new browser tab/window display the full file (where possible), provide access to its history, and a button to download the file.</li>
+            <li value="8">
+                <p><b>Mark as Read</b> button, displayed only for code reviews, helps you (and others) keep track of which files have been reviewed. This is particularly useful when a code review consists of many files.</p>
+                <p>When clicked, the button's colors invert and the associated file is visually muted, to make it easy to distinguish read files from unread files:</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-panel-diffs-marked_read.png" title="A file marked as read" alt="" />
+                </div>
+                <p>If a file has been marked as read, click the button a second time to reset the status to unread.</p>
+            </li>
+        </ul>
+        <p>If the file has comments associated, its entry shows a comments exist icon <img src="../Resources/Images/swarm-icon-comments_exist.png" title="Comments Exist icon" alt="" />.</p>
+        <h2 data-mc-autonum=""><a name="Viewing_a_diff" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.diffs.view"></a>Viewing a diff</h2>
+        <p>When you view a diff, the changes are highlighted:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diff-2up.png" title="Side-by-Side Diff with an add, edit, and delete" alt="" />
+        </div>
+        <ul>
+            <li value="1">Red indicates lines that have been removed</li>
+            <li value="2">Blue indicates lines that have been modified</li>
+            <li value="3">Green indicates lines that have been added</li>
+        </ul>
+        <p>The diff presentation displays a concise view of where changes are made within a file, showing the changed lines and only a few lines before and after each revision. Sometimes, this concise view is insufficient to understand the context of the change. The <b>Show Full Context</b> displays the entire file, but this can be too much detail.</p>
+        <p>When there are more lines in a file, either above or below the currently displayed diff, a <b>Show More Context</b> row appears.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diff-more_context.png" title="The &quot;Show More Context&quot; row" alt="" />
+        </div>
+        <p>Clicking this row attempts to display 10 additional lines adjacent to the row (which may appear between two modifications), allowing up to 20 lines of additional context to be displayed. The row disappears when no additional content is available.</p>
+        <p>Comments may be presented within the body of a file and appear immediately below the line the commenter targeted for comment. See <a href="basics.comments.html" class="MCXref xref">Comments</a> for more details.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diff-2up-comment.png" title="Side-by-Side Diff with a comment displayed" alt="" />
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The <i>comment(s) exist here</i> icon <img src="../Resources/Images/swarm-icon-comments_exist-here.png" title="Comments exist here icon" alt="" /> appears in the line number column whenever comments exist. This is useful when the comment display is toggled off.</p>
+        </div>
+        <p>When viewing a diff in-line, the line numbers for the old version are first, and the line numbers for the new version are second, followed by the file content. Some users find this view easier to use when locating an area that has changed, but then switch to side-by-side view to help them understand the change better. <span class="PerforceSwarm short">Swarm</span> maintains the scroll position; you do not lose your place in the file after toggling the diff view.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-diff-1up.png" title="Inline Diff" alt="" />
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Press <b>n</b> on your keyboard to scroll to the next changed area within a file. Press <b>p</b> to scroll to the previous change.</p>
+        </div>
+        <p>When a diff contains multiple files, the changes may be taller than your browser window. <span class="PerforceSwarm short">Swarm</span> keeps the per-file toolbar in view for each file as you scroll, so that you can continue to identify the file at the top of the screen and control its presentation.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-diff_with_affix.png" title="The per-file toolbars stay in view as you scroll" alt="" />
+        </div>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

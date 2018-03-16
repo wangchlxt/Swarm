@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>How do I manage project branches?</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/quickstart.manage_branches.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="How_do_I_manage_project_branches_" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>How do I manage project branches?</h1>
+        <p><a name="InitialSteps"></a>Initial steps:</p>
+        <ol>
+            <li value="1">Visit your project page.</li>
+            <li value="2">
+                <p>Click <b>Edit</b>.</p>
+                <p>Next to the <b>Branches</b> label, a drop-down button for each branch is displayed, and <b>+ Add Branch</b>.</p>
+                <p>
+                    <img src="../Resources/Images/swarm-dropdown-branches.png" title="Branches drop-down" alt="Branches drop-down image" />
+                </p>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Adding_a_branch" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Adding a branch</h2>
+        <ol>
+            <li value="1">Follow the <a href="#InitialSteps">initial steps</a>.</li>
+            <li value="2">Click <b>+ Add Branch</b> to display the branch drop-down dialog.<![CDATA[
+                 ]]><p><img src="../Resources/Images/swarm-dropdown-branch.png" title="The branch drop-down dialog" alt="Image of the branch drop-down dialog" /></p></li>
+            <li value="3">Enter a short <b>Name</b> for your branch.</li>
+            <li value="4">
+                <p>Enter one or more branch paths in the <b>Paths</b> field, one per line.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>Each branch path should be expressed in depot syntax. Wildcards should not be used; the only exception is the branch path can end with the <span class="PerforceHelix short">Helix Core</span> wildcard ...</p>
+                    <p>For example: //depot/main/swarm/...</p>
+                    <p>For more information, see <a href="https://www.perforce.com/perforce/doc.current/manuals/cmdref/filespecs.html#d0e68386" target="_blank">File Specifications</a> in <a href="http://www.perforce.com/perforce/doc.current/manuals/cmdref/index.html" target="_blank"><i><span class="Perforcegd-cmdref">P4 Command Reference</span></i></a>.</p>
+                </div>
+            </li>
+            <li value="5">
+                <p><b>Optional:</b> specify <b>Default Reviewers</b> for the project branch. </p>
+                <p>This field auto-suggests users, and groups within <span class="PerforceHVE short">Helix server</span> as you type (up to a combined limit of 20 entries). Click on the user or group to add them as a default reviewer. Each time a new review is created, the default reviewers will be added to the review. </p>
+                <ul>
+                    <li value="1"><b>Users:</b> click the star icon to the left of the <i>userid </i>to toggle whether their vote is required or not. A solid star means that their vote is <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" title="required reviewer link" alt="required reviewer link">required</a> to approve a review, whereas the outlined star means that their vote is optional.</li>
+                    <li value="2"><b>Groups:</b> click the star icon to the left of the <i>groupid </i>, and select whether the group is a <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" title="required reviewer link" alt="required reviewer link">required reviewer (one vote), a required reviewer (all votes)</a>, or an optional reviewer. A solid star means that all group member votes are required to approve a review, a solid star with a 1 inside means at least one group member must vote up and no group members vote down to approve a review, and the outlined star means that the group vote is optional. </li>
+                </ul>
+                <p>Click the <b>X</b> icon to the right of the <i>userid </i>or <i>groupid </i>to remove that default reviewer from the default reviewers list.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p><b>When a review is part of multiple projects/project branches:</b><![CDATA[  ]]></p>
+                    <ul>
+                        <li value="1">The default reviewer lists for all of the projects and project branches the review is part of are combined and added to the review. </li>
+                        <li value="2">If a default reviewer has different reviewer options set on projects and project branches that the review is part of, the strictest reviewer option is used for the review. <br /></li>
+                    </ul>
+                    <blockquote>
+                        <p><b>Example:</b> A review is created and it is part of  <b>Project A</b>, <b>Project B</b>, and <b>Project Branch b</b>. </p>
+                        <blockquote>
+                            <p><b>Project A:</b> default reviewer X is an Optional reviewer</p>
+                            <p><b>Project B:</b> default reviewer X is an Optional reviewer</p>
+                            <p><b>Project Branch b:</b> default reviewer X is a Required reviewer</p>
+                            <p><b>Result:</b> default reviewer X is added to the review as a Required reviewer </p>
+                        </blockquote>
+                    </blockquote>
+                </div>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If users or groups are <a href="basics.notable.html#basics.notable.mentions" title="Link to @mention section" alt="Link to @mention section">@mentioned</a> in a new changelist description that includes <code class="code_clearBackground">#review</code>, they will be added  to the review as reviewers.  If any of these reviewers are already  specified as default reviewers they will not be added to the review again, the reviewer's most restrictive reviewer option is used for the review. </p>
+                </div>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If a default reviewer is deleted from <span class="PerforceHVE short">Helix server</span> they will not be added to new reviews. </p>
+                </div>
+            </li>
+            <li value="6">
+                <p><b>Optional:</b> check the <b>Only Moderators can approve or reject reviews</b> checkbox. </p>
+                <p>When checked, a field is displayed, allowing you to add a new moderator. The field auto-suggests groups and users within the <span class="PerforceHVE long">Helix Versioning Engine</span> as you type.</p>
+                <p>If a group is specified as a moderator, all of the members of that group have the same moderator privileges for that project branch as if they were added individually. </p>
+                <p>Once the branch specification is complete and the project has been saved, changing the state of any review associated with this moderated branch is restricted as follows:</p>
+                <ul>
+                    <li value="1">Only moderators can approve or reject the review. Moderators can also transition a review to any other state.</li>
+                    <li value="2">
+                        <p>The review's author, when she is not a moderator, can change the review's state to <b>Needs Review</b>, <b>Needs Revision</b>, <b>Archived</b>, and can attach committed changelists.</p>
+                        <p>Normally, the review's author cannot change the review's state to <b>Approved</b> or <b>Rejected</b> on moderated branches. However, authors that are also moderators have moderator privileges, and may approve or reject their own review.</p>
+                        <p>When <a href="admin.reviews.html#admin.reviews.disable_self_approve"><code>disable_self_approve</code></a> is enabled, authors who are moderators (or even users with admin privileges) cannot approve their own reviews.</p>
+                    </li>
+                    <li value="3">Project members can change the review's state to <b>Needs Review</b> or <b>Needs Revision</b>, and can attach committed changelists. Project members cannot change the review's state to <b>Approved</b>, <b>Rejected</b>, or <b>Archived</b>.</li>
+                    <li value="4">Users that are not project members, moderators, or the review's author cannot transition the review's state.</li>
+                    <li value="5">
+                        <p>For the review's author and project members, if a review is not in one of their permitted states, for example if the review's state is <b>Rejected</b>, they cannot transition the review to another state.</p>
+                        <p>These restrictions have no effect on who can start a review.</p>
+                    </li>
+                </ul>
+            </li>
+            <li value="7">
+                <p>Click <b>Done</b> to accept your branch specification.</p>
+                <p>Once the branch definition has completed, if any moderators were specified, the number of moderators for that branch is displayed in the list of branches.</p>
+            </li>
+            <li value="8">Click <b>Save</b> to save the branch changes to your project.</li>
+        </ol>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The project name does not need to be included in the branch name; <span class="PerforceSwarm short">Swarm</span> displays the project name with the branch name when appropriate.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Editing_a_branch" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Editing a branch</h2>
+        <ol>
+            <li value="1">Follow the <a href="#InitialSteps">initial steps</a>.</li>
+            <li value="2">Click the branch drop-down button you want to edit.</li>
+            <li value="3">Revise the <b>Name</b>, <b>Paths</b>, default reviewers, or moderators as required.</li>
+            <li value="4">Click <b>Save</b>.</li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Removing_a_branch" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Removing a branch</h2>
+        <ol>
+            <li value="1">Follow the <a href="#InitialSteps">initial steps</a>.</li>
+            <li value="2">Click the branch drop-down button you want to remove.</li>
+            <li value="3">Click <b>Remove</b>.</li>
+            <li value="4">Click <b>Save</b>.</li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

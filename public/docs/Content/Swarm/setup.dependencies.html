@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Runtime dependencies</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.dependencies.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Runtime_dependencies" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Runtime dependencies</h1>
+        <p>In order to successfully install, configure, and deploy <span class="PerforceSwarm short">Swarm</span>, the following dependencies are required:</p>
+        <ul>
+            <li value="1">A <a href="#setup.dependencies.os" class="MCXref xref">Supported operating system platforms</a></li>
+            <li value="2">An <a href="#setup.dependencies.apache" class="MCXref xref">Apache web server</a> with <code class="code_clearBackground">mod_rewrite</code> and <code class="code_clearBackground">mod_php5</code></li>
+            <li value="3">
+                <p>A supported version of <a href="#setup.dependencies.php" class="MCXref xref">PHP</a> with the following extensions:</p>
+                <ul>
+                    <li value="1">iconv</li>
+                    <li value="2">JSON</li>
+                    <li value="3">Session</li>
+                    <li value="4">P4PHP</li>
+                    <li value="5">one of APC or Zend OPCache (for optimal performance)</li>
+                    <li value="6">php-mbstring (for multi-byte character strings)</li>
+                </ul>
+                <p>In addition, <span class="PerforceSwarm short">Swarm</span> greatly benefits from the following optional extensions:</p>
+                <ul>
+                    <li value="1">Imagick (used for viewing non-web safe images)</li>
+                    <li value="2">php-xml (for RSS feeds)</li>
+                </ul>
+            </li>
+            <li value="4">
+                <p>A supported <span class="PerforceHVE long">Helix Versioning Engine</span> deployment, and the ability to connect to it from the system hosting <span class="PerforceSwarm short">Swarm</span>.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>"<span class="PerforceHVE short">Helix server</span> deployment" can refer to a running <code class="code_clearBackground">p4d</code> or a proxy, replica, edge server, or commit server.</p>
+                </div>
+            </li>
+            <li value="5"><code class="code_clearBackground">curl</code> or <code class="code_clearBackground">wget </code>(for <span class="PerforceSwarm short">Swarm</span> worker operation)</li>
+            <li value="6">A <a href="#setup.dependencies.triggers">supported version of perl</a> (to integrate with <span class="PerforceHVE long">Helix Versioning Engine</span> triggers)</li>
+            <li style="color: #000000;" value="7">That <a href="#setup.dependencies.selinux" class="MCXref xref">Security-enhanced Linux (SELinux)</a>, if installed, is configured</li>
+        </ul>
+        <p>Optional dependencies:</p>
+        <ul>
+            <li value="1">LibreOffice (for viewing office-type documents)</li>
+            <li value="2"><code class="code_clearBackground">zip</code>, the command-line archiving tool (for downloading archives of files/folders</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Supported_operating_system_platforms" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.os"></a>Supported operating system platforms</h2>
+        <p>Because <span class="PerforceSwarm short">Swarm</span> includes binary versions of P4PHP (the <span class="PerforceCompany short">Perforce</span> extension for PHP), we support <span class="PerforceSwarm short">Swarm</span> on the following operating systems:</p>
+        <ul>
+            <li value="1">Linux 2.6+ Intel (x86, x86_64) with glibc 2.3.3+</li>
+            <li value="2">Mac OS X 10.6+ (x86_64)</li>
+        </ul>
+        <p>You may be able to get <span class="PerforceSwarm short">Swarm</span> running on another platform if you build P4PHP yourself and satisfy the other runtime dependencies. Instructions on how to obtain and build P4PHP from source can be found <a href="https://www.perforce.com/perforce/doc.current/user/p4phpnotes.txt" target="_blank">here</a>.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>P4PHP does not support threaded operation. If you compile P4PHP from source, ensure that the version of PHP you compile for is non-threaded.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Apache_web_server" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.apache"></a>Apache web server</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> requires Apache HTTP Server 2.2 or newer:</p>
+        <ul>
+            <li value="1"><a href="https://httpd.apache.org/" target="_blank">https://httpd.apache.org</a>
+            </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> also requires the following Apache modules:</p>
+        <ul>
+            <li value="1">mod_php5 for interacting with PHP (usually installed with PHP)</li>
+            <li value="2">
+                <p>mod_rewrite URL rewriting engine</p>
+                <p><a href="https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html" target="_blank">https://httpd.apache.org/docs/2.2/mod/mod_rewrite.html</a>
+                </p>
+            </li>
+        </ul>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>Only the <code class="code_clearBackground">prefork </code><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">MPM<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An MPM, or multi-processing module, is a component of the Apache web server that is responsible for binding to network ports, accepting requests, and dispatch operations to handle the request.</span></a> is supported. Use of the worker or event MPMs is not supported and is likely to cause problems because P4PHP does not support threaded operation.</p>
+            <p>For more information on the prefork MPM, see:</p>
+            <ul>
+                <li value="1"><a href="https://httpd.apache.org/docs/2.2/mod/prefork.html" target="_blank">https://httpd.apache.org/docs/2.2/mod/prefork.html</a>
+                </li>
+                <li value="2"><a href="https://httpd.apache.org/docs/2.4/mod/prefork.html" target="_blank">https://httpd.apache.org/docs/2.4/mod/prefork.html</a>
+                </li>
+            </ul>
+        </div>
+        <h2 data-mc-autonum=""><a name="PHP" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.php"></a>PHP</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> requires PHP 5.3.3+, 5.4.x, 5.5.x,  5.6.x, or 7.0:</p>
+        <ul>
+            <li value="1"><a href="https://secure.php.net/" target="_blank">https://secure.php.net</a>
+            </li>
+        </ul>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>PHP must be non-threaded because P4PHP does not support threaded operation.</p>
+        </div>
+        <p><span class="PerforceSwarm short">Swarm</span> requires the following PHP extensions:</p>
+        <ul>
+            <li value="1">
+                <p>iconv (character encoding converter)<br /><a href="https://secure.php.net/iconv" target="_blank">https://secure.php.net/iconv</a></p>
+                <p>This is typically enabled by default with most PHP distributions</p>
+            </li>
+            <li value="2">
+                <p>JSON (JavaScript Object Notation)<br /><a href="https://secure.php.net/json" target="_blank">https://secure.php.net/json</a></p>
+                <p>This is typically enabled by default with most PHP distributions, although recent distributions are making this optional</p>
+            </li>
+            <li value="3">
+                <p>Session (session handling)</p>
+                <p>This is typically enabled by default with most PHP distributions</p>
+            </li>
+            <li value="4">
+                <p>P4PHP (the Perforce PHP Extension)</p>
+                <p>Included with the <span class="PerforceSwarm short">Swarm</span> package. See the install directions.</p>
+            </li>
+            <li value="5">
+                <p>php-xml (DOM API for XML manipulation)</p>
+                <p>Included with PHP on many operating systems, but must be manually installed on CentOS/RHEL. When not installed, the <span class="PerforceSwarm short">Swarm</span> RSS feed does not work.</p>
+            </li>
+            <li value="6">
+                <p>php-mbstring (multi-byte character strings)</p>
+                <p>Included with PHP on many operating systems, but must be manually installed on CentOS/RHEL. When not installed, <span class="PerforceSwarm short">Swarm</span>'s RSS feed does not work.</p>
+            </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> greatly benefits from the following PHP extensions:</p>
+        <ul>
+            <li value="1">One of (but not both):</li>
+            <li class="L0" value="2">
+                <ul>
+                    <li value="1">
+                        <p>APC (the Alternative PHP Cache)<br /><a href="https://secure.php.net/apc" target="_blank">https://secure.php.net/apc</a></p>
+                        <p>Installation instructions for APC.</p>
+                    </li>
+                    <li value="2">
+                        <p>Zend OPCache<br /><a href="https://secure.php.net/opcache" target="_blank">https://secure.php.net/opcache</a></p>
+                        <p>Installation instructions for Zend OPCache.</p>
+                    </li>
+                </ul>
+            </li>
+            <li value="3">
+                <p>Imagick (integrates ImageMagick into PHP)<br /><a href="https://secure.php.net/imagick" target="_blank">https://secure.php.net/imagick</a></p>
+                <p>Installation instructions for <a href="setup.php.html#setup.php.imagick" target="_blank">Imagick</a>.</p>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Helix_server_requirements" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><span class="PerforceHVE short">Helix server</span> requirements</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> works with any <a href="https://www.perforce.com/maintenance-support" target="_blank">supported version</a> of the <span class="PerforceHVE long">Helix Versioning Engine</span>. The versions supported in this release of <span class="PerforceSwarm short">Swarm</span> include the following versions:</p>
+        <ul>
+            <li value="1">2015.2</li>
+            <li value="2">2016.1</li>
+            <li value="3">2016.2</li>
+            <li value="4">2017.1</li>
+            <li value="5">2017.2 </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> performs best with the <span class="PerforceHVE long">Helix Versioning Engine</span> version 2016.2 or newer.</p>
+        <ul>
+            <li value="1"><a href="https://www.perforce.com/downloads/helix-versioning-engine-p4d" target="_blank">https://www.perforce.com/downloads/helix-versioning-engine-p4d</a>
+            </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> requires a user with at least admin privileges in the <span class="PerforceHVE long">Helix Versioning Engine</span>. This can be an existing user, or a new user created specifically to support <span class="PerforceSwarm short">Swarm</span>.</p>
+        <p>For more information about how to set up a <span class="PerforceHVE long">Helix Versioning Engine</span>, see <a href="http://www.perforce.com/perforce/doc.current/manuals/p4sag/index.html" target="_blank"><i><span class="Perforcegd-p4sag">Helix Versioning Engine Administrator Guide:&#160;Fundamentals</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="Trigger__dependencies" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.triggers"></a>Trigger  dependencies</h2>
+        <p>The <span class="PerforceSwarm short">Swarm</span> triggers, which are installed on the <span class="PerforceHVE short">Helix server</span> in a later step, require perl 5.08+:<br /><a href="https://www.perl.org/get.html" target="_blank">https://www.perl.org/get.html</a></p>
+        <p>On the Windows platform, we have tested Swarm against Strawberry Perl. There are two Perl modules that are also required which may not be part of a minimal Perl installation.</p>
+        <ul>
+            <li value="1">
+                <p><code class="code_clearBackground">HTTP::Tiny </code>is required to make calls to the Swarm server. If this is not present, then the trigger will attempt to use the command line curl program. This module is standard on Strawberry Perl on Windows, and available as a package with the version of Perl provided on CentOS 7, Ubuntu 14.04 and Ubuntu 16.04.</p>
+            </li>
+            <li class="L0" value="2">
+                <p><code class="code_clearBackground">IO::Socket::SSL</code> is required if the Swarm server is configured to use SSL and HTTP::Tiny is present. This is provided as standard by Strawberry Perl, and available on Linux.</p>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If the <code class="code_clearBackground">HTTP::Tiny </code>module is not available, for example on CentOS 6, then the triggers require the use of <code class="code_clearBackground">curl</code>. This must be installed for the triggers to function. On CentOS 6 this can be done using the <code class="code_clearBackground">yum </code>package installer using <code class="code_clearBackground">yum install curl</code> if it isn't already installed.</p>
+                </div>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Worker_dependencies" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.workers"></a>Worker dependencies</h2>
+        <p>The recurring task to invoke <span class="PerforceSwarm short">Swarm</span> workers, installed in a <a href="setup.worker.html" title="Perforce configuration for Swarm" alt="Perforce configuration for Swarm">later step</a>, requires either of:</p>
+        <ul>
+            <li value="1">
+                <p>curl<br /><a href="https://curl.haxx.se/download.html" target="_blank">https://curl.haxx.se/download.html</a></p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>For Windows, <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> depends on <code class="code_clearBackground">MSVCR100.dll</code>. You can get a copy by installing the <b>Microsoft Visual C++ Redistributable Package</b>, available for:</p>
+                    <ul>
+                        <li value="1">32-bit systems: <a href="https://www.microsoft.com/download/en/details.aspx?id=5555" target="_blank">https://www.microsoft.com/download/en/details.aspx?id=5555</a></li>
+                        <li value="2">64-bit systems: <a href="https://www.microsoft.com/download/en/details.aspx?id=14632" target="_blank">https://www.microsoft.com/download/en/details.aspx?id=14632</a></li>
+                    </ul>
+                    <p>If you install <span class="PerforceSwarm short">Swarm</span> with HTTPS, <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> requires recent CA certificates (or HTTPS connections silently fail). You can get a copy of the <code class="code_clearBackground">cacert.pem</code> from:</p>
+                    <p><a href="https://curl.haxx.se/docs/caextract.html" target="_blank">https://curl.haxx.se/docs/caextract.html</a>
+                    </p>
+                    <p>Once downloaded, copy <code class="code_clearBackground">cacert.pem</code> to the same folder where you installed <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code>, and rename it to <code class="code_clearBackground">curl-ca-bundle.crt</code>.</p>
+                </div>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If <code class="code_clearBackground" style="font-weight: bold;">curl </code>(or <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> on Windows) cannot execute as expected, trigger execution may block or fail. For example, if <code class="code_clearBackground">MSVCR100.dll</code> is missing from a Windows system, invoking <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> causes a dialog to appear.</p>
+                    <p>Prior to configuring the <a href="setup.perforce.html#setup.perforce.triggers" title="Setup triggers" alt="Setup triggers">triggers</a>, verify that <code class="code_clearBackground" style="font-weight: bold;">curl</code> executes. On Linux systems, run:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">$ </span>curl -h</pre>
+                    <p>On Windows systems, run:</p><pre class="programlisting"><span style="font-weight: normal;">C:\&gt;</span> curl.exe -h</pre>
+                    <p>The start of the output should be similar to:</p><pre class="screen" xml:space="preserve">Usage: curl [options...] &lt;url&gt;
+Options: (H) means HTTP/HTTPS only, (F) means FTP only
+     --anyauth       Pick "any" authentication method (H)
+ -a, --append        Append to target file when uploading (F/SFTP)
+     --cacert FILE   CA certificate to verify peer against (SSL)
+     --capath DIR    CA directory to verify peer against (SSL)
+...[truncated for brevity]...</pre>
+                    <p>For a more thorough test that actually fetches content over a network, try the following test:</p>
+                    <ul>
+                        <li value="1">
+                            <p>For Linux systems, run:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>curl https://www.perforce.com/</pre>
+                        </li>
+                        <li value="2">
+                            <p>For Windows systems, run:</p><pre class="programlisting" xml:space="preserve"> <span style="font-weight: normal;">C:\&gt;</span> curl.exe https://www.perforce.com/</pre>
+                        </li>
+                    </ul>
+                    <p>The output should look like HTML.</p>
+                </div>
+            </li>
+            <li value="2">
+                <p>wget<br /><a href="https://ftp.gnu.org/gnu/wget/" target="_blank">https://ftp.gnu.org/gnu/wget</a><br /><a href="http://gnuwin32.sourceforge.net/packages/wget.htm" target="_blank">http://gnuwin32.sourceforge.net/packages/wget.htm</a> (for Windows)</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you are using Powershell on Windows systems, be aware that Powershell includes aliases for <code class="code_clearBackground" style="font-weight: bold;">curl </code>and <code class="code_clearBackground" style="font-weight: bold;">wget </code>that call the Powershell command <code class="code_clearBackground" style="font-weight: bold;">Invoke-WebRequest </code>instead of <code class="code_clearBackground" style="font-weight: bold;">curl.exe</code> or <code class="code_clearBackground" style="font-weight: bold;">wget.exe</code>. <code class="code_clearBackground" style="font-weight: bold;">Invoke-WebRequest </code>has different command-line options than either <code class="code_clearBackground" style="font-weight: bold;">curl </code>or <code class="code_clearBackground" style="font-weight: bold;">wget</code>, which can be confusing.</p>
+                    <p>If you want to remove the built-in aliases for <code class="code_clearBackground" style="font-weight: bold;">curl </code>and <code class="code_clearBackground" style="font-weight: bold;">wget </code>from Powershell, follow these steps:</p>
+                    <ol>
+                        <li value="1">
+                            <p>Create a Powershell profile (only if you have not already done so):</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>New-Item $profile -force -itemtype file</pre>
+                        </li>
+                        <li value="2">
+                            <p>Edit your profile:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>notepad $profile</pre>
+                        </li>
+                        <li value="3">
+                            <p>Add the following line to your profile:</p><pre class="screen">remove-item alias:curl<br />remove-item alias:wget</pre>
+                        </li>
+                        <li value="4">Save the profile and close <code class="code_clearBackground">notepad</code>.</li>
+                        <li value="5">
+                            <p>Reload your profile:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">PS C:\&gt; </span>. $profile</pre>
+                        </li>
+                    </ol>
+                </div>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Supported_web_browsers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.browsers"></a>Supported web browsers</h2>
+        <p>The following browsers are supported for use with <span class="PerforceSwarm short">Swarm</span>:</p>
+        <ul>
+            <li value="1">Apple Safari, latest stable version</li>
+            <li value="2">Google Chrome, latest stable version</li>
+            <li value="3">Microsoft Internet Explorer 10+</li>
+            <li value="4">Mozilla Firefox, latest stable version</li>
+        </ul>
+        <p>Other web browsers might also work, including prior, development or beta builds of the above web browsers, but are not officially supported.</p>
+        <p><span class="PerforceSwarm short">Swarm</span> requires that JavaScript and cookies are enabled in the web browser.</p>
+        <h2 data-mc-autonum=""><a name="Optional_dependencies" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Optional dependencies</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> can display previews of office-type documents when LibreOffice is installed. Installation is not required, but when LibreOffice is installed <span class="PerforceSwarm short">Swarm</span> automatically detects its presence.</p>
+        <p>For more information, see <a href="integrations.libreoffice.html" class="MCXref xref">LibreOffice</a>.</p>
+        <p>To use the <b>Download .zip</b> feature (see <a href="basics.files.html#basics.files.zip" class="MCXref xref">Downloading files as ZIP archive</a>), <span class="PerforceSwarm short">Swarm</span> requires that the <code class="code_clearBackground" style="font-weight: bold;">zip </code>command-line tool be available.</p>
+        <p>For more information, see <a href="admin.archives.html" class="MCXref xref">Archives configuration</a>.</p>
+        <h2 data-mc-autonum=""><a name="Security-enhanced_Linux_(SELinux)" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.dependencies.selinux"></a>Security-enhanced Linux (SELinux)</h2>
+        <p style="color: #000000;"><span class="PerforceSwarm short">Swarm</span> supports SELinux on CentOS 7. SELinux is an advanced access control mechanism that improves security for Linux distributions. </p>
+        <p style="color: #000000;">SELinux operates in one of three modes:</p>
+        <ul>
+            <li style="color: #000000;" value="1"><code>enforcing</code>:  this mode blocks and logs any actions that do not match the defined security policy. This is the default mode for SELinux on CentOS 7.</li>
+            <li style="color: #000000;" value="2"><code>permissive</code>:  this mode logs actions that do not match the defined security policy but these actions are not blocked.</li>
+            <li style="color: #000000;" value="3"><code>disabled</code>: in this mode SELinux is off, actions are not blocked and are not logged. </li>
+        </ul>
+        <p style="color: #000000;"> See <a href="setup.packages.html#setup.packages.SELinux_configure" class="MCXref xref">SELinux on CentOS 7 configuration</a>  for details. </p>
+        <p style="color: #000000;">If you see a <span class="PerforceSwarm short">Swarm</span> configuration error similar to the error shown below, SELinux has not been correctly configured for <span class="PerforceSwarm short">Swarm</span>. Check you have configured <a href="setup.packages.html#setup.packages.SELinux_configure">SELinux on CentOS 7</a> correctly. </p>
+        <p style="color: #000000;">
+            <img src="../Resources/Images/swarm-centos7-selinux-error.png" title="CentOS SELinux error message" alt="" />
+        </p>
+        <h2 data-mc-autonum=""><a name="Choose_installation_approach" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Choose installation approach</h2>
+        <p>Once you are aware of <span class="PerforceSwarm short">Swarm</span> dependencies and can satisfy them, you have the following choices for installing <span class="PerforceSwarm short">Swarm</span>. Choose one approach:</p>
+        <ul>
+            <li value="1">
+                <p>Use the <span class="PerforceSwarm short">Swarm</span> packages (RPM or Debian):</p>
+                <ol>
+                    <li value="1">Follow the steps provided in <a href="setup.packages.html" class="MCXref xref">Swarm packages</a>.</li>
+                    <li value="2">Configure <span class="PerforceSwarm short">Swarm</span>. Skip to the <a href="setup.perforce.html" class="MCXref xref">Helix Core configuration for Swarm</a>.</li>
+                </ol>
+            </li>
+            <li value="2">
+                <p>Use the <span class="PerforceSwarm short">Swarm</span> OVA (Open Virtualization Appliance):</p>
+                <ol>
+                    <li value="1">Follow the steps provided in <a href="setup.ova.html" class="MCXref xref">OVA configuration</a>.</li>
+                    <li value="2"> Configure <span class="PerforceSwarm short">Swarm</span>. Skip to the <a href="setup.perforce.html" class="MCXref xref">Helix Core configuration for Swarm</a>.</li>
+                </ol>
+            </li>
+            <li value="3">
+                <p>Use the <span class="PerforceSwarm short">Swarm</span> source distribution archive:</p>
+                <ul>
+                    <li value="1">Follow  steps provided in the <a href="setup.installation.html" class="MCXref xref">Initial manual installation</a> and subsequent sections.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>If you have not already done so, <a href="https://www.perforce.com/downloads/helix-swarm" target="_blank">download <span class="PerforceSwarm short">Swarm</span></a>.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

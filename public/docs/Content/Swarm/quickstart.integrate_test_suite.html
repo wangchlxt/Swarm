@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>How can I integrate my test suite to inform review acceptance or rejection?</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/quickstart.integrate_test_suite.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="How_can_I_integrate_my_test_suite_to_inform_review_acceptance_or_rejection_" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>How can I integrate my test suite to inform review acceptance or rejection?</h1>
+        <p>Integrating <span class="PerforceSwarm long">Helix Swarm</span> with a test suite involves enabling <b>Automated Tests</b> in your project's configuration and providing a t<i>rigger URL</i>. When the <i>trigger URL</i> is requested, <span class="PerforceSwarm short">Swarm</span> expects your test suite to be executed. When the tests complete, <span class="PerforceSwarm short">Swarm</span> expects either a <i>pass callback URL</i> or <i>fail callback URL</i> to be requested by your test suite.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If your automated tests fail to run after you have configured them, check that they have not been globally disabled by your <span class="PerforceSwarm short">Swarm</span> administrator. See <a href="admin.reviews.html#admin.disable_tests_on_approve_commit" class="MCXref xref">Disable tests on approve and commit</a> for details.</p>
+        </div>
+        <ol>
+            <li value="1">Visit your project page.</li>
+            <li value="2">Click <b>Edit</b>. The <b><a href="projects.edit.html">Edit Project</a></b> page is displayed.</li>
+            <li value="3">Ensure that paths in each named branch configured for the project do not overlap with paths in other named branches.</li>
+            <li value="4">
+                <p>Select the <b>Enable</b> check box next to Automated Tests to display the Automated Tests configuration fields:</p>
+                <p>
+                    <img src="../Resources/Images/swarm-fields-automated_tests.png" title="Configuration fields for automated tests" alt="" />
+                </p>
+            </li>
+            <li value="5">
+                <p>Provide a URL that triggers your test suite execution.</p>
+                <p>Special arguments are available to inform your test suite of various details from <span class="PerforceSwarm short">Swarm</span>:</p>
+                <dl>
+                    <dt><code class="code_clearBackground">{change}</code>
+                    </dt>
+                    <dd>The change number</dd>
+                    <dt><code class="code_clearBackground">{status}</code>
+                    </dt>
+                    <dd>Status of the shelved change, <i>shelved</i> or <i>committed</i></dd>
+                    <dt><code class="code_clearBackground">{review}</code>
+                    </dt>
+                    <dd>The review's identifier</dd>
+                    <dt><code class="code_clearBackground">{project}</code>
+                    </dt>
+                    <dd>The project's identifier</dd>
+                    <dt><code class="code_clearBackground">{projectName}</code>
+                    </dt>
+                    <dd>The project's name</dd>
+                    <dt><code class="code_clearBackground">{branch}</code>
+                    </dt>
+                    <dd>The branch identifier(s) impacted by the review, comma-separated</dd>
+                    <dt><code class="code_clearBackground">{branchName}</code>
+                    </dt>
+                    <dd>The branch name(s) impacted by the review, comma-separated</dd>
+                    <dt><code class="code_clearBackground">{pass}</code>
+                    </dt>
+                    <dd>Tests pass callback URL</dd>
+                    <dt><code class="code_clearBackground">{fail}</code>
+                    </dt>
+                    <dd>Tests fail callback URL</dd>
+                </dl>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The <code class="code_clearBackground">{pass}</code> and <code class="code_clearBackground">{fail}</code> are composed automatically by <span class="PerforceSwarm short">Swarm</span>, and include <span class="PerforceSwarm short">Swarm</span>'s own per-review authentication tokens.</p>
+                </div>
+            </li>
+            <li value="6">
+                <p>Optionally, specify any parameters that your automated tests require that must be sent via HTTP POST in the <b>POST Parameters</b> field. The POST parameters can include the special arguments listed above.</p>
+                <p>You can also choose the format of the POST parameters, either GET or JSON. When GET is selected, the POST parameters are parsed into name=value pairs. When JSON is selected, any specified parameters are passed raw in the POST body.</p>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Configuring_Jenkins_for_Swarm_integration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Configuring Jenkins for <span class="PerforceSwarm short">Swarm</span> integration</h2>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>Your Jenkins host needs to be able to communicate with the <span class="PerforceSwarm short">Swarm</span> host, and vice versa. Ensure that the appropriate DNS/host configuration is in place, and that each server can reach the other via HTTP/HTTPS.</p>
+        </div>
+        <ol>
+            <li value="1">
+                <p>Install the p4-plugin in Jenkins:</p>
+                <p><a href="https://wiki.jenkins-ci.org/display/JENKINS/P4+Plugin">https://wiki.jenkins-ci.org/display/JENKINS/P4+Plugin</a>
+                </p>
+            </li>
+            <li value="2">
+                <p>Configure a Jenkins project:</p>
+                <ol>
+                    <li value="1">
+                        <p>Specify the job name so that it matches the project identifier used in the trigger URL, as defined <a href="#quickstart.integrate_test_suite.url">below</a>.</p>
+                        <p>For example, the computed value of <code>{projectName}_{branchName}</code>.</p>
+                        <p>Or, edit the trigger URL to use the Jenkins job name you specify.</p>
+                    </li>
+                    <li value="2">
+                        <p>Make the build parameterized to accept these parameters (note that these are named to match up with the script that is called):</p>
+                        <dl>
+                            <dt><b>{status}</b>
+                            </dt>
+                            <dd>Whether the changelist to be tested is shelved or submitted</dd>
+                            <dt><b>{change}</b>
+                            </dt>
+                            <dd>Changelist # to run tests against</dd>
+                            <dt><b>{review}</b>
+                            </dt>
+                            <dd>The review's identifier</dd>
+                            <dt><b>{pass}</b>
+                            </dt>
+                            <dd>The URL to wget if the build succeeds</dd>
+                            <dt><b>{fail}</b>
+                            </dt>
+                            <dd>The URL to wget if the build fails</dd>
+                        </dl>
+                    </li>
+                    <li value="3">
+                        <p>Select <code class="code_clearBackground"><span class="PerforceCompany long">Perforce Software</span></code> for the <b>Source Code Management</b> section.</p>
+                        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                            <p>You may see <span style="font-weight: bold;" class="PerforceCompany short">Perforce</span> in the <b>Source Code Management</b> section. This represents an earlier community-provided <span class="PerforceCompany short">Perforce</span> plugin that does not include support for <span class="PerforceSwarm short">Swarm</span>.</p>
+                        </div>
+                    </li>
+                    <li value="4">
+                        <p>Set up credentials and workspace behavior as needed.</p>
+                        <p>See the <a href="https://github.com/jenkinsci/p4-plugin#credentials" target="_blank">Credentials</a> and <a href="https://github.com/jenkinsci/p4-plugin#workspaces" target="_blank">Workspaces</a> sections of the <a href="https://github.com/jenkinsci/p4-plugin" target="_blank">p4-plugin documentation</a> for details.</p>
+                        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                            <p>The client workspace configured in Jenkins must have a view that includes the paths defined for that branch in <span class="PerforceSwarm short">Swarm</span>.</p>
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li value="3">
+                <p><a name="quickstart.integrate_test_suite.url"></a>Configure your <span class="PerforceSwarm short">Swarm</span> project to run automated tests with a URL like this:</p><pre class="programlisting" lang="html" xml:space="preserve">http://<i>jenkins_host:8080</i>/job/{projectName}_{branchName}/review/build?status={status}&amp;review={review}&amp;change={change}&amp;pass={pass}&amp;fail={fail}</pre>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>For Jenkins, the job name needs to match the job identifier in the URL. In the example above, this is the computed value of <code class="code_clearBackground">{projectName}_{branchName}</code>.</p>
+                    <p>If you prefer a different naming scheme in Jenkins, replace <code class="code_clearBackground">{projectName}_{branchName}</code> in the URL above with the project name actually defined in Jenkins.</p>
+                </div>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If your build script has access to the results of test execution, include a GET or POST parameter called url when calling the pass or fail URLs. <span class="PerforceSwarm short">Swarm</span> uses the provided url to link reviews to the test results.</p>
+                </div>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If security is enabled in Jenkins, the trigger URL needs to include credentials. Follow these steps:</p>
+                    <ol>
+                        <li value="1">Create a Jenkins user that will trigger <span class="PerforceSwarm short">Swarm</span> builds. For example swarm.</li>
+                        <li value="2">Log into Jenkins as the new user.</li>
+                        <li value="3">Click on the user's username in the Jenkins toolbar.</li>
+                        <li value="4">Scroll down to <b>API Token</b>.</li>
+                        <li value="5">Click <b>Show API Token</b>.</li>
+                        <li value="6">
+                            <p>Incorporate the value of the <b>API Token</b> into the <span class="PerforceSwarm short">Swarm</span> trigger URL.</p>
+                            <p>For example, if the username is swarm and the API Token value is 832a5db7e5500c1288324c1441460610, the Swarm trigger URL should be:</p><pre class="programlisting" lang="html" xml:space="preserve">http://swarm:832a5db7e5500c1288324c1441460610@jenkins_host:8080/job/{projectName}_{branchName}/review/build?cause=Automated%20test%20triggered%20for%20Swarm%20project%20{projectName},%20branch%20{branchName},%20review%20{review}&amp;status={status}&amp;review={review}&amp;change={change}&amp;pass={pass}&amp;fail={fail}</pre>
+                        </li>
+                    </ol>
+                </div>
+            </li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

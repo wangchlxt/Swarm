@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>How do I contribute comments or code changes to a code review?</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/quickstart.code_review_contribute.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="How_do_I_contribute_comments_or_code_changes_to_a_code_review_" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>How do I contribute comments or code changes to a code review?</h1>
+        <p>Contribute to a code review by adding comments to the review, adding comments to specific lines within the review's files, or making edits to the review's files.</p>
+        <h2 data-mc-autonum=""><a name="Commenting_on_a_review" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Commenting on a review</h2>
+        <ol>
+            <li value="1">Visit the review's page.</li>
+            <li value="2">On the <b>Comments</b> tab, add your comment in the provided text area.</li>
+            <li value="3">Click <b>Post</b>.</li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Commenting_on_a_specific_line_in_a_file_..116" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Commenting on a specific line in a file</h2>
+        <ol>
+            <li value="1">Visit the review's page.</li>
+            <li value="2">
+                <p>On the <b>Files</b> tab, click a line you would like to comment on. </p>
+                <p>The comment text area appears.</p>
+            </li>
+            <li value="3">Add your comment in the provided text area.</li>
+            <li value="4">Click <b>Post</b>.</li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Editing_files_in_a_review" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Editing files in a review</h2>
+        <ol>
+            <li value="1">
+                <p><a href="quickstart.local_copy.html" title="How do I get a local copy of the review's code for evaluation?" alt="How do I get a local copy of the review's code for evaluation?">Get a local copy</a> of the review's files.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you are using <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">Git Fusion<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Git Fusion integrates Git with Helix, offering enterprise-ready Git repository management, and workflows that allow Git and Helix users to collaborate on the same projects using their preferred tools.</span></a>, follow the steps in the <a href="#Editing" title="Editing files in a review with Git Fusion" alt="Editing files in a review with Git Fusion">next section</a>.</p>
+                </div>
+            </li>
+            <li value="2">Edit the files as required.</li>
+            <li value="3">
+                <p>Prepare a changelist with the edited files and include <code>#review-1234</code> within the changelist's description (separated from other text with whitespace, or on a separate line), where <code>1234</code> is the review's identifier.</p>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>If you use an invalid review identifier, it will appear that nothing happens. <span class="PerforceSwarm short">Swarm</span>is currently unable to notify you of this situation.</p>
+                </div>
+            </li>
+            <li value="4">
+                <p>Depending on the <a href="code_reviews.model.html">model of code review</a> you are using, you would:</p>
+                <ul>
+                    <li value="1">Shelve the files (for pre-commit).</li>
+                    <li value="2">Submit the files (for post-commit).</li>
+                </ul>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Editing_files_in_a_review_with_Git_Fusion" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="Editing"></a>Editing files in a review with Git Fusion</h2>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>You can only update Git Fusion-initiated reviews using Git Fusion.</p>
+        </div>
+        <p>In the following example, the current local task branch is <code style="font-style: italic;">task1</code>, the target branch is <code style="font-style: italic;">master</code>, the review id is <code style="font-style: italic;">1234</code>, the Git Fusion hostname is <code style="font-style: italic;">gfserver</code>, and the remote repo name is <code style="font-style: italic;">p4gf_repo</code>.</p>
+        <ol>
+            <li value="1">
+                <p>Fetch the review's head version:</p><pre xml:space="preserve" class="programlisting"><span style="font-weight: normal;">$</span> <b>git fetch --prune origin
+</b><span style="font-weight: normal;">From gfserver:p4gf_repo
+* [new_branch]      review/master/1234 -&gt; origin/review/master/1234
+x [deleted]         (none)     -&gt; origin/review/master/new</span></pre>
+                <p>The <code>--prune</code> option lets the local Git repo delete the unwanted review/master/new reference created by the initial <code>git push origin <i>task1</i>:review/<i>master</i>/new</code> command.</p>
+            </li>
+            <li value="2">
+                <p>Check out the review's head version:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$</span> git checkout review/master/1234</pre>
+            </li>
+            <li value="3">Edit the files as required.</li>
+            <li value="4">
+                <p>Add the edited files to the index of files, in preparation for the next commit.</p>
+                <p>There are several ways to do this. For example, to add all modified files to the index, run:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$</span> git add -A</pre>
+            </li>
+            <li value="5">
+                <p>Commit the files in Git:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$</span> git commit -m "made some changes"</pre>
+            </li>
+            <li value="6">
+                <p>Push the Git changes to the review:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>git push origin review/master/1234</pre>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you get review feedback that is better expressed as a Git rebase and cleaned up history, you can make your changes and push them as a new review.</p>
+                    <p>You cannot clean up history and then push your changes to the same review.</p>
+                </div>
+            </li>
+        </ol>
+        <p>For more information on Git Fusion, see the <a href="http://www.perforce.com/perforce/doc.current/manuals/git-fusion/index.html" target="_blank"><i><span class="Perforcegd-gitfusion">Git Fusion Guide</span></i></a>.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

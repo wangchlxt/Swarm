@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Environment</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.environment.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Environment" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Environment</h1>
+        <p>This section describes the <i>environment</i> configuration items available for <span class="PerforceSwarm short">Swarm</span>:</p>
+        <ul>
+            <li value="1"><b>mode</b>: whether <span class="PerforceSwarm short">Swarm</span> operates in <i>production</i> or <i>development</i> mode.</li>
+            <li value="2"><b>hostname</b>: specifies the canonical hostname <span class="PerforceSwarm short">Swarm</span> should use, such as in links to <span class="PerforceSwarm short">Swarm</span> in email notifications.</li>
+            <li value="3"><b>external_url</b>: specifies the canonical URL <span class="PerforceSwarm short">Swarm</span> should use, such as in links to <span class="PerforceSwarm short">Swarm</span> in email notifications. <span class="PerforceSwarm short">Swarm</span> can often auto-detect the correct URL, but use of <code>external_url</code> might be necessary in complex web hosting environments.</li>
+            <li value="4"><b>base_url</b>: specifies the folder name <span class="PerforceSwarm short">Swarm</span> is installed within when <span class="PerforceSwarm short">Swarm</span> is not installed in the web server's document root.</li>
+        </ul>
+        <p>Add the following configuration block to the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/config.php</code> file:</p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'environment' =&gt; array(<br />        'mode'         =&gt; 'development',      // defaults to 'production'<br />        'hostname'     =&gt; 'myswarm.hostname', // defaults to requested hostname<br />        'external_url' =&gt; null,               // defaults to null<br />        'base_url'     =&gt; null,               // defaults to null<br />    ),</pre>
+        <h2 data-mc-autonum=""><a name="mode" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.environment.mode"></a>mode</h2>
+        <p>By default, <span class="PerforceSwarm short">Swarm</span> operates in <i>production</i> mode. When <code>mode</code> is set to <code>development</code>, <span class="PerforceSwarm short">Swarm</span> displays greater error detail in the browser. Also, <span class="PerforceSwarm short">Swarm</span> switches from including aggregated and minified JavaScript and CSS to requesting each JavaScript and CSS resource for all active modules. The default value is production. Any value other than <code>development</code> is assumed to mean production.</p>
+        <p><code>development</code> mode makes it easier to discover problems and to identify their source, but also incurs additional browser overhead due to many more JavaScript and CSS requests for larger files. We recommend that you do not use development mode in production environments, unless directed to do so by <span class="PerforceCompany short">Perforce</span> technical support.</p>
+        <h2 data-mc-autonum=""><a name="hostname" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.environment.hostname"></a>hostname</h2>
+        <p>The hostname item allows you to specify <span class="PerforceSwarm short">Swarm</span>'s hostname. This could be useful if you have multiple virtual hosts deployed for a single <span class="PerforceSwarm short">Swarm</span> instance; <span class="PerforceSwarm short">Swarm</span> uses the hostname you configure when generating its web pages and email notifications.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The value specified for the hostname item should be just the hostname. It should not include a scheme (e.g. <code class="code_clearBackground">"http://"</code>), nor should it include a port (e.g. <code class="code_clearBackground">":80"</code>).</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="external_url" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.environment.external_url"></a>external_url</h2>
+        <p>The <code>external_url</code> item allows you to specify <span class="PerforceSwarm short">Swarm</span>'s canonical URL. This is useful if your <span class="PerforceSwarm short">Swarm</span> instance is proxied behind another web service, such as a load balancer, caching proxy, etc., because <span class="PerforceSwarm short">Swarm</span>'s auto-detection of the current hostname or port could otherwise result in incorrect self-referencing URLs.</p>
+        <p>When specified, <span class="PerforceSwarm short">Swarm</span> uses the <code>external_url</code> item as the prefix for any URLs it creates that link to itself in its web pages and email notifications.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Any path components included in external_url are ignored. If you specify <code class="code_clearBackground">https://myswarm.url:8080/a/b/c</code>, <span class="PerforceSwarm short">Swarm</span> only uses <code class="code_clearBackground">https://myswarm.url:8080/</code> when composing URLs.</p>
+        </div>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If you specify <code class="code_clearBackground"><a href="#admin.environment.base_url">base_url</a></code> along with <code class="code_clearBackground">external_url</code> and you have deployed multiple <span class="PerforceSwarm short">Swarm</span> instances that connect to the same <span class="PerforceHVE short">Helix server</span>, ensure that all <span class="PerforceSwarm short">Swarm</span> instances specify the same <code class="code_clearBackground">base_url</code>. Varying <code class="code_clearBackground">base_url</code> amongst cooperating <span class="PerforceSwarm short">Swarm</span> instances is not supported.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="base_url" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.environment.base_url"></a>base_url</h2>
+        <p>The <code>base_url</code> item allows you to specify <span class="PerforceSwarm short">Swarm</span>'s folder within the web server's document root. This is useful if you cannot configure <span class="PerforceSwarm short">Swarm</span> to operate within its own virtual host, such as when you have an existing web service and <span class="PerforceSwarm short">Swarm</span> must exist alongside other applications or content.</p>
+        <p>By default, <code>base_url</code> is null, which is equivalent to specifying <code>/</code>. If you specify a folder, include the leading <code>/</code>. For example, <code>/swarm</code>.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If you specify <code class="code_clearBackground"><a href="#admin.environment.external_url">external_url</a></code> along with <code class="code_clearBackground">base_url</code> and you have deployed multiple <span class="PerforceSwarm short">Swarm</span> instances that connect to the same <span class="PerforceHVE short">Helix server</span>, ensure that all <span class="PerforceSwarm short">Swarm</span> instances specify the same <code class="code_clearBackground">base_url</code>. Varying <code class="code_clearBackground">base_url</code> amongst cooperating <span class="PerforceSwarm short">Swarm</span> instances is not supported.</p>
+        </div>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

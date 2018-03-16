@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Groups</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.groups.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Groups" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Groups</h1>
+        <p><i>Groups</i> are a feature of <span class="PerforceHVE short">Helix server</span> that makes it easier to manage permissions for users.</p>
+        <p>It is important to be aware of certain aspects of <span class="PerforceHVE short">Helix server</span> groups:</p>
+        <ul>
+            <li value="1">Groups can have both users and sub-groups. A user that is a member of a sub-group is also a member of the parent group.</li>
+            <li value="2">Groups have owners, but owners are not members of their groups. A group owner can be added as a member of a group.</li>
+            <li value="3">Groups can be created by users with <i>super</i> privileges in <span class="PerforceHVE short">Helix server</span> (<code class="code_clearBackground" style="font-weight: bold;">p4d</code>). If p4d is at version 2012.1 or newer, users with <i style="color: #000000;">admin</i> privileges can also add groups.</li>
+            <li value="4">Groups can be edited by their owners, or by users with <i>super</i> privileges in <span class="PerforceHVE short">Helix server</span>.</li>
+            <li value="5">Groups have a separate namespace from users; you can have a user named <code>fish</code> that is a member of a group named <code>fish</code>.</li>
+            <li value="6">Groups can be project moderators</li>
+            <li style="color: #000000;" value="7">Groups can be  reviewers, see <a href="code_reviews.display.html#code_reviews.display.reviewers" title="Review display" alt="Review display">Review display</a> and <a href="basics.notable.html#basics.notable.mentions" title="@@mention" alt="@@mention">@@mention</a> for details. </li>
+            <li style="color: #000000;" value="8">You can <code>@@mention</code> a group in a code review  comment to ensure the mentioned group receives <a href="basics.notifications.html" title="notifications" alt="notifications">notifications</a> of code review events.  This also creates a link that displays the group's details when clicked.&#160;See <a href="basics.notable.html#basics.notable.mentions" title="@@mention" alt="@@mention">@@mention</a> for details.</li>
+            <li style="color: #000000;" value="9">Groups cannot be project owners.</li>
+        </ul>
+        <p>More information on adding, editing, and removing groups is included in the  <a href="chapter.group.html" title="Groups" alt="Groups" class="MCXref xref">Groups</a> chapter.</p>
+        <h2 data-mc-autonum=""><a name="Listing_groups_..102" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.groups.list"></a>Listing groups</h2>
+        <p>Begin browsing groups by clicking the <b>Groups</b> link in the main toolbar.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-groups.png" title="The Groups list page" alt="Groups list page image" />
+        </div>
+        <p>For each group, the group's name, description, list of owner avatars, and a membership count (which has a darker background when you are a member). Click on a group name to display details for that group.</p>
+        <p>The groups listing is sorted by multiple criteria:</p>
+        <ul>
+            <li value="1">Groups that you own, or belong to, are listed first. A thicker row border indicates where your group ownership/membership ends; you are not an owner/member of any group below the thicker border.</li>
+            <li value="2">Groups are then sorted by name.</li>
+        </ul>
+        <p>You can search available groups by entering some text in the <b>Search</b> field and clicking <b>Search</b>. Any group names or descriptions that match the entered text are displayed.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-groups-search.png" title="Group search" alt="Group search image" />
+        </div>
+        <p>If you have <i>super</i> privileges in <span class="PerforceHVE short">Helix server</span> (<span class="PerforceP4D">P4D</span>), or have admin privileges in <span class="PerforceP4D">P4D</span> version 2012.1 or newer, <span class="PerforceSwarm short">Swarm</span> displays the <b>Add Group</b> button. Click <b>Add Group</b> to add a new group.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If your <span class="PerforceHVE short">Helix server</span> has a large number of groups, the time required to display the list of groups might be notable.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Viewing_a_group" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.groups.display"></a>Viewing a group</h2>
+        <p>View a specific group by clicking on a linked group name, or by visiting the URL: <code class="code_clearBackground">https://<i>myswarm.url</i>/<i style="font-weight: bold;">groups</i>/<i>group-id</i></code></p>
+        <p>When <span class="PerforceSwarm short">Swarm</span> displays a group, the presentation is similar to:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-group.png" title="Group page" alt="Group page image" />
+        </div>
+        <p>The information presented in the group display includes:</p>
+        <ul>
+            <li value="1">
+                <p>In the left sidebar:</p>
+                <ul>
+                    <li value="1">The group's name.</li>
+                    <li style="color: #000000;" value="2">The group's avatar, if it has one.</li>
+                    <li value="3">The group's description, if it has one.</li>
+                    <li value="4">The count of the group's owners and members.</li>
+                    <li style="color: #000000;" value="5">The group's email address, if it has one</li>
+                    <li value="6">The avatars of the group's owners.</li>
+                    <li value="7">The avatars of the group's members.</li>
+                </ul>
+            </li>
+            <li value="2">Any events generated by a group member is associated with the group, and appears in the right-hand area as an <a href="basics.activity_streams.html" title="Activity stream" alt="Activity stream">activity stream</a>.</li>
+        </ul>
+        <p>Click the <b>Reviews</b> link in the group toolbar to display the <a href="code_reviews.list.html" title="Review list" alt="Review list">review list</a> associated with the group, which includes all reviews authored by any of the group's members.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

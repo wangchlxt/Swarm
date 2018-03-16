@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Post-install configuration options</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.post.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Post-install_configuration_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Post-install configuration options</h1>
+        <p>There are a few options for customizing your Swarm installation's operation. This section covers the options that are officially supported:</p>
+        <ul>
+            <li value="1"><a href="#setup.post.ssl" class="MCXref xref">HTTPS</a>
+            </li>
+            <li value="2"><a href="#setup.post.subfolder" class="MCXref xref">Run Swarm in a sub-folder of an existing web site</a>
+            </li>
+            <li value="3"><a href="#setup.post.port" class="MCXref xref">Run Swarm's virtual host on a custom port</a>
+            </li>
+        </ul>
+        <p>Before undertaking any of the following customization options, ensure that you have <a name="setup.post.backup"></a>backed up your Swarm virtual host configuration. Choose the most appropriate option:</p>
+        <ul>
+            <li value="1">If your Apache configuration directory contains the directories <code>sites-available</code> and <code>sites-enabled</code>:<pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>cd </b><i style="font-weight: bold;">/path/to/apache/configuration/</i><b>..</b><br /><span style="font-weight: normal;">$</span> <b>cp -a sites-available sites-available.bak</b></pre><div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span><p>If the <code class="code_clearBackground">sites-enabled</code> directory contains files, and not just symbolic links, you need to backup this folder as well:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>cd /path/to/apache/configuration/..</b><br /><span style="font-weight: normal;">$</span> <b>cp -a sites-enabled sites-enabled.bak</b></pre></div></li>
+            <li value="2">
+                <p>For CentOS/RHEL systems, if you used the <a href="setup.packages.html" class="MCXref xref">Swarm packages</a> to install Swarm:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>cd /path/to/apache/configuration/..</b><br /><span style="font-weight: normal;">$</span> <b>cp -a conf.d conf.d.bak</b></pre>
+            </li>
+            <li value="3">Otherwise, back up your Apache configuration.</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="HTTPS" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.ssl"></a>HTTPS</h2>
+        <p>This section describes how to make your Swarm installation more secure by using HTTPS. </p>
+        <p>Before you begin the following procedure, locate your system's Apache configuration. Common configuration directories include:</p>
+        <ul>
+            <li value="1"><code>/etc/httpd/conf/</code>
+            </li>
+            <li value="2"><code>/etc/apache2/</code>
+            </li>
+            <li value="3"><code>/Applications/XAMPP/etc/</code>
+            </li>
+        </ul>
+        <p>Within the Apache configuration path, the main Apache configuration file is usually named one of the following:</p>
+        <ul>
+            <li value="1"><code>httpd.conf</code>
+            </li>
+            <li value="2"><code>apache2.conf</code>
+            </li>
+        </ul>
+        <p>A longer discussion on the possible locations and names of Apache configuration files is available here: <a href="https://wiki.apache.org/httpd/DistrosDefaultLayout" target="_blank">https://wiki.apache.org/httpd/DistrosDefaultLayout</a></p>
+        <ol>
+            <li value="1">
+                <p>Enable SSL in Apache.</p>
+                <p>If the Apache utility <code>a2enmod</code> is installed:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo a2enmod ssl</b></pre>
+                <p>Without the <code>a2enmod</code> utility, edit the Apache configuration file by hand. Locate your Apache configuration file for modules and either uncomment or add the following lines:</p><pre class="programlisting" lang="apache">LoadModule  ssl_module  libexec/apache2/mod_ssl.so</pre>
+            </li>
+            <li value="2">
+                <p>Create a directory to store certificates.</p><pre class="programlisting" xml:space="preserve">$ <b>sudo mkdir -p /etc/apache2/ssl</b></pre>
+            </li>
+            <li value="3">
+                <p>Create a certificate/key pair.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>cd /etc/apache2/ssl</b><br /><span style="font-weight: normal;">$</span> <b>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout apache.key -out apache</b>.crt</pre>
+                <p>This command generates a private key and a certificate. To form the certificate, <code>openssl</code> prompts you for several details:</p><pre class="screen" xml:space="preserve">Generating a 2048 bit RSA private key
+...................+++
+....................................+++
+writing new private key to 'apache.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:<i>CA</i>
+State or Province Name (full name) [Some-State]:<i>British Columbia</i>
+Locality Name (eg, city) []:<i>Victoria</i>
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:<i>Perforce Software</i>
+Organizational Unit Name (eg, section) []:<i>Swarm development team</i>
+Common Name (e.g. server FQDN or YOUR name) []:<i>myswarm.host</i>
+Email Address []:<i>admin@myswarm.host</i></pre>
+                <p>The output above includes some example details. You should replace anything in italics with your own details. Since the certificate request details that can help users determine whether your certificate is valid, enter legitimate information whenever possible.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>The Common Name field must match the hostname for your Swarm installation exactly.</p>
+                </div>
+            </li>
+            <li value="4">
+                <p>Secure the certificate directory.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo chmod 600 /etc/apache2/ssl</b></pre>
+            </li>
+            <li value="5">
+                <p>Edit the virtual host configuration.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The virtual host configuration should be in the file you <a href="#setup.post.backup">backed up initially</a>.</p>
+                </div>
+                <ul>
+                    <li value="1">For Apache 2.2, edit the virtual host configuration to match:<pre class="programlisting" lang="apache" xml:space="preserve">
+&lt;VirtualHost *:80&gt;
+	ServerName <i>myswarm.host</i>
+	ServerAlias <i>myswarm</i>
+	ErrorLog "<i>/path/to/apache/logs/myswarm</i>.error_log"
+	CustomLog "<i>/path/to/apache/logs/myswarm</i>.access_log" common
+	DocumentRoot "<i>/path/to/swarm/</i>public"
+	&lt;Directory "<i>/path/to/swarm/</i>public"&gt;
+		AllowOverride All
+		Require all granted
+	&lt;/Directory&gt;
+
+	Redirect permanent / https://<i>myswarm.host</i>
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:443&gt;
+	SSLEngine on
+	SSLCertificateFile /etc/apache2/ssl/apache.crt
+	SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+
+	ServerName <i>myswarm.host</i>
+	ServerAlias <i>myswarm</i>
+	ErrorLog "/<i>path/to/apache/logs/myswarm</i>.error_log"
+	CustomLog "<i>/path/to/apache/logs/myswarm</i>.access_log" common
+	DocumentRoot "<i>/path/to/swarm/</i>public"
+	&lt;Directory "<i>/path/to/swarm/</i>public"&gt;
+		AllowOverride All
+		Order allow,deny
+		Allow from all
+	&lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre></li>
+                    <li value="2">
+                        <p>For Apache 2.4, edit the virtual host configuration to match:</p><pre class="programlisting" lang="apache" xml:space="preserve">
+&lt;VirtualHost *:80&gt;
+	ServerName <i>myswarm</i>
+	ServerAlias <i>myswarm.host</i>
+	ErrorLog "<i>/path/to/apache/logs/myswarm</i>.error_log"
+	CustomLog "<i>/path/to/apache/logs/myswarm</i>.access_log" common
+	DocumentRoot "<i>/path/to/swarm/</i>public"
+	&lt;Directory "<i>/path/to/swarm/</i>public"&gt;
+		AllowOverride All
+		Require all granted
+	&lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+&lt;VirtualHost *:443&gt;
+	SSLEngine on
+	SSLCertificateFile /etc/apache2/ssl/apache.crt
+	SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+
+	ServerName <i>myswarm.host</i>
+	ServerAlias <i>myswarm</i>
+	ErrorLog "<i>/path/to/apache/logs/myswarm</i>.error_log"
+	CustomLog "<i>/path/to/apache/logs/myswarm</i>.access_log" common
+	DocumentRoot "<i>/path/to/swarm/</i>public"
+	&lt;Directory "<i>/path/to/swarm/</i>public"&gt;
+		AllowOverride All
+		Require all granted
+	&lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre>
+                    </li>
+                </ul>
+                <p>See Apache's virtual host documentation for details:<br /><a href="https://httpd.apache.org/docs/2.2/vhosts/" target="_blank">https://httpd.apache.org/docs/2.2/vhosts/</a><br /><a href="https://httpd.apache.org/docs/2.4/vhosts/" target="_blank">https://httpd.apache.org/docs/2.4/vhosts/</a></p>
+            </li>
+            <li value="6">
+                <p>Customize the virtual host definition.</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Replace <code style="font-style: italic;">myswarm.host</code> with the hostname for Swarm on your network.</li>
+                    <li value="2">
+                        <p>Replace <code style="font-style: italic;">myswarm</code> with the name of the subdomain hosting Swarm. Many administrators choose swarm.</p>
+                        <p>Note the string myswarm in the log file paths: this should match the subdomain name and prefix for the log files, to help coordinate the active host with the log files for that host. Doing this is particularly useful when your Apache server hosts multiple instances of Swarm.</p>
+                    </li>
+                    <li value="3">Replace <code style="font-style: italic;">/path/to/apache/logs</code> with the path where your Apache store its log files. Apache's log files are typically named <code>access_log</code> and <code>error_log</code>.</li>
+                    <li value="4">Replace <code style="font-style: italic;">/path/to/swarm</code> with the path to the Swarm directory.</li>
+                </ol>
+            </li>
+            <li value="7">
+                <p>Restart your web server.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo apachectl restart</b></pre>
+            </li>
+            <li value="8">
+                <p>Adjust your firewall configuration to allow connections to the standard SSL port for web servers.</p>
+                <ul>
+                    <li value="1">
+                        <p>For CentOS/RHEL 6.6+:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo lokkit -p 443:tcp</b></pre>
+                    </li>
+                    <li value="2">
+                        <p>For CentOS/RHEL 7+:</p><pre class="programlisting"><span style="font-weight: normal;">$</span><b>sudo firewall-cmd --zone=public --add-port=443/tcp --permanent</b><br /><span style="font-weight: normal;">$</span><b>sudo systemctl reload firewalld</b></pre>
+                    </li>
+                    <li value="3">For other distributions, consult with your network administrator or operating system documentation to determine how to adjust your firewall configuration.</li>
+                </ul>
+            </li>
+            <li value="9">
+                <p>Test your HTTPS URL from a web browser.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If the <code class="code_clearBackground" style="font-style: italic;">myswarm.host</code> value in the virtual host configuration and the certificate do not match, the <span class="PerforceP4V">P4V</span> integration with Swarm fails with the message <code class="code_clearBackground">SSL handshake failed</code>.</p>
+                    <p>Also, when a reverse DNS lookup is performed, <code class="code_clearBackground">myswarm.host</code> should be the answer when querying for the Swarm server's IP address.</p>
+                </div>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Run_Swarm_in_a_sub-folder_of_an_existing_web_site" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.subfolder"></a>Run Swarm in a sub-folder of an existing web site</h2>
+        <p>If you cannot run Swarm in its own virtual host, which might be necessary when you do not control the hostname to be used with Swarm, installing Swarm in a sub-folder of an existing virtual host configuration can be a good solution.</p>
+        <p>Installing Swarm in a sub-folder requires modification of the previous installation steps covered in this chapter:</p>
+        <ul>
+            <li value="1">The <a href="setup.apache.html" class="MCXref xref">Apache configuration</a> is entirely different; instead of establishing a new virtual host, you need <a href="#setup.post.subfolder.apache">to modify an existing virtual host configuration</a>. Often, this would be Apache's default site.</li>
+            <li value="2"><a href="setup.swarm.html">Swarm's configuration file</a> requires an <a href="#setup.post.subfolder.swarm">extra item</a>.</li>
+        </ul>
+        <p>The following sections cover the specifics of sub-folder installation.</p>
+        <p>See <a href="admin.environment.html#admin.environment.base_url" class="MCXref xref">base_url</a> for more details.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If you used the <a href="setup.ova.html">Swarm OVA</a> or <a href="setup.packages.html" class="MCXref xref">Swarm packages</a> to install Swarm, you can adjust Swarm's configuration using the package configuration script <code class="code_clearBackground">/opt/perforce/swarm/sbin/configure-swarm.sh</code>.</p>
+            <p><code class="code_clearBackground">configure-swarm.sh</code> does not read any existing Swarm configuration; you must provide all of the configuration details each time you execute <code class="code_clearBackground">configure-swarm.sh</code>:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo /opt/perforce/swarm/sbin/configure-swarm.sh -n -p myp4host:1666 -u swarm -w password -e mx.example.com -H myhost -B /swarm</pre>
+            <p>In the example above, the <code class="code_clearBackground">-B </code>option is used to specify the name of the sub-folder.</p>
+            <p>If you use <code class="code_clearBackground">configure-swarm.sh</code> to adjust the Swarm configuration, you only need to follow the <a href="#setup.post.subfolder.apache" class="MCXref xref">Apache configuration</a> steps described below; all of the changes listed in the <a href="#setup.post.subfolder.swarm" class="MCXref xref">Swarm configuration</a> section below have been completed by <code class="code_clearBackground">configure-swarm.sh</code>.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Apache_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.subfolder.apache"></a>Apache configuration</h3>
+        <ol>
+            <li value="1">
+                <p>Ensure that the <a href="admin.swarm_root.html"><code class="code_clearBackground" style="font-style: italic;">SWARM_ROOT</code></a> is not within the document root of the intended virtual host.</p>
+                <p>This step ensures that Swarm's source code and configuration is impossible to browse, preventing access to important details such as stored credentials, and active sessions and workspaces.</p>
+            </li>
+            <li value="2">
+                <p>Adjust the virtual host configuration that you are already using.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>Depending on the method used to install Swarm, the filename for virtual host configuration you need to edit is:</p>
+                    <ul>
+                        <li value="1">For <a href="setup.ova.html">Swarm OVA</a> or <a href="setup.packages.html">Swarm package</a> installations, edit <code class="code_clearBackground">perforce-swarm-site.conf</code>.</li>
+                        <li value="2">For manual installations following Swarm's recommended <a href="setup.apache.html" class="MCXref xref">Apache configuration</a> edit <code class="code_clearBackground">swarm</code>.</li>
+                        <li value="3">For other installations, you may have to edit <code class="code_clearBackground">httpd.conf</code> or nearby files.</li>
+                    </ul>
+                </div>
+                <ul>
+                    <li value="1">
+                        <p>For Apache 2.2, add the following lines to the virtual host definition:</p><pre class="programlisting" lang="apache" xml:space="preserve">Alias /<i>swarm SWARM_ROOT</i>/public<br /><br />&lt;Directory "<i>SWARM_ROO</i>T/public"&gt;<br />  AllowOverride All<br />  Order allow,deny<br />  Allow from All<br />&lt;/Directory&gt;</pre>
+                    </li>
+                    <li value="2">
+                        <p>For Apache 2.4, add the following lines to the virtual host definition:</p><pre class="programlisting" lang="apache" xml:space="preserve">Alias /swarm SWARM_ROOT/public
+&lt;Directory "SWARM_ROOT/public"&gt;
+AllowOverride All
+Require all granted
+&lt;/Directory&gt;</pre>
+                    </li>
+                </ul>
+                <p>The <code class="code_clearBackground">Alias</code> line configures Apache to respond to requests to <code class="code_clearBackground">https://myhost/swarm</code> with content from Swarm's <code class="code_clearBackground">public</code> folder. You can change the <code class="code_clearBackground">/swarm</code> portion of the Alias line to anything you want.</p>
+                <p>The <code class="code_clearBackground">&lt;Directory&gt;</code> block grants access to everything within Swarm's <code class="code_clearBackground">public</code> folder. Replace <code class="code_clearBackground">SWARM_ROOT</code> with the actual path to Swarm.</p>
+            </li>
+            <li value="3">
+                <p>Restart your web server.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo apachectl restart</b></pre>
+            </li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Swarm_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.subfolder.swarm"></a>Swarm configuration</h3>
+        <p>To successfully operate within a sub-folder, the <code class="code_clearBackground"><a href="admin.swarm_root.html" class="MCXref xref">swarm_root</a>/data/config.php</code> file needs to be adjusted to contain the following lines (as a peer of the p4 item):</p><pre class="programlisting" lang="php" xml:space="preserve">
+	'environment' =&gt; array(<br />		'base_url' =&gt; '/swarm'<br />	),</pre>
+        <p>Ensure that <code>/swarm</code> matches the first item in the <code>Alias</code> line in the virtual host configuration.</p>
+        <p>See <a href="admin.environment.html" class="MCXref xref">Environment</a> for more details.</p>
+        <h3 data-mc-autonum=""><a name="Cron_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.subfolder.cron"></a>Cron configuration</h3>
+        <p>Swarm's <a href="setup.worker.html">recurring task</a> configuration must be updated to reflect the sub-folder that you have configured in <a href="#setup.post.subfolder.apache">Apache's</a> and <a href="#setup.post.subfolder.swarm">Swarm's</a> configurations.</p>
+        <ol>
+            <li value="1">Edit <code>/etc/cron.d/helix-swarm</code>.</li>
+            <li value="2">
+                <p>Replace:</p><pre class="screen">https://<i>myswarm.url</i>/queue/worker</pre>
+                <p>with:</p><pre class="screen">https://<i>myswarm.url</i>/<i>swarm</i>/queue/worker</pre>
+                <p>Where <code style="font-style: italic;">myswarm.url</code> is the hostname of your Swarm installation, and <code style="font-style: italic;">swarm</code> is the sub-folder you wish to use.</p>
+            </li>
+            <li value="3">
+                <p>Save the edited file.</p>
+                <p>New workers should be started at the start of the next minute.</p>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Run_Swarm's_virtual_host_on_a_custom_port" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.port"></a>Run Swarm's virtual host on a custom port</h2>
+        <p>If you cannot run Swarm on port 80 (or port 443 for HTTPS), perhaps because you do not have root access, it is possible to run Swarm on a custom port.</p>
+        <p>Installing Swarm to use a custom port requires modification of the previous installation steps covered in this chapter: The <a href="setup.apache.html">Apache configuration</a> is slightly different, requiring <a href="#setup.post.port.apache">modification of Swarm's virtual host definition</a>.</p>
+        <p>The following section covers the specifics of the custom port configuration.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>In addition to the following instructions, you may also need to apply the <code class="code_clearBackground">external_url</code> item described in the <a href="admin.environment.html" class="MCXref xref">Environment</a> section if your Swarm is behind a proxy, or you have multiple Swarm instances connected to <span class="PerforceHVE short">Helix server</span>.</p>
+        </div>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If you used the <a href="setup.ova.html">Swarm OVA</a> or <a href="setup.packages.html" class="MCXref xref">Swarm packages</a> to install Swarm, you can adjust Swarm's configuration using the package configuration script <code class="code_clearBackground">/opt/perforce/swarm/sbin/configure-swarm.sh</code>.</p>
+            <p><code class="code_clearBackground">configure-swarm.sh</code> does not read any existing Swarm configuration; you must provide all of the configuration details each time you execute <code class="code_clearBackground">configure-swarm.sh</code>:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo /opt/perforce/swarm/sbin/configure-swarm.sh -n -p myp4host:1666 -u swarm -w password -e mx.example.com -H myhost -P 8080</b></pre>
+            <p>In the example above, the <code class="code_clearBackground">-P</code> option is used to specify the custom port that Swarm should use.</p>
+            <p>If you use <code class="code_clearBackground">configure-swarm.sh</code> to adjust Swarm's configuration, follow the additional steps that it describes. Once those steps are complete, do not perform any of the steps described below.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Apache_configuration_..109" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.port.apache"></a>Apache configuration</h3>
+        <ol>
+            <li value="1">
+                <p>Edit the virtual host configuration.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>Depending on the method used to install Swarm, the filename for virtual host configuration you need to edit is:</p>
+                    <ul>
+                        <li value="1">For <a href="setup.ova.html">Swarm OVA</a> or <a href="setup.packages.html">Swarm package</a> installations, edit <code class="code_clearBackground">perforce-swarm-site.conf</code>.</li>
+                        <li value="2">For manual installations following Swarm's <a href="setup.apache.html">recommended Apache configuration</a>, edit <code class="code_clearBackground">swarm</code>.</li>
+                        <li value="3">For other installations, you may have to edit <code class="code_clearBackground">httpd.conf </code>or nearby files.</li>
+                    </ul>
+                </div>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">
+                        <p>Add the following line <i>outside</i> of the <code>&lt;VirtualHost&gt;</code> block:</p><pre class="programlisting" lang="apache">Listen <i>8080</i></pre>
+                    </li>
+                    <li value="2">
+                        <p>Edit the <code>&lt;VirtualHost *:80&gt;</code> line to read:</p><pre class="programlisting" lang="apache">&lt;VirtualHost *:<i>8080</i>&gt;</pre>
+                    </li>
+                </ol>
+                <p>For both lines, replace <code style="font-style: italic;">8080</code> with the custom port you wish to use.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If you choose a port that is already in use, Apache refuses to start.</p>
+                </div>
+            </li>
+            <li value="2">
+                <p>Restart your web server.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo apachectl restart</b></pre>
+            </li>
+            <li value="3">
+                <p>Adjust your firewall configuration to allow connections to the custom port.</p>
+                <ul>
+                    <li value="1">
+                        <p>For CentOS/RHEL 6.6+:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo lokkit -p </b><i style="font-weight: bold;">8080</i><b>:tcp</b></pre>
+                        <p>Replace <code style="font-style: italic;">8080</code> with the custom port you wish to use.</p>
+                    </li>
+                    <li value="2">
+                        <p>For CentOS/RHEL 7+:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent<br /><span style="font-weight: normal;">$</span> <b>sudo systemctl reload firewalld</b></pre>
+                        <p>Replace <code style="font-style: italic;">8080</code> with the custom port you wish to use.</p>
+                    </li>
+                    <li value="3">For other distributions, consult with your network administrator or operating system documentation to determine how to just your firewall configuration.</li>
+                </ul>
+            </li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Cron_configuration_..110" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.post.port.cron"></a>Cron configuration</h3>
+        <p>Swarm's <a href="setup.worker.html">recurring task</a> configuration must be updated to reflect the custom port that you have configured in <a href="#setup.post.port.apache">Apache's</a> configuration.</p>
+        <ol>
+            <li value="1">Edit <code>/etc/cron.d/helix-swarm</code>.</li>
+            <li value="2">
+                <p>Replace:</p><pre class="screen">https://<i>myswarm.url</i>/queue/worker</pre>
+                <p>with:</p><pre class="screen">https://<i>myswarm.url:8080</i>/queue/worker</pre>
+                <p>Where <code style="font-style: italic;">myswarm.url</code> is the hostname of your Swarm installation, and <code style="font-style: italic;">8080</code> is the custom port you wish to use.</p>
+            </li>
+            <li value="3">
+                <p>Save the edited file.</p>
+                <p>New workers should be started at the start of the next minute.</p>
+            </li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

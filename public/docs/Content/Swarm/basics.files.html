@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Files</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.files.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Files" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Files</h1>
+        <p><span class="PerforceHVE short">Helix server</span>'s primary task is to version files, so <span class="PerforceSwarm short">Swarm</span> makes it easy to browse the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">depot<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A depot is a top-level unit of storage for versioned files within a Perforce server.</span></a>. Start browsing by clicking the <b>Files</b> link in the top toolbar.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-files.png" title="Files Browse tab" alt="Files Browse tab image" />
+        </div>
+        <ul>
+            <li value="1">
+                <p><span class="PerforceSwarm short">Swarm</span> displays a list of breadcrumb links to help you quickly navigate to higher level directories quickly. </p>
+                <p> <img src="../Resources/Images/swarm-thumb-breadcrumbs.png" title="File breadcrumbs" alt="File breadcrumb image" /></p>
+            </li>
+            <li value="2">Links with folder icons represent directories of files within the depot. Click a directory link  <img src="../Resources/Images/swarm-icon-folder.png" title="Folder icon" alt="Folder icon image" /> to display the contents of that directory.</li>
+            <li value="3">Click the .. link with the up-arrow icon <img src="../Resources/Images/swarm-icon-folder-parent.png" title="Parent folder icon" alt="Parent folder icon image" />, when it appears, to navigate to the current directory's parent.</li>
+            <li value="4">Links with dog-eared page icons <img src="../Resources/Images/swarm-icon-file.png" title="File icon" alt="File icon image" /> represent individual files within the depot. See <a href="#basics.files.display" title="File display" alt="File display" class="MCXref xref">File display</a> for more information.</li>
+            <li value="5">
+                <p>Click the <b>Commits</b> tab to display the list of changes made to files in the current directory, or any directories it contains. See <a href="basics.commits.html" title="Commits" alt="Commits" class="MCXref xref">Commits</a> for more information.</p>
+                <div class="img">
+                    <img src="../Resources/Images/swarm-tabs-history-files.png" title="Commits tab" alt="Commits tab image" />
+                </div>
+            </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> creates links for files and directories wherever they appear in the <span class="PerforceSwarm short">Swarm</span> UI.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Directories that start with a period, for example .git-fusion, are sorted to appear at the end of the list of directories. The .. link, when it appears, always appears first.</p>
+            <p>Similarly, files that start with a period, for example .htaccess, are sorted to appear at the end of the list of files.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Downloading_files_as_ZIP_archive" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.zip"></a>Downloading files as ZIP archive</h2>
+        <p>When the <code>zip</code> command-line tool is available, <span class="PerforceSwarm short">Swarm</span> can provide a ZIP archive for a file or folder within the <span class="PerforceHVE short">Helix server</span>. This makes it easy to get a copy of files without having to setup a client.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The Download .zip button does not appear if the <code class="code_clearBackground">zip</code> command-line tool is not available.</p>
+        </div>
+        <p>When you click the <b>Download .zip</b> button, <span class="PerforceSwarm short">Swarm</span> performs the following steps:</p>
+        <ol>
+            <li value="1">Scan the selected file/folder, to determine if you have permission to access the contents (according to the <span class="PerforceHVE short">Helix server</span> protections), and if the file/folder is small enough to be processed by <span class="PerforceSwarm short">Swarm</span>.</li>
+            <li value="2">Sync the file/folder contents to the <span class="PerforceSwarm short">Swarm</span> server from the <span class="PerforceHVE short">Helix server</span>.</li>
+            <li value="3">Create the ZIP archive by compressing the file content.</li>
+            <li value="4">Start a download of the generated ZIP archive.</li>
+        </ol>
+        <p>You might not see all of the above steps; <span class="PerforceSwarm short">Swarm</span> caches the resulting ZIP archives so that repeated requests to the same file/folder can skip the sync/compress steps whenever possible.</p>
+        <p>If an error occurs while scanning, syncing, or compressing, <span class="PerforceSwarm short">Swarm</span> indicates the error.</p>
+        <p>For information on the configuration for ZIP archives, see <a href="admin.archives.html" title="Archives configuration" alt="Archives configuration" class="MCXref xref">Archives configuration</a>.</p>
+        <h2 data-mc-autonum=""><a name="Browsing_deleted_files_and_folders" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.browse_deleted"></a>Browsing deleted files and folders</h2>
+        <p>When the <b>Show Deleted Files</b> button is clicked, <span class="PerforceSwarm short">Swarm</span> toggles the inclusion of deleted folders and files in the file display.</p>
+        <p>Deleted folders and files are presented slightly muted compared to non-deleted entries.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-deleted_folder_and_file.png" title="Deleted folders and files" alt="Deleted folders and files image" />
+        </div>
+        <h2 data-mc-autonum=""><a name="File_display" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.display"></a>File display</h2>
+        <p>When <span class="PerforceSwarm short">Swarm</span> is asked to display a file, if the file is a type that <span class="PerforceSwarm short">Swarm</span> can display, <span class="PerforceSwarm short">Swarm</span> presents the file's contents. Clicking the <b>Open</b> button displays the file content with no surrounding page markup. Clicking the <b>Download</b> button causes the file to be downloaded.</p>
+        <p>When a file is opened it will by default be truncated to 1 MB in size. This limit can be increased (or removed) via the <span class="PerforceSwarm short">Swarm</span> configurables. See <a href="admin.files.html" title="Files configuration" alt="Files configuration">Files configuration</a> for details. This limit does not apply to downloaded files.</p>
+        <p>Along with the file's name, <span class="PerforceSwarm short">Swarm</span> displays the version number for the currently displayed file. For example, this heading indicates that version 2 of <code class="code_clearBackground">logo-lg.png</code> is being displayed: </p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-file_versions.png" title="Version 2 of logo-lg.png" alt="" />
+        </div>
+        <p>Every version of a file is available on the <b><a href="basics.commits.html" style="font-weight: bold;" title="Commits" alt="Commits">Commits</a></b> tab.</p>
+        <p>If the version of a file being previewed has been deleted, the version number appears in red:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-file_versions-deleted.png" title="A deleted version number" alt="" />
+        </div>
+        <h3 data-mc-autonum=""><a name="Text_files" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.text-files"></a>Text files</h3>
+        <p><span class="PerforceSwarm short">Swarm</span> displays the contents of text files (including the <span class="PerforceHelix short">Helix Core</span> filetypes unicode and UTF16) with line numbers. When possible, syntax highlighting is applied to make identification of various elements within the file easier. </p>
+        <p>For more information on <span class="PerforceHelix short">Helix Core</span> filetypes, see <a href="https://www.perforce.com/perforce/doc.current/manuals/cmdref/index.html#CmdRef/file.types.html" target="_blank" title="Link to File Types in P4 Command Reference" alt="Link to File Types in P4 Command Reference">File Types</a> in <a href="http://www.perforce.com/perforce/doc.current/manuals/cmdref/index.html" target="_blank"><i><span class="Perforcegd-cmdref">P4 Command Reference</span></i></a>.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-file-display.png" title="A displayed text file" alt="Example text file image" />
+        </div>
+        <p>Click <b>Blame</b> to add a column to the display that identifies the userid responsible for each line of the file.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-file-display-blame.png" title="A displayed text file with blame" alt="Example text file with blame image" />
+        </div>
+        <p>Each userid presented is a link that, when clicked, displays the changelist that provided the associated text. Muted userids indicate that the associated text is from the same changelist as the line above. For example, the userid <i>allison.c</i> is responsible for lines 1, 10, and 12 in the screenshot above.</p>
+        <p>When you hover your pointer over a userid in the blame column, a tooltip appears displaying the associated changelist description.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-blame-changelist.png" title="The changelist associated with the current line" alt="" />
+        </div>
+        <p>When there are no lines displayed, for example when you are viewing empty or shelved files, the <b>Blame</b> button is disabled.</p>
+        <h3 data-mc-autonum=""><a name="Images" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.images"></a>Images</h3>
+        <p><span class="PerforceSwarm short">Swarm</span> displays web-safe images. </p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-file-display-image.png" title="A displayed image" alt="Image of an example image" />
+        </div>
+        <p>The checkerboard background in this example is not part of the logo; it helps identify where transparency exists.</p>
+        <p>Many browsers can display SVG images with no additional plugins, so <span class="PerforceSwarm short">Swarm</span> attempts to display SVG images rather than displaying the image's definition. When you use a browser that cannot natively display SVG images, you see the broken image icon.</p>
+        <p>When imagick (an optional module that integrates ImageMagick into PHP) is installed, <span class="PerforceSwarm short">Swarm</span> can also display the following image formats: BMP, EPS, PSD, TGA, TIFF.</p>
+        <h3 data-mc-autonum=""><a name="3D_models" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.3d"></a>3D models</h3>
+        <p><span class="PerforceSwarm short">Swarm</span> 2014.1 includes support for displaying select 3D model file types in the browser: </p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-3d_model.png" title="A 3D model rendered in Swarm" alt="Image of a 3D model rendered in Swarm" />
+        </div>
+        <p>Supported file types include:</p>
+        <ul>
+            <li value="1"><b>DAE</b> - including any referenced web-safe texture images.</li>
+            <li value="2"><b>STL</b> - both binary and ASCII versions of the format.</li>
+            <li value="3"><b>OBJ</b> - including any referenced MTL files, and web-safe texture images.</li>
+        </ul>
+        <p>When <span class="PerforceSwarm short">Swarm</span> can display a 3D model, it renders a generic grid <i>stage</i> and places the model in the center, scaled to make viewing straightforward. A toggle control appears in the top right: when enabled, you can control the view with the mouse, and when not enabled, permits auto-rotation to occur (when possible).</p>
+        <ol>
+            <li value="1">Click and hold the <b>left mouse button</b> to begin rotating the view. Drag while holding the left mouse button to rotate the view.</li>
+            <li value="2">Click and hold the <b>right mouse button</b> to begin panning the view. Drag while holding the right mouse button to pan the view.</li>
+            <li value="3">Roll the <b>mouse wheel</b> up or down to adjust the magnification of the view.</li>
+        </ol>
+        <p>When possible, a second control appears allowing you to toggle between showing the model with surfaces, or just showing the model's wireframe.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>For systems with hardware acceleration, if your browser supports WebGL and hardware acceleration is enabled, <span class="PerforceSwarm short">Swarm</span> renders the model and enables auto-rotation.</p>
+            <p>For systems without hardware acceleration or WebGL, but your browser supports HTML5 canvas elements and JavaScript TypedArrays, <span class="PerforceSwarm short">Swarm</span> renders the model but auto-rotation is disabled. Rendering is likely to be slow and rendering quality is likely to be low.</p>
+            <p>For browsers without HTML5 canvas elements and JavaScript TypedArrays, no rendering is attempted; instead, users see a message indicating that the browser is not supported.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Other_file_types" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.files.other-file-types"></a>Other file types</h3>
+        <p>It is possible to view other file types in <span class="PerforceSwarm short">Swarm</span>, through the addition of additional modules, or by installing <a href="integrations.libreoffice.html" title="LibreOffice" alt="LibreOffice" class="MCXref xref">LibreOffice</a> on the <span class="PerforceSwarm short">Swarm</span> host.</p>
+        <p>When the file is a type that <span class="PerforceSwarm short">Swarm</span> cannot display, <span class="PerforceSwarm short">Swarm</span> presents the file's <a href="basics.commits.html" title="History" alt="History">history</a>, along with the <b>Download</b> button.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-file-no_display.png" title="A file that cannot be displayed" alt="Image of a file that cannot be displayed" />
+        </div>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

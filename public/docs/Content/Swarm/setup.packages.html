@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Swarm packages</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.packages.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Swarm_packages" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><span class="PerforceSwarm short">Swarm</span> packages</h1>
+        <p><span class="PerforceSwarm long">Helix Swarm</span> is available in two distribution package formats: <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">
+			Debian<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Debian GNU/Linux is a distribution of the Linux operation system produced by the Debian Project.
+Debian is also the casual name of the software packaging system used by the Debian GNU/Linux, and its variants such as Ubuntu Linux.</span></a> (<code class="code_clearBackground">.deb</code>) for Ubuntu systems and <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">
+			RPM<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>RPM Package Manager is a tool, and package format, for managing the installation, updates, and removal of software packages for Linux distributions such as Red Hat Enterprise Linux, the Fedora Project, and the CentOS Project.</span></a> (<code class="code_clearBackground">.rpm</code>) for CentOS and RedHat 
+		Enterprise Linux (RHEL).</p>
+        <p>Using distribution packages greatly simplifies the installation, updating, and removal of software, as the tools that manage these packages are aware of the
+		 dependencies for each package.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>The <span class="PerforceSwarm short">Swarm</span> packages have been thoroughly tested on Ubuntu 14.04 LTS and Ubuntu 16.04 LTS, and CentOS/RHEL 6.1-6.7, 
+			and CentOS/RHEL 7. While the packages should work on other compatible distributions, these have not been tested.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><span style="font-style: italic;" class="PerforceHVE long">Helix Versioning Engine</span> can refer to a <span class="PerforceHVE short">Helix server</span> 
+			machine (<code class="code_clearBackground">p4d</code>), proxy, broker, replica, edge server, or commit server. 
+				For simplicity, the term <span style="font-style: italic;" class="PerforceHVE short">Helix server</span> 
+				is used to refer to any configuration of a <span class="PerforceHVE long">Helix Versioning Engine</span> machine.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Installation_..112" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.packages.install"></a>Installation</h2>
+        <ol>
+            <li value="1">
+                <p>Configure the <span class="PerforceCompany short">Perforce</span> package repository, on the server to host <span class="PerforceSwarm short">Swarm</span> and on the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span>.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span> cannot use packages, for example when it is running Windows, skip this step on that server.</p>
+                </div>
+                <p>As root, run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu 14.04:</b>
+                        </p>
+                        <p>Create the file <code>/etc/apt/sources.list.d/perforce.list</code> with the following content:</p><pre class="screen">deb http://package.perforce.com/apt/ubuntu/ trusty release</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For Ubuntu 16.04:</b>
+                        </p>
+                        <p>Create the file <code>/etc/apt/sources.list.d/perforce.list</code> with the following content:</p><pre class="screen">deb http://package.perforce.com/apt/ubuntu/ xenial release</pre>
+                    </li>
+                    <li value="3">
+                        <p><b>For CentOS/RHEL 6:</b>
+                        </p>
+                        <p>Create the file <code>/etc/yum.repos.d/helix-swarm.repo</code> with the following content:</p><pre class="screen">[Perforce]<br />name=Perforce<br />baseurl=http://package.perforce.com/yum/rhel/6/x86_64/<br />enabled=1<br />gpgcheck=1</pre>
+                    </li>
+                    <li value="4">
+                        <p><b>For CentOS/RHEL 7:</b>
+                        </p>
+                        <p>Create the file <code>/etc/yum.repos.d/helix-swarm.repo</code> with the following content:</p><pre class="screen">[Perforce]<br />name=Perforce<br />baseurl=http://package.perforce.com/yum/rhel/7/x86_64/<br />enabled=1<br />gpgcheck=1</pre>
+                    </li>
+                </ul>
+            </li>
+            <li value="2">
+                <p>Import the <span class="PerforceCompany short">Perforce</span> package signing key, on the server to host <span class="PerforceSwarm short">Swarm</span> and the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span>.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If the server hosting your <span class="PerforceHVE short">Helix server</span> cannot use packages, for example when it is running Windows, skip this step on that server.</p>
+                </div>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>wget -qO - https://package.perforce.com/perforce.pubkey | sudo apt-key add -<br /><span style="font-weight: normal;">$ </span>sudo apt-get update</pre>
+                    </li>
+                    <li value="2">
+                        <p style="font-weight: bold;">For CentOS/RHEL (run this command as root):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>rpm --import https://package.perforce.com/perforce.pubkey</pre>
+                    </li>
+                </ul>
+                <p>For information about how to verify the authenticity of the signing key, see: <a href="https://www.perforce.com/perforce-packages" target="_blank">https://www.perforce.com/perforce-packages</a></p>
+            </li>
+            <li value="3">
+                <p>Install the main <span class="PerforceSwarm short">Swarm</span> package on the server to host <span class="PerforceSwarm short">Swarm</span>.</p>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get install helix-swarm</pre>
+                    </li>
+                    <li value="2">
+                        <p style="font-weight: bold;">For CentOS/RHEL (run this command as root):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum install helix-swarm</pre>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>For CentOS/RHEL, the firewall configuration may need to be adjusted to allow access to the web server.</p>
+                            <ul>
+                                <li value="1">
+                                    <p><b>For CentOS/RHEL 6.x:</b>
+                                    </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo lokkit -s http</pre>
+                                    <p>If you subsequently wish to enable HTTPS, run (as root):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo lokkit -s https</pre>
+                                </li>
+                                <li value="2">
+                                    <p><b>For CentOS/RHEL 7.x:</b>
+                                    </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo firewall-cmd --permanent --add-service=http<br /><span style="font-weight: normal;">$</span> sudo systemctl reload firewalld</pre>
+                                    <p>If you subsequently wish to enable HTTPS, run (as root):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo firewall-cmd --permanent --add-service=https<br /><span style="font-weight: normal;">$</span> sudo systemctl reload firewalld</pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li value="4">
+                <p>Install the <span class="PerforceSwarm short">Swarm</span> triggers package on the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span>.</p>
+                <p>Install this package on the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span>, which may be the same server that is hosting <span class="PerforceSwarm short">Swarm</span>, or elsewhere on your network.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If the server hosting your <span class="PerforceHVE short">Helix server</span> cannot use packages, for example when it is running Windows, you need to copy the appropriate <span class="PerforceSwarm short">Swarm</span> trigger script from <code class="code_clearBackground">/opt/perforce/swarm/p4-bin/scripts</code> to the server hosting your <span class="PerforceHVE short">Helix server</span>. The <code class="code_clearBackground">swarm-trigger.pl</code> is for both Linux and Windows systems. Once copied, the trigger script needs to be configured. See <a href="setup.perforce.html" class="MCXref xref">Helix Core configuration for Swarm</a> for details.</p>
+                </div>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get install helix-swarm-triggers</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For CentOS/RHEL (run this command as root):</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>yum install helix-swarm-triggers</pre>
+                    </li>
+                </ul>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>The package installs a config file at <code class="code_clearBackground">/opt/perforce/etc/swarm-trigger.conf</code> 
+					that you will need to modify. See <a href="setup.perforce.html" class="MCXref xref">Helix Core configuration for Swarm</a> for more details on configuring that file.</p>
+                </div>
+            </li>
+            <li value="5">
+                <p>Optional: Install the <span class="PerforceSwarm short">Swarm</span> optional package, on the server hosting <span class="PerforceSwarm short">Swarm</span>.</p>
+                <p>While not required, installing this package installs the dependencies required to use the Imagick and LibreOffice <span class="PerforceSwarm short">Swarm</span> modules. These modules provide previews of a variety of image and office documents.</p>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get install helix-swarm-optional</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For CentOS/RHEL (run this command as root):</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum install helix-swarm-optional</pre>
+                        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                            <p>This package depends on the package <code class="code_clearBackground">php-pecl-imagick</code> which 
+							is available from the EPEL project. In order to install packages from EPEL, you will need to add the
+								 EPEL repository and accept its signing key. Instructions are available 
+								at: <a href="https://fedoraproject.org/wiki/EPEL" target="_blank">https://fedoraproject.org/wiki/EPEL</a></p>
+                        </div>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>Installation of this package also installs <a href="setup.php.html#setup.php.apc">APC</a> for CentOS/RHEL 6, or <a href="setup.php.html#setup.php.zendopcache">Zend OPCache</a> for CentOS/RHEL 7.</p>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li style="color: #000000;" value="6"><span style="color: #000000;">Complete the </span><a href="#setup.packages.configure" class="MCXref xref">Post-installation configuration</a><span style="color: #000000;"> steps.</span>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Updating" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.packages.updating"></a>Updating</h2>
+        <p>See  <a href="setup.upgrade.html#setup.upgrade.update_package" class="MCXref xref">Update a Swarm package installation</a> for details. </p>
+        <h2 data-mc-autonum=""><a name="Uninstall" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.packages.uninstall"></a>Uninstall</h2>
+        <ol>
+            <li value="1">Remove the <span class="PerforceSwarm short">Swarm</span> triggers from your <span class="PerforceHVE short">Helix server</span>.</li>
+            <li value="2">
+                <p>Remove the <span class="PerforceSwarm short">Swarm</span> trigger scripts from the server hosting your <span class="PerforceHVE short">Helix server</span>.</p>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If you manually installed the trigger script, perhaps because the server hosting your <span class="PerforceHVE short">Helix server</span> cannot use packages (e.g. Windows), manually remove the script. <code class="code_clearBackground">swarm-trigger.pl</code> is for Linux systems. <code class="code_clearBackground">swarm-trigger.vbs</code> is for Windows systems.</p>
+                </div>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get remove helix-swarm-triggers</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For CentOS/RHEL (run this command as root):</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum remove helix-swarm-triggers</pre>
+                    </li>
+                </ul>
+            </li>
+            <li value="3">
+                <p>Remove the <span class="PerforceSwarm short">Swarm</span> packages from the server hosting <span class="PerforceSwarm short">Swarm</span>.</p>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get remove helix-swarm</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For CentOS/RHEL (run this command as root):</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum remove helix-swarm</pre>
+                    </li>
+                </ul>
+            </li>
+            <li value="4">
+                <p>If you installed the optional package, remove it from the server hosting <span class="PerforceSwarm short">Swarm</span>.</p>
+                <p>Run one of the following:</p>
+                <ul>
+                    <li value="1">
+                        <p><b>For Ubuntu:</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get remove helix-swarm-optional</pre>
+                    </li>
+                    <li value="2">
+                        <p><b>For CentOS/RHEL (run this command as root):</b>
+                        </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum remove helix-swarm-optional</pre>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Post-installation_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.packages.configure"></a>Post-installation configuration</h2>
+        <p>Once the helix-swarm package has been installed, additional configuration is required. Perform the following steps:</p>
+        <ol>
+            <li value="1">
+                <p>Use the <span class="PerforceSwarm short">Swarm</span> configuration script to setup <span class="PerforceSwarm short">Swarm</span>, on the server hosting <span class="PerforceSwarm short">Swarm</span>.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The <span class="PerforceSwarm short">Swarm</span> configuration script can be used in a few different ways. The steps below outline the most straightforward configuration using an interactive install, but you can review the options by running:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo /opt/perforce/swarm/sbin/configure-swarm.sh -h</pre>
+                </div>
+                <p>Run an interactive install:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo /opt/perforce/swarm/sbin/configure-swarm.sh</pre>
+                <p>The configuration script displays the following summary:</p><pre class="screen">------------------------------------------------------------<br />configure-swarm.sh: Thu Aug 25 11:29:49 PDT 2016: commencing configuration of Swarm<br />Summary of arguments passed:<br />Interactive?       [yes]<br />Force?             [no]<br />P4PORT             [(not specified)]<br />Swarm user         [(not specified, will suggest swarm)]<br />Swarm password     [(not specified)]<br />Email host         [(not specified)]<br />Swarm host         [(not specified, will suggest myhost)]<br />Swarm port         [80]<br />Swarm base URL     [(default (empty))]<br />Create Swarm user? [no]<br />Super user         [(not specified)] * not needed<br />Super password     [(not specified)] * not needed</pre>
+            </li>
+            <li value="2">
+                <p>Provide information to the configuration script.</p>
+                <p>After the summary, the configuration script prompts for the following information:</p>
+                <ol>
+                    <li value="1">
+                        <p>Specify a value for <code>P4PORT</code>.
+							</p><pre class="screen">No P4PORT specified<br /><br /><span class="PerforceSwarm short">Swarm</span> requires a connection to a <span class="PerforceHVE long">Helix Versioning Engine</span>.
+Please supply the P4PORT to connect to.<br /><br /><span class="PerforceHVE long">Helix Versioning Engine</span> address (P4PORT):</pre>
+                        <p>Specify the hostname and port for your <span class="PerforceHVE short">Helix server</span>. If defined, the value for P4PORT is used as the default. The configuration script verifies that it can connect:</p><pre class="screen" xml:space="preserve">-response: [<i>myp4host:1666</i>]
+<br />Checking P4PORT [<i>myp4host:1666</i>]...<br />-P4 command line to use: [/opt/perforce/bin/p4 -p myp4host:1666]<br />Attempting connection to [<i>myp4host:1666</i>]...<br />-connection successful:<br />  Server address: <i>myp4host:1666</i><br />  Server version: P4D/LINUX26X86_64/2016.1/1411799 (2016/07/12)<br />  Server license: 10000 users (support ends 2017/05/16)<br />  Server license-ip: 192.168.0.1</pre>
+                        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                            <p>If your <span class="PerforceHVE long">Helix Versioning Engine</span> is deployed using the commit-edge architecture, ensure that the <span class="PerforceSwarm short">Swarm</span> port value points to the commit server.</p>
+                            <p>For more information, see "Commit-edge Architecture" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4dist/index.html" target="_blank"><i><span class="Perforcegd-p4dist">Helix Versioning Engine Administrator Guide:&#160;Multi-Site Deployment</span></i></a>.</p>
+                        </div>
+                    </li>
+                    <li value="2">
+                        <p>Specify the userid and password of a normal user with admin-level privileges in the <span class="PerforceHVE long">Helix Versioning Engine</span>.</p><pre class="screen" xml:space="preserve">Checking Swarm user credentials...<br />No Swarm user specified
+<br />Swarm requires a Helix user account with 'admin' rights.<br />Please provide a username and password for this account.<br />If this account does not have 'admin' rights, it will <br />be set for this user.
+<br />Helix username for the Swarm user [<i>swarm</i>]:</pre>
+                        <p>Enter the userid. The default is <i>swarm</i>.</p>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>If the <span class="PerforceHelix short">Helix Core</span> user account is given 'super' rights, then this allows a user to clean up a review created by another user when the review is committed. See <a href="admin.review_cleanup.html" class="MCXref xref">Review cleanup</a>.</p>
+                        </div><pre class="screen" xml:space="preserve">-response: [<i>swarm</i>]<br />						<br />Helix password or login ticket for the <span class="PerforceSwarm short">Swarm</span> user (typing hidden):</pre>
+                        <p>Enter the login ticket, or password, for the userid.</p>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>You can obtain a login ticket by running (in another shell):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>p4 -p <i>myp4host:1666</i> -u <i>userid</i> login -p</pre>
+                            <p>If the login ticket you provide would expire in less than a year, you will receive a warning.</p>
+                        </div><pre class="screen">Checking Swarm user credentials...<br />-checking if user [<i>swarm</i>] exists in [<i>myp4host:1666</i>]...<br />-user exists<br />Obtaining Helix login ticket for [<i>swarm</i>] in [<i>myp4host:1666</i>]...<br />-login ticket obtained<br />Checking user [<i>swarm</i>]'s ticket against [<i>myp4host:1666</i>]...<br />-login ticket is good<br />Checking user [<i>swarm</i>] has at least access level [<i>admin</i>]...<br />-user has maximum access level [admin]<br />-user meets minimum access level [admin]<br /></pre>
+                    </li>
+                    <li value="3">
+                        <p>Specify the hostname for the <span class="PerforceSwarm short">Swarm</span> UI.</p><pre class="screen">Swarm needs a distinct hostname that users can enter into their browsers to<br />access Swarm. Ideally, this is a fully-qualified domain name, e.g.<br />'swarm.company.com', but it can be just a hostname, e.g. 'swarm'.<br /><br />Whatever hostname you provide should be Swarm-specific and not shared with<br />any other web service on this host.<br /><br />Note that the hostname you specify typically requires configuration in your<br />network's DNS service. If you are merely testing Swarm, you can add a<br />hostname-&gt;IP mapping entry to your computer's hosts configuration.<br /><br />Hostname for this Swarm server [myhost]:</pre>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>The default is the current hostname. The configuration script does not verify that the hostname actually works (DNS configuration may not exist yet).</p>
+                        </div>
+                    </li>
+                    <li value="4">
+                        <p>Specify a mail relay host.</p><pre class="screen">Swarm requires an mail relay host to send email notifications.<br /><br />Mail relay host (e.g.: mx.yourdomain.com):</pre>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>The configuration script does not verify that the mail relay host you provide actually accepts SMTP connections.</p>
+                        </div>
+                        <p>Once this information has been provided, the configuration script performs the following steps (some of the detail depends on the version of PHP and Apache that is installed):</p><pre class="screen" xml:space="preserve">Configuring Cron...
+`/opt/perforce/etc/swarm-cron-hosts.conf.new' -&amp;gt; `/opt/perforce/etc/swarm-cron-hosts.conf'
+-updated cron configuration file with supplied Swarm host
+Configuring Swarm installation...
+-composed new Swarm config file contents
+`/opt/perforce/swarm/data/config.php.new' -&amp;gt; `/opt/perforce/swarm/data/config.php'
+-wrote new Swarm config file to reflect new configuration
+-identified Apache user:group: [www-data:www-data]
+-setting permissions on the Swarm data directory...
+-ensured file permissions are set properly
+Configuring Apache...
+-identified Swarm virtual host config file: [/etc/apache2/sites-available/perforce-swarm-site.conf]
+-identified Apache log directory: [/var/log/apache2]
+-updated the vhost file to set Apache log directory
+-updated the vhost file to reflect Swarm host
+-checking Apache modules...
+Enabling module rewrite.
+Module php5 already enabled
+To activate the new configuration, you need to run:
+  service apache2 restart
+-proper Apache modules are enabled
+-enabling Swarm Apache site...
+Enabling site perforce-swarm-site.conf.
+To activate the new configuration, you need to run:
+  service apache2 reload
+-Swarm Apache site enabled
+-restarting Apache...
+-Apache restarted
+configure-swarm.sh: Thu Aug 25 11:31:36 PDT 2016: completed configuration of Helix Swarm
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::
+::  Swarm is now configured and available at:
+::
+::      http://<i>myhost</i>/
+::
+::  You may login as the Swarm user [<i>swarm</i>] using the password
+::  you specified.
+::
+::  Please ensure you install the following package on the server
+::  hosting your Helix Versioning Engine.
+::
+::      helix-swarm-triggers
+::
+::  (If your Helix Versioning Engine is hosted on an OS and
+::  platform that is not compatible with the above package, you can
+::  also install the trigger script manually.)
+::
+::  You will need to configure the triggers, as covered in the Swarm
+::  documentation:
+::
+::  http://www.perforce.com/perforce/doc.current/manuals/swarm/setup.perforce.html
+::
+::  Documentation for optional post-install configuration, such as
+::  configuring Swarm to use HTTPS, operate in a sub-folder, or on a
+::  custom port, is available:
+::
+::  https://www.perforce.com/perforce/doc.current/manuals/swarm/setup.post.html
+::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</pre>
+                        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                            <p>If you have installed <span class="PerforceSwarm short">Swarm</span> on a host that does not provide other web services, you may wish to disable Apache's default site configuration. Doing so means that regardless of the hostname a user might use to reach the web server hosting <span class="PerforceSwarm short">Swarm</span>, <span class="PerforceSwarm short">Swarm</span> would be presented.</p>
+                            <p><b>Be aware that disabling Apache's default site configuration could disable existing web services or content.</b>
+                            </p>
+                            <p>Disabling Apache's default site configuration on Ubuntu hosts is easy. Run:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo a2dissite 000-default</pre>
+                            <p>For CentOS hosts, or for non-standard Apache installations, you would need to manually adjust the Apache configuration. Such changes require familiarity with Apache configuration; for more details, see: <a href="https://httpd.apache.org/docs/current/configuring.html" target="_blank">https://httpd.apache.org/docs/current/configuring.html</a></p>
+                        </div>
+                    </li>
+                </ol>
+            </li>
+            <li value="3">
+                <p>Configure the <span class="PerforceSwarm short">Swarm</span> triggers on the server hosting your <span class="PerforceHVE long">Helix Versioning Engine</span>.</p>
+                <p>As the script's output notes, the triggers required for <span class="PerforceSwarm short">Swarm</span> need to be configured if you have not already done so. See <a href="setup.perforce.html" class="MCXref xref">Helix Core configuration for Swarm</a> for details.</p>
+            </li>
+            <li value="4">Review the <a href="setup.post.html" class="MCXref xref">Post-install configuration options</a> for additional configuration alternatives for your <span class="PerforceSwarm short">Swarm</span> installation.</li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="SELinux_on_CentOS_7_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.packages.SELinux_configure"></a>SELinux on CentOS 7 configuration</h2>
+        <p style="color: #000000;"><span class="PerforceSwarm short">Swarm</span> supports SELinux on CentOS 7. SELinux is an advanced access control mechanism that improves security for Linux distributions. </p>
+        <p style="color: #000000;">SELinux operates in one of three modes:</p>
+        <ul>
+            <li style="color: #000000;" value="1"><code>enforcing</code>:  this mode blocks and logs any actions that do not match the defined security policy. This is the default mode for SELinux on CentOS 7.</li>
+            <li style="color: #000000;" value="2"><code>permissive</code>:  this mode logs actions that do not match the defined security policy but these actions are not blocked. </li>
+            <li style="color: #000000;" value="3"><code>disabled</code>: in this mode SELinux is off, actions are not blocked and are not logged. </li>
+        </ul>
+        <p style="color: #000000;">SELinux must be configured to enable it to work correctly with <span class="PerforceSwarm short">Swarm</span>, these configuration steps are shown below.  </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>You must complete the <span class="PerforceSwarm long">Helix Swarm</span> package <a href="#setup.packages.install" class="MCXref xref">Installation</a> steps, and  the <a href="#setup.packages.configure" class="MCXref xref">Post-installation configuration</a> steps before configuring SELinux. </p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Configure_SELinux_on_CentOS_7_to_enforcing_mode" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Configure SELinux on CentOS 7 to enforcing mode</h3>
+        <p>Run the following commands as root:</p>
+        <ol>
+            <li value="1">Install the <code> policycoreutils-python</code> package, this contains <b>semange</b> which is used to configure SELinux: </li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>yum install policycoreutils-python</pre>
+            <li value="2">Check the current SELinux mode:</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>getenforce</pre>
+            <li value="3">SELinux will report its mode as; <code>enforcing</code>, <code>permissive</code>, or <code>disabled</code>. <ol><li style="color: #000000;" value="1">If the mode is not set correctly edit the <code>/etc/selinux/config</code> file with vi or a similar editor.</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>vi /etc/selinux/config</pre><li style="color: #000000;" value="2">Edit the config file so that <code>SELinux=</code> is set to <code>enforcing </code>.</li><li style="color: #000000;" value="3">Save the config file. </li><li style="color: #000000;" value="4">Reboot the server to complete the SELinux mode change. </li></ol></li>
+            <li value="4">Define the context of the  <code>/opt/perforce/swarm</code> directory and the files in it to <code>httpd_sys_rw_content_t</code>:</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>semanage fcontext -a -t httpd_sys_rw_content_t "/opt/perforce/swarm(/.*)?"<br /><span style="font-weight: normal;">root $ </span>restorecon -R /opt/perforce/swarm			</pre>
+            <li value="5">Set the SELinux Boolean value to <code>httpd_can_network_connect 1</code> to allow <span class="PerforceSwarm short">Swarm</span> to connect to p4d and other services:</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>setsebool -P httpd_can_network_connect 1</pre>
+            <li value="6">Define the context  of the  <code>/opt/perforce/swarm/p4-bin</code> directory and the files in it to <code>httpd_sys_script_exec_t</code></li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>semanage fcontext -a -t httpd_sys_script_exec_t '/opt/perforce/swarm/p4-bin(/.*)?'
+<span style="font-weight: normal;">root $ </span>restorecon -R -v /opt/perforce/swarm/p4-bin			</pre>
+            <li value="7">Restart the system:</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>systemctl restart httpd</pre>
+            <li value="8">Check that you can log in to <span class="PerforceSwarm short">Swarm</span>. </li>
+            <li value="9">Reboot the server. </li>
+            <li value="10">Check that you can log in to <span class="PerforceSwarm short">Swarm</span>.</li>
+        </ol>
+        <p>SELinux is now configured for <span class="PerforceSwarm short">Swarm</span>. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If you can not log in to <span class="PerforceSwarm short">Swarm</span> it is possible that SELinux is blocking <span class="PerforceSwarm short">Swarm</span> because its configuration is incorrect. You will need to troubleshoot the SELinux configuration to find any issues.</p>
+            <p>Install the <code class="code_clearBackground">setroubleshoot</code> package, this contains <code class="code_clearBackground">sealert </code>which is used when troubleshooting SELinux:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>yum install setroubleshoot</pre>
+            <p><code class="code_clearBackground">sealert </code> helps you to interpret the contents of the <code class="code_clearBackground">audit.log</code>. Run the following command:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>sealert -a /var/log/audit/audit.log</pre>
+        </div>
+        <p><b>Error message: </b> If you see an error message with a title similar to the message below, it may be because you are running CentOS 7 on a Virtual Machine (VM).</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>SELinux is preventing /usr/sbin/ldconfig from write access on the directory etc.</pre>
+        <p>Install <code>open-vm-tools</code> on the VM&#160;and reboot the VM. </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>yum install open-vm-tools</pre>
+        <h3 data-mc-autonum=""><a name="Configure_SELinux_on_CentOS_7_to_permissive_or_disabled_mode" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Configure SELinux on CentOS 7 to permissive or disabled mode</h3>
+        <p>Run the following as root:</p>
+        <ol>
+            <li value="1">Check the current SELinux mode:</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>getenforce</pre>
+            <li value="2">SELinux will report its mode as; <code>enforcing</code>, <code>permissive</code>, or <code>disabled</code>. <ol><li style="color: #000000;" value="1">If the mode is not set correctly edit the <code>/etc/selinux/config</code> file with vi or a similar editor.</li><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">root $ </span>vi /etc/selinux/config</pre><li style="color: #000000;" value="2">Edit the config file so that <code>SELinux=</code> is set to <code>permissive </code>or <code>disabled </code>as required.</li><li style="color: #000000;" value="3">Save the config file. </li><li style="color: #000000;" value="4">Reboot the sever to complete the SELinux mode change. </li></ol></li>
+            <li style="color: #000000;" value="3">Check that you can log in to <span class="PerforceSwarm short">Swarm</span>. </li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

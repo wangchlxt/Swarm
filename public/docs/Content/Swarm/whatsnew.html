@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>What's new in 2017.4</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/whatsnew.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="What's_new_in_2017.4" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>What's new in <span class="PerforceVersionNumber">2017.4</span></h1>
+        <p>This section provides a summary of the notable changes in <span class="PerforceSwarm short">Swarm</span> for the <span class="PerforceVersionNumber">2017.4</span> release. Full details are available in the distribution's <code class="code_clearBackground">RELNOTES.txt</code> file.</p>
+        <h2 data-mc-autonum=""><a name="Be_aware_" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Be aware:</h2>
+        <dt><b>Upgrade index on upgrade to improve performance</b>
+        </dt>
+        <dd>The upgrade process changed for <span class="PerforceSwarm short">Swarm</span> version 2017.3. </dd>
+        <ul>
+            <li value="1">If this is a new <span class="PerforceSwarm short">Swarm</span> installation, the index upgrade is not required. </li>
+            <li value="2">If you are upgrading from <span class="PerforceSwarm short">Swarm</span> version 2017.3, the index upgrade is not required. </li>
+            <li value="3">If you are updating from <span class="PerforceSwarm short">Swarm</span> version 2017.2 or earlier, the <span class="PerforceSwarm short">Swarm</span> index must be upgraded to ensure that the <span class="PerforceSwarm short">Swarm</span> review history is displayed in the correct order. This step is only required the first time you upgrade your <span class="PerforceSwarm short">Swarm</span> system to 2017.3 or later, subsequent <span class="PerforceSwarm short">Swarm</span> upgrades do not require the index to be upgraded. </li>          See <a href="setup.upgrade.html" title="Upgrading Swarm" alt="Upgrading Swarm" class="MCXref xref">Upgrading Swarm</a> for details.
+        </ul>
+        <h2 data-mc-autonum=""><a name="Major_new_functionality" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Major new functionality</h2>
+        <dl>
+            <dt><b>Default reviewers</b>
+            </dt>
+            <dd>Default reviewers can now be set for projects and project branches. Default reviewers are added to a review when the review is created. See <a href="projects.add.html#Project.add.default_reviewers_project" title="Adding Default Reviewers to a Project" alt="Adding Default Reviewers to a Project">adding Default reviewers to a project</a> and <a href="projects.add.html#projects.add.default_reviewers_project_branch" title="Adding Default Reviewers to a Project Branch" alt="Adding Default Reviewers to a Project Branch">adding Default reviewers to a project branch</a> for details. </dd>
+            <dt><b>Unfollow projects and users</b>
+            </dt>
+            <dd>You can now unfollow all of the projects and users you are following, see <a href="basics.users.html#Unfollow" title="Unfollow all projects and users for yourself" alt="Unfollow all projects and users for yourself" class="MCXref xref">Unfollow all projects and users for yourself</a> for details. </dd>
+            <dd>If you are a user with admin or super user privileges, you can unfollow all projects and users for another user, this is useful if the user has been removed from <span class="PerforceHVE short">Helix server</span> but they are still following projects and users. See <a href="basics.users.html#basics.users.unfollow_all_for_another_user" title="Unfollow all projects and users for another user" alt="Unfollow all projects and users for another user" class="MCXref xref">Unfollow all projects and users for another user</a> for details. </dd>
+            <dt><b>Disable automated tests on Approve and Commit</b>
+            </dt>
+            <dd>Automated tests can be disabled when a changelist is approved and committed, this is useful when tests take a long time and the codeline is stable.  This is a global setting and is used for all Swarm projects, see <a href="admin.reviews.html#admin.disable_tests_on_approve_commit" title="Disable tests on approve and commit" alt="Disable tests on approve and commit" class="MCXref xref">Disable tests on approve and commit</a> for details. </dd>
+        </dl>
+        <h2 data-mc-autonum=""><a name="Minor_new_functionality" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Minor new functionality</h2>
+        <dl>
+            <dt><b>Session garbage collection improved</b>
+            </dt>
+            <dd>You can now set how often garbage collection is run for sessions based on the number of user requests that are made, see <a href="admin.security.html#admin.security.sessions" title="Sessions" alt="Sessions" class="MCXref xref">Sessions</a> for details. </dd>
+            <dt><b>Dashboard performance improvements</b>
+            </dt>
+            <dd>Queries modified to make them more efficient and improve dashboard loading speed. </dd>
+            <dt><b>API updated to version 8</b>
+            </dt>
+            <dd>A number of new endpoints have been added to the API, and it has been updated to v8.</dd>
+            <dd>See <a href="swarm-apidoc.html" title="Swarm API" alt="Swarm API" class="MCXref xref">Swarm API</a> for details. </dd>
+        </dl>
+        <h2 data-mc-autonum=""><a name="Known_limitations_..117" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Known limitations</h2>
+        <dl>
+            <dt><b>Access Control</b>
+            </dt>
+            <dd><span class="PerforceSwarm short">Swarm</span> maintains a variety of information in the <span class="PerforceHVE long">Helix Versioning Engine</span>'s keys facility. By default, users with list-level privileges can read these keys, which can include comments that contain excerpts of code they may not normally have access to.</dd>
+            <dd>The <span class="PerforceHVE long">Helix Versioning Engine</span>, version 2013.1/659207 or higher, has a configuration setting to require admin-level privileges for access to read and write keys. See <a href="setup.perforce.html#setup.perforce.dm_keys" title="Hiding Swarm storage from regular users" alt="Hiding Swarm storage from regular users" class="MCXref xref">Hiding Swarm storage from regular users</a>.</dd>
+            <dt><b>Task Stream Reviews</b>
+            </dt>
+            <dd>Pre-commit reviews in a task stream are not yet supported.</dd>
+        </dl>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

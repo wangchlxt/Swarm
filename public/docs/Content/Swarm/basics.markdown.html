@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Markdown</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.markdown.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Markdown" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Markdown</h1>
+        <p>It is possible to use <i>Markdown</i> within <span class="PerforceSwarm short">Swarm</span> to add text styles to comments and project overview pages. It is not supported in reviews. </p>
+        <h2 data-mc-autonum=""><a name="Markdown_in_comments" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.markdown.comments"></a>Markdown in comments</h2>
+        <div class="img">
+            <img src="../Resources/Images/swarm-comment-markdown.png" title="Example comment with markdown" alt="Comment with markdown image" />
+        </div>
+        <p>The supported set of Markdown styles in review comments is limited to inline styles, so headers and other structural syntax are ignored.</p>
+        <ul>
+            <li value="1"><b>bold</b> and <i>italics</i> can be specified with <code>**bold**</code> or <code>*italics*</code>.</li>
+            <li value="2">
+                <p>Unordered lists can be specified with asterisk (<code>*</code>) markers. Plus (<code>+</code>) and minus (<code>-</code>) signs also work:</p><pre class="screen">* This<br />* That<br />* Another</pre>
+            </li>
+            <li value="3">
+                <p>Ordered lists can be specified with numbered markers:</p><pre class="screen" xml:space="preserve">1. First
+2. Second
+3. Third</pre>
+            </li>
+            <li value="4">Hypertext links can be specified with [Link text](http://address/page). If you don't need to add anchor text, then a URL in the text without any markup is linkified.</li>
+            <li value="5">You can mark inline text as code using `backticks`.</li>
+            <li value="6">
+                <p>You can also mark blocks of code using three backticks on a line, like:</p><pre class="screen" xml:space="preserve">```
+var text = "Some code text";
+alert(text);
+```</pre>
+            </li>
+        </ul>
+        <p>Markdown is only supported in comments, not in the review description.</p>
+        <p>The following example shows all of the above syntax in a single example, with both the source and the final result.</p><pre class="screen" xml:space="preserve">*Comments* can include **Markdown** text, which allows basic styles to be applied to the text.<br /><br />You can have unordered lists, like this:<br />* A line<br />* Another line<br />  * A sub list<br />  * Again<br />* Back again<br /><br />Or ordered lists:<br />1. First<br />2. Second<br />3. Third<br /><br />It is possible to mark text as `code { like: this }` or to define a block of text as code:<br />```<br />var i = 1;<br />var j = 10;<br />for (i = 1; j != i; i++) {<br />  print i * j;<br />}<br />```<br /><br />You can also [create hyper links](http://www.perforce.com) which point to other places.</pre>
+        <div class="img">
+            <img src="../Resources/Images/swarm-comment-markdown-all.png" title="Example of all supported markdown" alt="Supported Markdown example image" />
+        </div>
+        <h2 data-mc-autonum=""><a name="Markdown_in_projects" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.markdown.projects"></a>Markdown in projects</h2>
+        <p>Project pages can have a <code>README.md</code> file in the root of their <code>MAIN</code> branch, which if present will be displayed on the project's overview page.</p>
+        <p>If you need to change which branch is considered MAIN, and therefore from where the <code>README.md</code> is read from, see <a href="admin.mainline.html" title="Mainline branch identification" alt="Mainline branch identification" class="MCXref xref">Mainline branch identification</a>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>By default, Markdown content is displayed but is limited to prevent the execution of raw HTML and JavaScript content. Markdown support can be configured to <code class="code_clearBackground">disabled </code>or <code class="code_clearBackground">unrestricted </code>mode, see <a href="admin.projects.html#admin.projects.readme" title="Project readme" alt="Project readme" class="MCXref xref">Project readme</a> for details. </p>
+        </div>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-project-markdown.png" title="Example project README with markdown" alt="Project overview tab image" />
+        </div>
+        <p>As well as the <i>Markdown</i> syntax that is supported in comments and described above, the README pages support a more extensive range of syntax, the most notable of which are described below. For a more thorough list of syntax, see the  <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" title="Markdown cheatsheet link" alt="Markdown cheatsheet link">Markdown cheatsheet</a>.</p>
+        <ul>
+            <li value="1">
+                <p>Headers can be defined using hash (#) marks.</p><pre class="screen"># Main heading<br />## Sub heading<br />### Lesser heading</pre>
+            </li>
+            <li value="2">
+                <p>Images can be added as well. You can either provide the full URL, or use a relative URL to reference something in <span class="PerforceSwarm short">Swarm</span>.</p><pre class="screen" xml:space="preserve">![alt text](https://p4swarm/view/depot/www/dev/images/jamgraph-jam.gif "Title Text")<br />![alt text](/view/depot/www/dev/images/jamgraph-jam.gif "Title Text")</pre>
+            </li>
+            <li value="3">
+                <p>Tables are supported by using pipe (|) separators between columns and colons (:) for justification.</p><pre class="screen">| Tables   | Look   | Like this |<br />| -------- | -----  | --------- |<br />| Left     | right: | :center:  |</pre>
+            </li>
+            <li value="4">
+                <p>It is also possible to blockquote paragraphs using the greater than symbol (&gt;).</p><pre class="screen" xml:space="preserve">&gt; Blockquotes can be displayed like this, using the<br />&gt; the greater than sign at the start of the line.
+<br />Normal text resumes here.</pre>
+            </li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

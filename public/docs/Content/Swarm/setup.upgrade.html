@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Upgrading Swarm</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.upgrade.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Upgrading_Swarm" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Upgrading <span class="PerforceSwarm short">Swarm</span></h1>
+        <p>The section covers upgrading <span class="PerforceSwarm short">Swarm</span> to a newer release. </p>
+        <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+            <p>If you are not already running <span class="PerforceSwarm short">Swarm</span>, none of these instructions apply to you. Instead, see the <a href="chapter.setup.html">Swarm installation instructions</a>.</p>
+        </div>
+        <p style="font-weight: bold;"><span class="PerforceSwarm short">Swarm</span> upgrade process:  </p>
+        <ul>
+            <li value="1">If you installed <span class="PerforceSwarm short">Swarm</span> via a source distribution archive (tar file), see <a href="#setup.upgrade.upgrade_tar" class="MCXref xref">Upgrade a Swarm tarball  installation</a> for details.</li>
+            <li value="2">If you installed <span class="PerforceSwarm short">Swarm</span> via a package, see <a href="#setup.upgrade.update_package" class="MCXref xref">Update a Swarm package installation</a> for details.</li>
+            <li value="3">If you installed <span class="PerforceSwarm short">Swarm</span> via  an OVA (<span class="PerforceSwarm short">Swarm</span> 2014.2 or later), see <a href="#setup.upgrade.update_package" class="MCXref xref">Update a Swarm package installation</a> for details. </li>
+            <li value="4">If you installed <span class="PerforceSwarm short">Swarm</span> via an OVA (<span class="PerforceSwarm short">Swarm</span> 2014.1 or earlier), see <a href="#setup.upgrade.upgrade_ova" class="MCXref xref">Upgrade a Swarm OVA installation from Swarm 2014.1 or earlier</a> for details</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Upgrade_a_Swarm_tarball__installation" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.upgrade.upgrade_tar"></a>Upgrade a <span class="PerforceSwarm short">Swarm</span> tarball  installation</h2>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><b>Not recommended:</b> The tarball instructions in this section can be applied to an OVA. </p>
+            <p>The recommended upgrade process for a <span class="PerforceSwarm short">Swarm</span> OVA installation is:</p>
+            <ul>
+                <li value="1">If you installed <span class="PerforceSwarm short">Swarm</span> via  an OVA (<span class="PerforceSwarm short">Swarm</span> 2014.2 or later), see <a href="#setup.upgrade.update_package" class="MCXref xref">Update a Swarm package installation</a> for details. </li>
+                <li value="2">If you installed <span class="PerforceSwarm short">Swarm</span> via an OVA (<span class="PerforceSwarm short">Swarm</span> 2014.1 or earlier), see <a href="#setup.upgrade.upgrade_ova" class="MCXref xref">Upgrade a Swarm OVA installation from Swarm 2014.1 or earlier</a> for details</li>
+            </ul>
+        </div>
+        <p>The following process attempts to minimize downtime, but a short period of downtime for <span class="PerforceSwarm short">Swarm</span> users is unavoidable. There should be no downtime for your <span class="PerforceHVE short">Helix server</span>. After a successful upgrade, all <span class="PerforceSwarm short">Swarm</span> users are logged out.</p>
+        <p>If you are using <span class="PerforceSwarm short">Swarm</span> in a production environment, we encourage you to test this upgrade process in a non-production environment first.</p>
+        <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+            <p><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">P4PHP<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>P4PHP is the PHP interface to the Helix API, which enables you to write PHP code that interacts with a Helix Core machine.</span></a> should be upgraded to the version included in the new <span class="PerforceSwarm short">Swarm</span> release. If you have already configured PHP to use the <span class="PerforceSwarm short">Swarm</span>-provided P4PHP (<a href="setup.php.html">as recommended</a>), this happens automatically. If you have manually installed P4PHP in some other fashion, upgrade P4PHP before you perform any of the upgrade steps below. See <a href="setup.php.html" class="MCXref xref">PHP configuration</a> for details.</p>
+        </div>
+        <p>If you have not already done so, <a href="https://www.perforce.com/downloads/helix-swarm" target="_blank">download the Swarm TAR option</a>.</p>
+        <p>The steps in this section describe how to upgrade <span class="PerforceSwarm short">Swarm</span> using the provided archive file. <code>SWARM_ROOT</code> refers to the current <span class="PerforceSwarm short">Swarm</span> installation.</p>
+        <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+            <p>For OVA installations,  <code>SWARM_ROOT</code> is <code class="code_clearBackground">/opt/perforce/swarm</code>. </p>
+        </div>
+        <ol>
+            <li value="1">
+                <p>Expand the new <code class="code_clearBackground">swarm.tgz</code>:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>tar -zxf swarm.tgz</b>
+</pre>
+                <p>The contents of <code>swarm.tgz</code> are expanded into a top-level folder named <code class="code_clearBackground">swarm-<i>version</i></code>, where <code class="code_clearBackground" style="font-style: italic;">version</code> corresponds to the version downloaded. This directory is identified as <code class="code_clearBackground">SWARM_NEW</code> below.</p>
+            </li>
+            <li value="2">
+                <p>Move <code class="code_clearBackground">SWARM_NEW</code> to be a peer of <code class="code_clearBackground">SWARM_ROOT</code>:</p><pre class="programlisting"><span style="font-weight: normal;">$ </span><b>mv SWARM_NEW SWARM_ROOT/../</b></pre>
+            </li>
+            <li value="3">
+                <p>Copy the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/config.php</code> file from <code>SWARM_ROOT</code> to <code class="code_clearBackground">SWARM_NEW</code>:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">$ </span><b>cp -p SWARM_ROOT/data/config.php SWARM_NEW/data/</b>
+</pre>
+            </li>
+            <li value="4">
+                <p>Create the queue token directory:</p><pre class="programlisting" xml:space="preserve">
+ <span style="font-weight: normal;">$ </span> <b>mkdir SWARM_NEW/data/queue</b></pre>
+            </li>
+            <li value="5">
+                <p>Copy the existing trigger token(s):</p><pre class="programlisting" xml:space="preserve"> <span style="font-weight: normal;">$ </span><b>sudo cp -pR SWARM_ROOT/data/queue/tokens SWARM_NEW/data/queue/</b></pre>
+            </li>
+            <li value="6">
+                <p>Assign correct ownership to the new <span class="PerforceSwarm short">Swarm</span>'s data directory:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo chown -R </b><i style="font-weight: bold;">www-data</i><b> SWARM_NEW/data</b></pre>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The <code class="code_clearBackground" style="font-style: italic;">www-data</code> user above is an example of what the web server user name might be, and can vary based on distribution or customization. For example, the user is typically <code class="code_clearBackground">apache</code> for Red Hat/Fedora/CentOS, <code class="code_clearBackground">www-data</code> for Debian/Ubuntu, <code class="code_clearBackground">wwwrun</code> for SuSE, <code class="code_clearBackground">_www</code> for Mac OSX.</p>
+                </div>
+            </li>
+            <li value="7">
+                <p>Copy the new <span class="PerforceSwarm short">Swarm</span> trigger script to your <span class="PerforceHVE long">Helix Versioning Engine</span> machine. The trigger script is <code class="code_clearBackground">SWARM_NEW/p4-bin/scripts/swarm-trigger.pl</code>, and requires installation of Perl 5.08+ (use the latest available) on the <span class="PerforceHVE short">Helix server</span> machine. If <span class="PerforceSwarm short">Swarm</span> is using SSL, then the triggers also require the <code class="code_clearBackground">IO::Socket::SSL</code> Perl module.</p>
+                <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+                    <p>Do not overwrite any existing trigger script at this time. Give the script a new name, for example: <code class="code_clearBackground">swarm-trigger-new.pl</code></p>
+                </div>
+            </li>
+            <li value="8">
+                <p>Configure the <span class="PerforceSwarm short">Swarm</span> trigger script by creating, in the same directory on the <span class="PerforceHVE short">Helix server</span> machine, <code class="code_clearBackground">swarm-trigger.conf</code>. It should contain:</p><pre class="programlisting" lang="ini" xml:space="preserve"># SWARM_HOST (required)
+# Hostname of your Swarm instance, with leading "http://" or "https://".
+SWARM_HOST="http://<i>my-swarm-host</i>"
+
+# SWARM_TOKEN (required)
+# The token used when talking to Swarm to offer some security. To obtain the
+# value, log in to Swarm as a super user and select 'About Swarm' to see the
+# token value.
+SWARM_TOKEN="<i>MY-UUID-STYLE-TOKEN</i>"
+
+# ADMIN_USER (optional)
+# For enforcing reviewed changes, optionally specify the normal Perforce user
+# with admin privileges (to read keys); if not set, will use whatever Perforce
+# user is set in environment.
+ADMIN_USER=
+
+# ADMIN_TICKET_FILE (optional)
+# For enforcing reviewed changes, optionally specify the location of the
+# p4tickets file if different from the default ($HOME/.p4tickets).
+# Ensure this user is a member of a group with an 'unlimited' or very long
+# timeout; then, manually login as this user from the Perforce server machine to
+# set the ticket.
+ADMIN_TICKET_FILE=
+					
+# VERIFY_SSL (optional)
+# If HTTPS is being used on the Swarm web server, then this controls whether
+# the SSL certificate is validated or not. By default this is set to 1, which
+# means any SSL certificates must be valid. If the web server is using a self
+# signed certificate, then this must be set to 0.
+# set the ticket.
+VERIFY_SSL=1</pre>
+                <p>Fill in the required SWARM_HOST and SWARM_TOKEN variables with the configuration from any previous <span class="PerforceSwarm short">Swarm</span> trigger script, typically <code class="code_clearBackground">swarm-trigger.pl</code>.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p><b><span class="PerforceSwarm short">Swarm</span> 2015.4 and earlier:</b> <span class="PerforceSwarm short">Swarm</span> trigger script files were available as shell scripts in these earlier <span class="PerforceSwarm short">Swarm</span> versions, typically <code class="code_clearBackground">swarm-trigger.sh</code>. </p>
+                    <p>When upgrading to <span class="PerforceSwarm short">Swarm</span> 2016.1 and later the <span class="PerforceHVE short">Helix server</span> machine must be configured to use Perl trigger scripts because the shell trigger scripts are no longer supported and have been removed. </p>
+                </div>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you already have a <code class="code_clearBackground">swarm-trigger.conf</code> file, no additional configuration is required.</p>
+                </div>
+            </li>
+            <li value="9">
+                <p>For Linux systems, ensure that the script is executable:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo chmod +x swarm-trigger-new.pl</b></pre>
+            </li>
+            <li value="10">
+                <p>Rename the new trigger script:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>mv swarm-trigger-new.pl swarm-trigger.pl</b></pre>
+                <p>On Windows:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">C:\&gt; </span><b>ren swarm-trigger-new.pl swarm-trigger.pl</b></pre>
+            </li>
+            <li value="11">
+                <p>Update the triggers in your <span class="PerforceHVE short">Helix server</span>.</p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">
+                        <p>Run the <span class="PerforceSwarm short">Swarm</span> trigger script to capture (using <b>Ctrl+C</b> on Windows and Linux, <b>Command+C</b> on Mac OSX) the trigger lines that should be included in the Perforce trigger table:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>./swarm-trigger.pl -o</b></pre>
+                        <p>On Windows:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">C:\&gt;</span>&#160;<i style="font-weight: bold;">path/to/perl</i><b> swarm-trigger.pl -o</b></pre>
+                    </li>
+                    <li value="2">As a Perforce user with <i>super</i> privileges, update the Perforce trigger table by running <code class="code_clearBackground">p4 triggers</code> command and replacing any <code class="code_clearBackground">swarm.*</code> lines with the previously captured trigger line output (using <b>Ctrl+V</b> on Windows and Linux, <b>Command+V</b> on Mac OSX).</li>
+                </ol>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>If you previously customized the <span class="PerforceSwarm short">Swarm</span> trigger lines, perhaps to apply various <a href="admin.trigger.html" class="MCXref xref">Trigger options</a>, be sure to repeat those customizations within the updated trigger lines.</p>
+                </div>
+            </li>
+            <li value="12">
+                <p>Replace the old <span class="PerforceSwarm short">Swarm</span> with the new <span class="PerforceSwarm short">Swarm</span>. <b>Downtime occurs in this step.</b></p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo apache2ctl stop; mv SWARM_ROOT SWARM.old; mv SWARM_NEW SWARM_ROOT; sudo apache2ctl start</b></pre>
+            </li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Upgrade_the_Swarm_index" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Upgrade the <span class="PerforceSwarm short">Swarm</span> index</h3>
+        <p>The upgrade index process can be configured to suit your <span class="PerforceSwarm short">Swarm</span> system specifications. See <a href="admin.upgrade_index.html" title="Upgrade index link" alt="Upgrade index link">Upgrade index</a> for details. </p>
+        <p>Run the upgrade as an <i>Admin</i> user by visiting the following URL: </p><pre class="programlisting" lang="html" xml:space="preserve">http://SWARM-HOST/upgrade</pre>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The <span class="PerforceSwarm short">Swarm</span> index must be upgraded to ensure that the <span class="PerforceSwarm short">Swarm</span> review history is displayed in the correct order. </p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is only required the first time you upgrade your <span class="PerforceSwarm short">Swarm</span> system to 2017.3 or later. Subsequent <span class="PerforceSwarm short">Swarm</span> upgrades do not require the index to be upgraded.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is not required if your <span class="PerforceSwarm short">Swarm</span> system has less than 100 reviews. In this case <span class="PerforceSwarm short">Swarm</span> will automatically upgrade the index on the fly. </p>
+        </div>
+        <p>All done!</p>
+        <h2 data-mc-autonum=""><a name="Update_a_Swarm_package_installation" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.upgrade.update_package"></a>Update a <span class="PerforceSwarm short">Swarm</span> package installation</h2>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>For the <span class="PerforceSwarm short">Swarm</span> 2015.2 release, the packages have been renamed. The following instructions upgrade your <span class="PerforceSwarm short">Swarm</span> packages to the latest versions.</p>
+        </div>
+        <p>The following process attempts to minimize downtime, but a short period of downtime for <span class="PerforceSwarm short">Swarm</span> users is unavoidable. There should be no downtime for your <span class="PerforceHVE short">Helix server</span>. After a successful upgrade, all <span class="PerforceSwarm short">Swarm</span> users are logged out.</p>
+        <p>If you are using <span class="PerforceSwarm short">Swarm</span> in a production environment, we encourage you to test this upgrade process in a non-production environment first.</p>
+        <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+            <p><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">P4PHP<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>P4PHP is the PHP interface to the Helix API, which enables you to write PHP code that interacts with a Helix Core machine.</span></a> should be upgraded to the version included in the new <span class="PerforceSwarm short">Swarm</span> release. If you have already configured PHP to use the <span class="PerforceSwarm short">Swarm</span>-provided P4PHP (<a href="setup.php.html">as recommended</a>), this happens automatically. If you have manually installed P4PHP in some other fashion, upgrade P4PHP before you perform any of the upgrade steps below. See <a href="setup.php.html" class="MCXref xref">PHP configuration</a> for details.</p>
+        </div>
+        <p>Run one of the following:</p>
+        <ol>
+            <li value="1">
+                <p><b>For Ubuntu:</b>
+                </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get update<br /><span style="font-weight: normal;">$ </span>sudo apt-get install helix-swarm helix-swarm-triggers helix-swarm-optional</pre>
+            </li>
+            <li value="2">
+                <p><b>For CentOS/RHEL (run this command as root):</b>
+                </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum install helix-swarm helix-swarm-triggers helix-swarm-optional</pre>
+            </li>
+        </ol>
+        <p><span class="PerforceSwarm short">Swarm</span> generally has several major updates each year, and may occasionally have a patch update between major updates. To determine whether a <span class="PerforceSwarm short">Swarm</span> update is available, run one of the following:</p>
+        <ol>
+            <li value="1">
+                <p><b>For Ubuntu:</b>
+                </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo apt-get update<br /><span style="font-weight: normal;">$ </span>sudo apt-get -s upgrade | grep swarm</pre>
+            </li>
+            <li value="2">
+                <p><b>For CentOS/RHEL (run this command as root):</b>
+                </p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;"># </span>yum list updates | grep swarm</pre>
+            </li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Upgrade_the_Swarm_index_..107" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Upgrade the <span class="PerforceSwarm short">Swarm</span> index</h3>
+        <p>The upgrade index process can be configured to suit your <span class="PerforceSwarm short">Swarm</span> system specifications. See <a href="admin.upgrade_index.html" title="Upgrade index link" alt="Upgrade index link">Upgrade index</a> for details. </p>
+        <p>Run the upgrade as an <i>Admin</i> user by visiting the following URL: </p><pre class="programlisting" lang="html" xml:space="preserve">http://SWARM-HOST/upgrade</pre>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The <span class="PerforceSwarm short">Swarm</span> index must be upgraded to ensure that the <span class="PerforceSwarm short">Swarm</span> review history is displayed in the correct order. </p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is only required the first time you upgrade your <span class="PerforceSwarm short">Swarm</span> system to 2017.3 or later. Subsequent <span class="PerforceSwarm short">Swarm</span> upgrades do not require the index to be upgraded.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is not required if your <span class="PerforceSwarm short">Swarm</span> system has less than 100 reviews. In this case <span class="PerforceSwarm short">Swarm</span> will automatically upgrade the index on the fly. </p>
+        </div>
+        <p>All done!</p>
+        <h2 data-mc-autonum=""><a name="Upgrade_a_Swarm_OVA_installation_from_Swarm_2014.1_or_earlier" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="setup.upgrade.upgrade_ova"></a>Upgrade a <span class="PerforceSwarm short">Swarm</span> OVA installation from <span class="PerforceSwarm short">Swarm</span> 2014.1 or earlier</h2>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If you are running the <span class="PerforceSwarm short">Swarm</span> 2014.2 OVA, or newer, <span class="PerforceSwarm short">Swarm</span> was installed using system packages and can be upgraded by following the <a href="setup.packages.html#setup.packages.updating"><a href="#setup.upgrade.update_package">package update instructions</a></a>.</p>
+        </div>
+        <p>The following process attempts to minimize downtime, but a short period of downtime for <span class="PerforceSwarm short">Swarm</span> users is unavoidable. There should be no downtime for your <span class="PerforceHVE short">Helix server</span>. After a successful upgrade, all <span class="PerforceSwarm short">Swarm</span> users are logged out.</p>
+        <p>If you are using <span class="PerforceSwarm short">Swarm</span> in a production environment, we encourage you to test this upgrade process in a non-production environment first.</p>
+        <ol>
+            <li value="1">Download the new OVA from <a href="https://www.perforce.com/downloads/helix-swarm" target="_blank">https://www.perforce.com/downloads/helix-swarm</a>. </li>
+            <li value="2">Follow the <a href="setup.ova.html">OVA setup steps</a>. This provides you with an upgraded <span class="PerforceSwarm short">Swarm</span> and an updated web hosting environment within the OVA, which can include distribution, web server, PHP, and security updates.</li>
+            <li value="3">
+                <p>If you have customized the original OVA's <span class="PerforceSwarm short">Swarm</span> configuration: </p>
+                <ol style="list-style-type: lower-alpha;">
+                    <li value="1">Copy <code class="code_clearBackground">/opt/perforce/swarm/data/config.php</code> to the same path in the new OVA.</li>
+                    <li value="2">Copy all token files in <code class="code_clearBackground">/opt/perforce/swarm/data/queue/tokens/</code> to the same path in the new OVA. </li>
+                </ol>
+            </li>
+            <li value="4">Shutdown the old OVA. </li>
+        </ol>
+        <h3 data-mc-autonum=""><a name="Upgrade_the_Swarm_index_..108" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Upgrade the <span class="PerforceSwarm short">Swarm</span> index</h3>
+        <p>The upgrade index process can be configured to suit your <span class="PerforceSwarm short">Swarm</span> system specifications. See <a href="admin.upgrade_index.html" title="Upgrade index link" alt="Upgrade index link">Upgrade index</a> for details. </p>
+        <p>Run the upgrade as an <i>Admin</i> user by visiting the following URL: </p><pre class="programlisting" lang="html" xml:space="preserve">http://SWARM-HOST/upgrade</pre>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The <span class="PerforceSwarm short">Swarm</span> index must be upgraded to ensure that the <span class="PerforceSwarm short">Swarm</span> review history is displayed in the correct order. </p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is only required the first time you upgrade your <span class="PerforceSwarm short">Swarm</span> system to 2017.3 or later. Subsequent <span class="PerforceSwarm short">Swarm</span> upgrades do not require the index to be upgraded.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>This step is not required if your <span class="PerforceSwarm short">Swarm</span> system has less than 100 reviews. In this case <span class="PerforceSwarm short">Swarm</span> will automatically upgrade the index on the fly. </p>
+        </div>
+        <p>All done! </p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

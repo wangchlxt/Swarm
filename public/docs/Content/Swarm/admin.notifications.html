@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Notifications</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.notifications.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Notifications" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Notifications</h1>
+        <p><span class="PerforceSwarm short">Swarm</span> can be configured to provide generic notifications of committed changes in <span class="PerforceHVE short">Helix server</span>, taking the role of a <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">review daemon<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A review daemon is a program that periodically checks the Helix Core machine to determine if any changelists have been submitted. If so, the daemon sends an email message to users who have subscribed to any of the files included in those changelists, informing them of changes in files they are interested in.</span></a>.</p>
+        <p>Notifications configuration is expressed with a <code class="code_clearBackground">notifications</code> block in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/config.php</code> file, similar to the following example:</p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'notifications' =&gt; array(<br />        'honor_p4_reviews'      =&gt; false,                  // defaults to false<br />        'opt_in_review_path'    =&gt; '//depot/swarmReviews', // required if honor_p4_reviews is true; defaults to ''<br />        'disable_change_emails' =&gt; false,                  // optional; defaults to false<br />    ),</pre>
+        <p>If <code>honor_p4_reviews</code> is set to <code>true</code>, then <code>opt_in_review_path</code> must be set to a path somewhere in the depot. This path does not need to point to an actual file that exists, but it must be accessible by all users who want to make use of this functionality. For example:</p><pre lang="php" class="programlisting" xml:space="preserve">'notifications' =&gt; array(<br />        'honor_p4_reviews'   =&gt; true, <br />        'opt_in_review_path' =&gt; '//depot/swarmReviews', <br />),</pre>
+        <p>If these two values are set, then users can make use of the <span class="PerforceCompany short">Perforce</span> review functionality by subscribing to the <code>opt_in_review_path</code> in their user spec. Any user subscribed to that file, will receive notifications for all the other paths they are subscribed to.</p>
+        <p>We recommend that <code>opt_in_review_path</code> point to a file that does not exist. Ideally, it points to a file that no user is likely to want to create. It must however be in a valid depot.</p>
+        <p>For example, if a user has the following review paths set in their user spec:</p><pre class="programlisting" xml:space="preserve">$ p4 user -o asmith<br />User:	asmith    <br /><br />Email:	asmith@example.com<br /><br />FullName:	Alice Smith<br />   <br />Reviews:<br />	//depot/swarmReviews <br />	//depot/main/acme/...<br />	//depot/main/orion/...<br />	//depot/dev/asmith/... </pre>
+        <p>The <code class="code_clearBackground">//depot/swarmReviews</code> means that this user is subscribed to the path set in <code class="code_clearBackground">opt_in_review_path</code>, and therefore will receive notifications. The rest of the subscription lines define which paths in the depot this user is interested in. Therefore this user will receive a notification for a change made to <code class="code_clearBackground">//depot/main/acme/foo.txt</code>, but not a change made to <code class="code_clearBackground">//depot/dev/acme/foo.txt</code>.</p>
+        <p>For example, to see which users are subscribed to receive notifications you can run <code>p4 reviews &lt;path&gt;</code>against the <code>opt_in_review_path</code> value:</p><pre class="programlisting" xml:space="preserve">$ p4 reviews //depot/swarmReviews<br />asmith &lt;asmith@example.com&gt; (Alice Smith)   <br />bbrown &lt;bbrown@example.com&gt; (Bob Brown)<br />erogers &lt;erogers@example.com&gt; (Eve Rogers) </pre>
+        <p>To see which users are subscribed to files in a particular changelist, you can run <code>p4 reviews -c &lt;changelist&gt;</code>. Swarm will notify the users who subscribe to both the review of this changelist and the review path, <code>opt_in_review_path</code>.</p>
+        <ul>
+            <li value="1"><b>honor_p4_reviews</b>: When set to <code>true</code>, <span class="PerforceSwarm short">Swarm</span> sends notification emails for every committed change to all users where the change matches one of their <code>Reviews:</code> paths.</li>
+            <li value="2">
+                <p><b>opt_in_review_path</b>: Optional item, required only if <code>honor_p4_reviews</code> is set. This item specifies a special depot path, which typically would not exist in the <span class="PerforceHVE short">Helix server</span> machine. When a path is specified, users must include this path (or a path that contains it) in the <code>Reviews:</code> field of their user spec to cause <span class="PerforceSwarm short">Swarm</span> to send the user a notification for every committed change that matches one of their <code>Reviews:</code> paths.</p>
+                <p>For example, if the <code>opt_in_review_path</code> is set <code>to //depot/swarmReviews</code>, users can opt-in to <span class="PerforceSwarm short">Swarm</span> review notifications by adding that path, or a path such as <code>//depot/...</code>, to the <code>Reviews:</code> field in their user spec.</p>
+            </li>
+            <li value="3"><b>disable_change_emails</b>: Optional item. When set to <code>true</code>, notifications for committed changes, based on the <code>Reviews:</code> field and the users and projects you follow, are disabled. Notifications for reviews and comments will still be sent.</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If your <span class="PerforceHVE short">Helix server</span> machine already has a review daemon in operation, users receive two notifications for <code class="code_clearBackground">Reviews:</code> paths. You may want to deprecate the review daemon in favor of <span class="PerforceSwarm short">Swarm</span>'s change notifications.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><a href="basics.groups.html" class="MCXref xref">Groups</a> have per-group notification settings. See <a href="groups.add.html" class="MCXref xref">Add a group</a> for details.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Global_settings" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.notifications.global"></a>Global settings</h2>
+        <p>There are many situations that can result in email notifications being sent out to users and groups. Whilst it is possible for a user and group owner  to configure their own settings, it is also possible for the system owner to configure the defaults for all users and groups by modifying the settings in the <code class="code_clearBackground">config.php</code>. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <ul>
+                <li value="1"><b>If a group owner is not specified for the group:</b> only users with <i>super </i>privileges can configure group notification settings. </li>
+                <li value="2"><b>If one or more group owners are specified for the group:</b> only group owners and users with <i>super </i>privileges can configure group notification settings.</li>
+            </ul>
+        </div>
+        <p>Each notification consists of an <code>Event</code> and a <code>Role</code>. The <code>Event</code> is what happened (for example, a new review was created, a file was submitted) and the <code>Role</code> is the role of the user or group who could receive a notification. A user or group can belong to multiple roles, in which case if any of them are set to send a notification, then the user or group will receive a notification.</p>
+        <p>For example, when a review is voted on (<code>review_vote</code>) , there are a number of roles of users, and groups that could be notified: </p>
+        <ul>
+            <li value="1"><b>Users:</b> the user that voted on the review (<code>is_self</code>), the author of the review (<code>is_author</code>), a user who is a moderator of the project branch the review is in (<code>is_moderator</code>), and a user who is a reviewer of the review (<code>is_reviewer</code>). </li>
+            <li value="2"><b>Groups:</b>  members of a moderator group for the project branch the review is in (<code>is_moderator</code>), and members of a reviewer group for the review (<code>is_reviewer</code>).</li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Configuration_options" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.notifications.global.config"></a>Configuration options</h3>
+        <p>By default, all notifications are enabled for all roles. The system-wide defaults can be changed by adding the following options into the notifications block of the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/config.php</code>. These options are in addition to those described above. </p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'notifications' =&gt; array(<br />        'review_new' =&gt; array(<br />            'is_author' =&gt; 'Enabled',<br />            'is_member' =&gt; 'Enabled'<br />        ),<br />        'review_files' =&gt; array(<br />            'is_self'      =&gt; 'Enabled', <br />            'is_author'    =&gt; 'Enabled',<br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'<br />        ),<br />        'review_vote' =&gt; array(<br />            'is_self'      =&gt; 'Enabled',                 	 <br />            'is_author'    =&gt; 'Enabled',<br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled' <br />       ),<br />       'review_required_vote' =&gt; array(       <br />            'is_self'      =&gt; 'Enabled',<br />            'is_author'    =&gt; 'Enabled', <br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'<br />       ),<br />       'review_optional_vote' =&gt; array(<br />            'is_self'      =&gt; 'Enabled',<br />            'is_author'    =&gt; 'Enabled', <br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'<br />       ),        <br />       'review_state' =&gt; array(<br />            'is_self'      =&gt; 'Disabled',            <br />            'is_author'    =&gt; 'Enabled',<br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'<br />        ),<br />        'review_tests' =&gt; array(,<br />             'is_author'    =&gt; 'Enabled',<br />             'is_reviewer'  =&gt; 'Enabled', <br />             'is_moderator' =&gt; 'Enabled'<br />        ),<br />        'review_changelist_commit' =&gt; array(<br />            'is_author'    =&gt; 'Enabled',<br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_member'    =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'<br />        ),<br />        'review_comment_new' =&gt; array(<br />            'is_author'   =&gt; 'Enabled',<br />            'is_reviewer' =&gt; 'Enabled'<br />        ),<br />        'review_comment_update' =&gt; array(<br />            'is_author'   =&gt; 'Enabled',<br />            'is_reviewer' =&gt; 'Enabled'<br />        ),<br />        'review_comment_liked' =&gt; array(<br />            'is_commenter' =&gt; 'Enabled'<br />        ),<br />        'review_opened-issue' =&gt; array(,<br />            'is_self'      =&gt; 'Enabled',<br />            'is_author'    =&gt; 'Enabled',<br />            'is_reviewer'  =&gt; 'Enabled',<br />            'is_moderator' =&gt; 'Enabled'               <br />        ),<br />        'review_join_leave' =&gt;   array (<br />            'is_self'      =&gt; 'Enabled'<br />            'is_author'    =&gt; 'Enabled'<br />            'is_reviewer'  =&gt; 'Enabled'<br />            'is_moderator' =&gt; 'Enabled'        <br />        ),<br />    )</pre>
+        <p>Each setting can have one of four possible values to either enable or disable notifications of that type. If multiple settings apply to a given event, then a user will receive a notification if <i>any</i> of them are enabled.</p>
+        <ul>
+            <li value="1"><b>Enabled</b>: Notifications for this event and role are enabled, and a user will receive emails by default.</li>
+            <li value="2"><b>Disabled</b>: Notifications for this event and role are disabled, and a user will not receive emails by default.</li>
+            <li value="3"><b>ForcedEnabled</b>: Same as for Enabled, but this is forced enabled for all users. An individual user is not able to disable this notification type on their settings page.</li>
+            <li value="4"><b>ForcedDisabled</b>: As for Disabled, but this is forced disabled for all users. An individual user will not be able to enable this notification type on their settings page.</li>
+        </ul>
+        <p>Unless one of the forced options is used, system wide options can be overridden by individual users and group owners, who can configure which notifications they receive.</p>
+        <h3 data-mc-autonum=""><a name="Notification_Roles" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.notifications.global.roles"></a>Notification Roles</h3>
+        <p>The various roles are as follows:</p>
+        <ul>
+            <li value="1"><b>is_self</b>: This role is the user who changed the state of the review. </li>
+            <li value="2"><b>is_author</b>: This role is the user who was the author of the review.</li>
+            <li value="3"><b>is_reviewer</b>: This role includes all users and groups who are listed as being a reviewer on the review.</li>
+            <li value="4"><b>is_member</b>: This role includes all users who are a member of the project in which the event happened.</li>
+            <li value="5"><b>is_moderator</b>: This role includes all users and groups who are listed as being a moderator of the project branch in which the event happened. </li>
+            <li value="6"><b>is_follower</b>: This role includes all users who are followers of the project in which the event happened.</li>
+            <li value="7"><b>is_commenter</b>: This role is the user who was the author of a comment.</li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Notification_events" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.notifications.global.events"></a>Notification events</h3>
+        <p>An event is the action that causes the notification:</p>
+        <ul>
+            <li value="1"><b>review_new</b>: A new review has been created.</li>
+            <li value="2"><b>review_files</b>: Files have been added to a review.</li>
+            <li value="3"><b>review_vote</b>: A user has voted on a review.</li>
+            <li value="4"><b>review_state</b>: The status of a review has been changed.</li>
+            <li value="5"><b>review_tests</b>: Automated tests have  failed for a review. The first time automated tests pass for a review after a test failure for that review. </li>
+            <li value="6"><b>review_changelist_commit</b>: Files on a review have been committed.</li>
+            <li value="7"><b>review_comment_new</b>: A comment has been added to a review.</li>
+            <li value="8"><b>review_comment_update</b>: A comment on a review has been updated.</li>
+            <li value="9"><b>review_comment_liked</b>: A user has liked a comment.</li>
+            <li value="10"><b>review_join_leave</b>: A user or group has joined or left a review.</li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

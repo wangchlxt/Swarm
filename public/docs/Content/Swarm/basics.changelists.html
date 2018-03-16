@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Changelists</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.changelists.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Changelists" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Changelists</h1>
+        <p>Changelists are the basic unit of versioning work in <span class="PerforceHelix short">Helix Core</span>. A changelist is a list of files, their revision numbers, and the changes made to those files. Commits is a shorter synonym used throughout <span class="PerforceSwarm short">Swarm</span>.</p>
+        <p>More information is available here:</p>
+        <ul>
+            <li value="1"><a href="basics.commits.html">Browsing changelists</a>
+            </li>
+            <li value="2"><a href="basics.users.html">Browsing a user's shelved changelists</a>
+            </li>
+            <li value="3"><a href="code_reviews.model.html#code_reviews.model.internal"><span class="PerforceSwarm short">Swarm</span>'s internal use of changelists to facilitate code reviews</a>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Changelist_Display" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.changelists.display"></a>Changelist Display</h2>
+        <p>View a specific <i><a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">changelist<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A changelist is a list of files, their version numbers, the changes made to the files, and a description of the changes made. A changelist is the basic unit of versioned work in a Helix Versioning Engine.</span></a></i> by clicking on a linked changelist number, or by visiting the URL: <code class="code_clearBackground">https://<i>myswarm.url</i>/<i style="font-weight: bold;">changes</i>/<i>changelist number</i></code></p>
+        <p>When <span class="PerforceSwarm short">Swarm</span> displays a change, the presentation is similar to:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-change.png" title="The Change page" alt="" />
+        </div>
+        <p>The changelist display includes:</p>
+        <ul>
+            <li value="1">The avatar and userid of the user who made the change</li>
+            <li value="2">The time the change was made</li>
+            <li value="3">The common depot location containing all the files included in the change</li>
+            <li value="4">
+                <p>When the <code class="code_clearBackground" style="font-weight: bold;">zip </code>command-line tool is available, <span class="PerforceSwarm short">Swarm</span> can provide a ZIP archive containing all of the files in a changelist.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The <b>Download .zip</b> button does not appear if the <code class="code_clearBackground" style="font-weight: bold;">zip </code>command-line tool is not available. Similarly, the <b>Download .zip</b> button is disabled if the changelist contains only deleted files.</p>
+                </div>
+                <p>When you click the <b>Download .zip</b> button, <span class="PerforceSwarm short">Swarm</span> performs the following steps:</p>
+                <ol>
+                    <li value="1">Scan the changelist's files, to determine if you have permission to access their contents (according to the <span class="PerforceHVE short">Helix server</span> protections), and if the total file size is small enough to be processed by <span class="PerforceSwarm short">Swarm</span>.</li>
+                    <li value="2">Sync the file contents to the <span class="PerforceSwarm short">Swarm</span> server from the <span class="PerforceHVE short">Helix server</span>.</li>
+                    <li value="3"> Create the ZIP archive by compressing the file content.</li>
+                    <li value="4">Start a download of the generated ZIP archive.</li>
+                </ol>
+                <p>You might not see all of the above steps; <span class="PerforceSwarm short">Swarm</span> caches the resulting ZIP archives so that repeated requests to download the same changelist's files can skip the sync/compress steps whenever possible.</p>
+                <p> If an error occurs while scanning, syncing, or compressing, <span class="PerforceSwarm short">Swarm</span> indicates the error.</p>
+                <p>For information on the configuration for ZIP archives, see <a href="admin.archives.html" class="MCXref xref">Archives configuration</a>.</p>
+            </li>
+            <li value="5">If the change was involved in a code review, a link to the review along with a <b>View Review</b> button.</li>
+            <li value="6">The description of the change</li>
+            <li value="7">A list of jobs that this change <i>fixes</i>, if any. You can <a href="basics.jobs.html#basics.jobs.add">add jobs</a> and <a href="basics.jobs.html#basics.jobs.unlink">unlink jobs</a> here.</li>
+            <li value="8">The list of files included in the change, including any folders between the common depot location and the file, and the file's version number.</li>
+            <li value="9">A tab to review any comments made regarding the change, or any of its files.</li>
+        </ul>
+        <p>Each file is presented in a diff display, showing you whether the file was added, modified, or deleted. For text-based and image files, <span class="PerforceSwarm short">Swarm</span> can display any changes made within the file. For changes with only a single file, the diff display is the default; otherwise each file is listed. Click the filename to see the diff display. See <a href="basics.diffs.html" class="MCXref xref">Diffs</a> for more information.</p>
+        <p>The <b>Request Review</b> button indicates the current state of this change; no Review record has been created. Clicking <b>Request Review</b> starts a code review for this change. For more information, see <a href="code_reviews.activities.html#code_reviews.activities.start" class="MCXref xref">Start a review</a>.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>If your <span class="PerforceHVE short">Helix server</span> is configured as a commit-edge deployment, and your normal connection is to an edge server, <span class="PerforceSwarm short">Swarm</span> refuses to start reviews for shelved changes that have not been promoted to the commit server.</p>
+            <p>Within <span class="PerforceSwarm short">Swarm</span>, this means that the <b>Request Review</b> button does not appear for unpromoted shelved changes. Outside of <span class="PerforceSwarm short">Swarm</span>, attempts to start reviews for unpromoted shelved changelists appear to do nothing. Ask your <span class="PerforceHVE short">Helix server</span> administrator for assistance if you cannot start a review.</p>
+            <p>An administrator of the <span class="PerforceHVE short">Helix server</span> can automatically promote shelved changes to the commit server by setting the configurable <code class="code_clearBackground">dm.shelve.promote</code> to 1.</p>
+        </div>
+        <p>When a file in a changelist has one or more associated comments, an icon <img src="../Resources/Images/swarm-icon-comments_exist.png" title="Icon indicating that comments exists" alt="" /> appears near the far right of the file's entry.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

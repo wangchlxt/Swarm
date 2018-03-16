@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>CSS &amp; JavaScript</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/extending.clients.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="CSS_&amp;_JavaScript" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>CSS &amp; JavaScript</h1>
+        <p>Custom CSS and JavaScript files will be loaded automatically if you place them under either:</p>
+        <p><code class="code_clearBackground"><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a>/public/custom/*.<i>(css|js)</i></code>
+        </p>
+        <p><code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom/sub-folder/*.<i>(css|js)</i></code>
+        </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><span class="PerforceSwarm short">Swarm</span> only supports customizations placed directly within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder or one sub-folder down. Customizations are added after all standard CSS and JavaScript. If more than one custom file is present they are added in alphabetical order.</p>
+            <p>Prior to creating any customizations, ensure that the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder exists; <span class="PerforceSwarm short">Swarm</span> does not ship with or create this folder.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Sample_Javascript_extensions" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.javascript"></a>Sample Javascript extensions</h2>
+        <p>The following are example Javascript customizations that you might wish to apply to your <span class="PerforceSwarm short">Swarm</span> installation. Each example can be implemented separately. Ideally, you would apply the Javascript customizations in a single file to reduce the number of web requests required.</p>
+        <div class="warning admonition" data-mc-autonum="Warning"><span class="autonumber"><span class="admonition">Warning</span></span>
+            <p>Coding errors in your custom JavaScript files could cause the <span class="PerforceSwarm short">Swarm</span> UI to stop working. If this occurs, use your browser's development tools to identify which file contains the problem, and move that file out of the <code class="code_clearBackground"><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a>/public/custom</code> folder. When the problem has been resolved, the file can be returned.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Make_the_Created_column_on_the_Reviews_page_clickable" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.javascript.created"></a>Make the <i>Created</i> column on the Reviews page clickable</h3><pre class="programlisting" lang="javascript" xml:space="preserve">$(document).on( 'click', '.reviews-table td.created', function() {<br />    var change = $(this).closest('tr').data('id');<br />    window.location = '/reviews/' + change;<br />});</pre>
+        <p>Save these lines in a file, perhaps <code>reviews-created-clickable.js</code>, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the JavaScript file, making the entries in the <i>Created</i> column clickable immediately for all for subsequent review page views.</p>
+        <h3 data-mc-autonum=""><a name="Adjust_the_number_of_&quot;more_context&quot;_lines_for_diffs" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.javascript.morecontext"></a>Adjust the number of "more context" lines for diffs</h3><pre class="programlisting" lang="javascript">swarm.diff.moreContextLines = 25;</pre>
+        <p>Replace the <code class="code_clearBackground" style="font-style: italic;">25</code> with the number of lines of context that should be retrieved each time the <i>more context</i> bar is clicked when viewing a diff.</p>
+        <p>Save this line in a file, perhaps <code>more-context-lines.js</code>, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the JavaScript file, adjusting the number of <i>more context</i> lines immediately for subsequent page views.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Try to avoid making this value arbitrarily large, as the file being diffed could be very large; users wouldn't expect to see the entire file when clicking the <i>more context</i> bar. If you need to see the whole file, click the <b>Show full context</b> icon.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Customize_the_review_state_options_text" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.javascript.reviewstate"></a>Customize the review state options text</h3><pre class="programlisting" lang="javascript" xml:space="preserve">var original = swarm.review.buildStateMenu;<br />swarm.review.buildStateMenu = function(){<br />    original();<br />    var needsReview = $('.icon-review-needsReview').parent();<br />    needsReview.html(needsReview.html().replace(<br />        'Needs Review', '<i>You need to review</i>'<br />    ));<br />}</pre>
+        <p>Replace the <i>You need to review</i> with the text you'd prefer to see instead of <code>Needs Review</code>.</p>
+        <p>Save this line in a file, perhaps <code>customize-review-states</code>.js, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code>. <span class="PerforceSwarm short">Swarm</span> automatically includes the JavaScript file, adjusting the text of the review states immediately for subsequent page views.</p>
+        <h2 data-mc-autonum=""><a name="Sample_CSS_customizations" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.css"></a>Sample CSS customizations</h2>
+        <p>The following are example CSS customizations that you might wish to apply to your <span class="PerforceSwarm short">Swarm</span> installation. Each example can be implemented separately. Ideally, you would apply the CSS customizations in a single file to reduce the number of web requests required.</p>
+        <h3 data-mc-autonum=""><a name="Adjust_the_default_tab_size" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.css.tabsize"></a>Adjust the default tab size</h3><pre class="programlisting" lang="css" xml:space="preserve">body {<br />   tab-size: 4;<br />}</pre>
+        <p>Replace the <code style="font-style: italic;">4</code> with the tab size you prefer.</p>
+        <p>Save these lines in a file, perhaps <code>tab-size.css</code>, within the <code class="code_clearBackground"><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the CSS file, adjusting the tab size immediately for subsequent page views.</p>
+        <h3 data-mc-autonum=""><a name="Apply_a_custom_background_to_the_login_screen" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.css.loginbg"></a>Apply a custom background to the login screen</h3><pre class="programlisting" lang="css" xml:space="preserve">body.route-login {<br />    background: url("<i>/custom/login_background.jpg</i>") no-repeat center fixed;<br />}</pre>
+        <p>Replace the <code style="font-style: italic;">/custom/login_background.jpg</code> URL fragment with image you want to use. If you do not specify a full URL, the image you specify must exist within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public</code> folder, preferably within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder.</p>
+        <p>Save these lines in a file, perhaps <code>login-background.css</code>, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the CSS file, immediately replacing the login screen's background for subsequent page views.</p>
+        <h3 data-mc-autonum=""><a name="Replace_Swarm's_logo_in_the_main_navigation_bar" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.css.navbar_logo"></a>Replace <span class="PerforceSwarm short">Swarm</span>'s logo in the main navigation bar</h3><pre class="programlisting" lang="css" xml:space="preserve">.navbar-site .brand {<br />    background: url("<i>/custom/navbar_logo.jpg</i>") no-repeat center;<br />}</pre>
+        <p>Replace the <code style="font-style: italic;">/custom/navbar_logo.jpg</code> URL fragment with image you want to use. If you do not specify a full URL, the image you specify must exist within <code class="code_clearBackground">the <i>SWARM_ROOT</i>/public</code> folder, preferably within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder.</p>
+        <p>Save these lines in a file, perhaps <code>navbar-logo.css</code>, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the CSS file, immediately replacing the login screen's background for subsequent page views.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p><span class="PerforceSwarm short">Swarm</span>'s navbar design supports logos up to 24 pixels tall. Even if your logo fits within that height, you may need to also adjust the width, height, margins, or padding to suit your logo.</p>
+        </div>
+        <h3 data-mc-autonum=""><a name="Adjust_the_appearance_of_avatars" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.clients.css.avatar"></a>Adjust the appearance of avatars</h3><pre class="programlisting" lang="css" xml:space="preserve">img.avatar {<br />    border: 2px dashed red;<br />    border-radius: 10%;<br />}</pre>
+        <p>You can make a number of adjustments to the way <span class="PerforceSwarm short">Swarm</span> presents avatars, such as adding a border and adjusting the border radius, as the example above demonstrates. You should avoid attempting to set specific sizes because <span class="PerforceSwarm short">Swarm</span> uses different sizes depending on where the avatar is displayed.</p>
+        <p>Save these lines in a file, perhaps <code>avatars.css</code>, within the <code class="code_clearBackground"><i>SWARM_ROOT</i>/public/custom</code> folder. <span class="PerforceSwarm short">Swarm</span> automatically includes the CSS file, immediately replacing the login screen's background for subsequent page views.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

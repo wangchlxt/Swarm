@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Dashboard</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.dashboard.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Dashboard" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Dashboard</h1>
+        <p>Your dashboard is available on the <b>Home</b> page of <span class="PerforceSwarm short">Swarm</span> and displays a list of reviews that you may need to act on. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Since it is tied to the logged in user, the dashboard is only populated if you are logged in. </p>
+        </div>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-dashboard.png" title="User Dashboard" alt="" />
+        </div>
+        <p>The purpose of the dashboard is to allow you to focus on reviews that need to be done, so that other users are not blocked. The dashboard lists reviews according to the most recently modified first, and shows your role in the review.</p>
+        <p>A review is displayed on your dashboard if any of the following criteria are met:</p>
+        <ul>
+            <li value="1">You are a reviewer or required reviewer, the review status is <b>Needs Review</b> and you have not already voted on it.</li>
+            <li value="2">You are  a member of a reviewer group or a required reviewer group, the review status is <b>Needs Review</b> and you have not already voted on it. The review will remain on your dashboard even if the group has met its criteria if you have not already voted on it. </li>
+            <li value="3">You are the review author and the review status is <b>Needs Revision</b>, or <b>Approved</b> (only if the review is approved but not committed).</li>
+            <li value="4">You are a moderator or a member of a moderator group who can approve the review, and the review status is <b>Needs Review</b>.</li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Filtering" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.dashboard.filtering"></a>Filtering</h2>
+        <p>The dashboard can be filtered to display only reviews from a particular project, authored by a particular user, or matching a role. You can click the <b>Reset</b> button to reset these filters.</p>
+        <p>Filtering options are:</p>
+        <ul>
+            <li value="1">
+                <p><b>Projects</b>
+                </p>
+                <p>You can filter by the project the review is part of, limiting results to projects you belong to, or to an individual project. The <b>All Projects</b> drop down will only show projects for which there are reviews in your dashboard.<![CDATA[  ]]></p>
+            </li>
+            <li value="2">
+                <p><b>Roles</b>
+                </p>
+                <p>You can filter by your specific role in a review, limiting results to  reviews for which you are the author, a reviewer,  a required reviewer, or a moderator. The <b>All Roles</b> drop down will only show roles for which there are reviews in your dashboard.</p>
+            </li>
+            <li value="3">
+                <p><b>Authored by</b>
+                </p>
+                <p>You can filter the reviews to only those that have been authored by a certain user. Type in this field to get a drop down list of users to filter by.</p>
+            </li>
+            <li value="4">
+                <p><b>Reset</b>
+                </p>
+                <p>Clicking the <b>Reset</b> button resets all dashboard filters back to their defaults.</p>
+            </li>
+            <li value="5">
+                <p><b>Search</b>
+                </p>
+                <p>Typing in the search field filters the reviews by their description.</p>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Review_fields" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.dashboard.content"></a>Review fields</h2>
+        <p>The dashboard shows a summary of the information for each review.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-dashboard-review.png" title="Review as displayed in the dashboard" alt="" />
+        </div>
+        <p>Reviews that appear here are those which are waiting for action from you. The information presented should help you prioritize what to work on next.</p>
+        <ul>
+            <li value="1">
+                <p><b>Author</b>
+                </p>
+                <p>The author of this review.</p>
+            </li>
+            <li value="2">
+                <p><b>ID</b>
+                </p>
+                <p>The ID of this review. Click on this to go to the review page.</p>
+            </li>
+            <li value="3">
+                <p><b>Description</b>
+                </p>
+                <p>The review description. It may be truncated if it is too long, in which case click on the ellipsis <b>...</b> to expand it.</p>
+            </li>
+            <li value="4">
+                <p><b>Project(s)</b>
+                </p>
+                <p>List of project branches this review covers. A review may span multiple branches and projects. Click on one of them to navigate to the project page for that branch.</p>
+            </li>
+            <li value="5">
+                <p><b>Your role</b>
+                </p>
+                <p>The reason this review is in your dashboard. This can be Author, Reviewer, Required Reviewer, or Moderator.</p>
+            </li>
+            <li value="6">
+                <p><b>State</b>
+                </p>
+                <p>The current status of the review. This can be Needs Review, Needs Revision, or Approved. </p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The Approved state only applies to review authors, it is only shown for a review that has been approved but has not been committed. </p>
+                </div>
+            </li>
+            <li value="7">
+                <p style="font-weight: normal;"><b>Votes</b>
+                </p>
+                <p>The double column of votes displays the number of up votes and down votes for the review.</p>
+            </li>
+            <li value="8">
+                <p><b>Last activity</b>
+                </p>
+                <p>The last time that any changes were made to the review, including votes, comments, commits, and file changes.</p>
+            </li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

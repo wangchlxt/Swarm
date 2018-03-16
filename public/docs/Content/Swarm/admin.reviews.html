@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Reviews</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.reviews.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Reviews" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Reviews</h1>
+        <p>This section provides information on how to enforce reviews, disable self-approval of reviews by authors, allow author changes, synchronize the description of a review, expand reviewer group so the group members are displayed individually on the review page, and disable tests on approve and commit.</p>
+        <h2 data-mc-autonum=""><a name="Review_enforcement" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.enforcement"></a>Review enforcement</h2>
+        <p>Using the enforce trigger script type option, <span class="PerforceSwarm short">Swarm</span> can optionally require that a change to be submitted is tied to an approved code review, or the submit is rejected. You would most often use this option to ensure that files within specific depot paths have been reviewed.</p>
+        <p>Additionally, using the <code>strict</code> trigger script type option, <span class="PerforceSwarm short">Swarm</span> can optionally require that the content of a change to be submitted matches the content of its associated approved code review, or the submit is rejected. Using the <code>strict</code> type implies use of the <code>enforce</code> type. You would most often use this option to prevent users from making changes prior to submitting an already approved review.</p>
+        <p>These capabilities are provided via the trigger script included with <span class="PerforceSwarm short">Swarm</span>, but are not enabled by default nor covered in the <a href="setup.perforce.html">standard installation steps</a>.</p>
+        <p>To enable these capabilities, edit the <span class="PerforceCompany short">Perforce</span> trigger table by running the <code>p4 triggers</code> command as a user with <i>super</i>-level privileges and add the following lines:</p><pre class="programlisting">swarm.enforce.1 change-submit  //DEPOT_PATH1/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t enforce -v %change% -p %serverport%"<br />swarm.enforce.2 change-submit  //DEPOT_PATH2/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t enforce -v %change% -p %serverport%"<br />swarm.strict.1  change-content //DEPOT_PATH1/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t strict -v %change% -p %serverport%"<br />swarm.strict.2  change-content //DEPOT_PATH2/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t strict -v %change% -p %serverport%"</pre>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>These trigger table entries assume that the trigger script, swarm-trigger.pl, has been committed to the <span class="PerforceHVE short">Helix server</span> within the <code class="code_clearBackground">//.swarm</code> depot. If you have instead copied the trigger script to your <span class="PerforceHVE short">Helix server</span>'s filesystem (and to the same path on all edge servers in a commit-edge deployment), replace <code class="code_clearBackground">//.swarm/triggers/swarm-trigger.pl</code> with the path to the trigger script.</p>
+        </div>
+        <p>Customize each line by replacing <code>DEPOT_PATH1</code> or <code>DEPOT_PATH2</code> with the appropriate depot path where you wish to enforce review approvals or to apply a strict comparison of review contents.</p>
+        <p>The above lines include two examples of each of the two new trigger behaviors. Remove unnecessary lines, or add additional lines for specific depot paths as required.</p>
+        <p>It is also possible to configure exemptions to the <cite>enforce</cite> and <code>strict</code> verifications, for the number of files in a review or the filetypes in a review. For more information on the trigger's options, see <a href="admin.trigger.html" class="MCXref xref">Trigger options</a>.</p>
+        <h3 data-mc-autonum=""><a name="Group_exclusion" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.group_exclusion"></a>Group exclusion</h3>
+        <p>You may want to exclude specific users from the enforcement provided by these new trigger lines:</p>
+        <ol>
+            <li value="1">Create a group in the <span class="PerforceHVE short">Helix server</span> whose members should be excluded from enforce or strict review restrictions.</li>
+            <li value="2">
+                <p>Add users who should be excluded to the group.</p>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>The owner of a group is not counted as a member of the group, unless the owner's userid is listed as a user in the group.</p>
+                </div>
+            </li>
+            <li value="3">Edit the trigger table and add <code>-g <i>group_name</i></code> to each <code>enforce</code> or <code>strict</code> trigger line as desired.</li>
+        </ol>
+        <p>If the group name is <code>review_exclusions</code>, the trigger lines would be similar to:</p><pre class="programlisting">swarm.enforce.1 change-submit  //DEPOT_PATH1/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t enforce -v %change% -p %serverport% -g review_exclusions"<br />swarm.enforce.2 change-submit  //DEPOT_PATH2/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t enforce -v %change% -p %serverport% -g review_exclusions"<br />swarm.strict.1  change-content //DEPOT_PATH1/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t strict -v %change% -p %serverport% -g review_exclusions"<br />swarm.strict.2  change-content //DEPOT_PATH2/... "%//.swarm/triggers/swarm-trigger.pl% -c %//.swarm/triggers/swarm-trigger.conf% -t strict -v %change% -p %serverport% -g review_exclusions"</pre>
+        <h2 data-mc-autonum=""><a name="Disable_self-approval_of_reviews_by_authors" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.disable_self_approve"></a>Disable self-approval of reviews by authors</h2>
+        <p>The <span class="PerforceSwarm short">Swarm</span> 2015.2 release provides the ability to disable review approval by authors, even if they are moderators or administrators. This is useful for development workflows where review by others is of paramount importance.</p>
+        <p>To disable review approval by authors, update the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/config.php</code> file to include the following configuration item within the reviews block:</p><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'disable_self_approve' =&gt; true,<br />            ),</pre>
+        <p>The default value is <code>false</code>.</p>
+        <h2 data-mc-autonum=""><a name="Allow_author_change" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.allow_author_change"></a>Allow author change</h2>
+        <p>It is possible to allow a user to make themselves the author of a review. This is useful in the case where the original author is no longer available, and someone else needs to take over ownership.</p><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'allow_author_change' =&gt; true,<br />            ),</pre>
+        <p>The default value is <code>false</code>. If set to be <code>true</code>, then anyone can claim ownership of a review.</p>
+        <h2 data-mc-autonum=""><a name="Synchronize_review_description" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.sync"></a>Synchronize review description</h2>
+        <p>By enabling the synchronization of review descriptions, it becomes possible to update the description of a review by updating the description of a changelist associated with the review. Whenever an associated changelist is saved, the text of the review will be updated to match.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Attaching another changelist to a review, or updating the files in a changelist will not trigger this update, but updating the description of additional attached changelists will.</p>
+        </div><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'sync_descriptions' =&gt; false,<br />            ),</pre>
+        <h2 data-mc-autonum=""><a name="Expand_all_file_limit" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.reviews.expand_all_limit"></a>Expand all file limit</h2>
+        <p>The review page has an <b>Expand All button</b> that opens all the files within that review. If the number of files is large, clicking the button might affect performance.</p>
+        <p>The <code>expand_all_file_limit</code> disables the button if the number of files in the review exceeds the given value. If the value is set to zero, the button is always enabled and can therefore open all the files.</p><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'expand_all_file_limit' =&gt; 10,<br />            ),</pre>
+        <p>The default value if the option is not specified is 10.</p>
+        <h2 data-mc-autonum=""><a name="Expand_group_reviewers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.expand_group_reviewers"></a>Expand group reviewers</h2>
+        <p>By default, reviewer group members are not displayed in the <a href="code_reviews.display.html#code_reviews.display.reviewers"><i>Individuals </i>area</a> of the reviews page when they interact with a review (vote, comment, update, commit, archive,  etc.). This avoids overloading the <i>Individuals </i>area with individual avatars if you have large reviewer groups. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>An exception to this behavior is when a member of a reviewer group is also  an individual <a href="code_reviews.responsibility.html#code_reviews.responsibility.required">required reviewer</a>, in this case their avatar will be displayed in the <i>Individuals </i>area.</p>
+        </div>
+        <p>When <code>expand_group_reviewers</code> is  set to <code>true</code>, reviewer group members are added to the <i>Individuals</i> area of the review page when they interact with the review (vote, comment, update, commit, archive,  etc.). If you have large reviewer groups, this might affect performance.</p><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'expand_group_reviewers' =&gt; false,<br />            ),</pre>
+        <p>The default value for <code>expand_group_reviewers</code> is <code>false</code>. </p>
+        <h2 data-mc-autonum=""><a name="Disable_tests_on_approve_and_commit" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.disable_tests_on_approve_commit"></a>Disable tests on approve and commit</h2>
+        <p>When an approved review is committed, <code>disable_tests_on_approve_commit</code> is used to determine if the automated tests are run on the commit (<a href="quickstart.integrate_test_suite.html">Automated Tests</a> must be configured). This is a global setting and is used for all of the <span class="PerforceSwarm short">Swarm</span> projects. </p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <ul>
+                <li value="1">When a changelist is committed outside of <span class="PerforceSwarm short">Swarm</span> and the changelist has been approved, this setting is used to determine if automated tests should be run.</li>
+                <li value="2">When a changelist is committed outside of <span class="PerforceSwarm short">Swarm</span> and the changelist does not have a review, this setting is ignored and the automated tests are run. </li>
+                <li value="3">When a changelist is committed outside of <span class="PerforceSwarm short">Swarm</span> and the changelist has not been approved,  this setting is ignored and the automated tests are run. </li>
+            </ul>
+        </div>
+        <div class="tip admonition" data-mc-autonum="Tip "><span class="autonumber"><span class="admonition">Tip </span></span>
+            <p>The <code class="code_clearBackground">disable_tests_on_approve_commit</code> setting is also used when  <b>Approve and Commit</b> is selected from <a href="code_reviews.states.html#code_reviews.states.state_actions">Review State dropdown</a> button on the review page. </p>
+        </div><pre class="programlisting" lang="php" xml:space="preserve">            'reviews' =&gt; array(<br />                'disable_tests_on_approve_commit' =&gt; false,<br />            ),</pre>
+        <ul>
+            <li value="1"><code>disable_tests_on_approve_commit</code> = <code>false</code>: automated tests will be run when a review is approved and committed. This is the default setting. </li>
+            <li value="2"><code>disable_tests_on_approve_commit</code> = <code>true</code>: automated tests will not be run when a review is approved and committed. This is useful when the tests take a long time and the codeline is stable.</li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

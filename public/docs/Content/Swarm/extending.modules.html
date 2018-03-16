@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Modules</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/extending.modules.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Modules" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Modules</h1>
+        <p>A <span class="PerforceSwarm short">Swarm</span> module is a folder that exists within the modules folder within your <span class="PerforceSwarm short">Swarm</span> installation, where the folder name matches the module's name, and that folder must contain (at a minimum) a <code>Module.php</code> file. The file <code>Module.php</code> describes the dependencies, namespace, events subscriptions, and otherwise how the module integrates with <span class="PerforceSwarm short">Swarm</span>.</p>
+        <p>This chapter provides only cursory coverage of how modules integrate with <span class="PerforceSwarm short">Swarm</span>. Refer to the included <code>Jira</code> module for a good example of a simple module implementation within <span class="PerforceSwarm short">Swarm</span>:</p><pre class="programlisting"><i>swarm_install</i>/module/Jira</pre>
+        <h2 data-mc-autonum=""><a name="Influence_activity_events,_emails,_etc." data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.modules.influence"></a>Influence activity events, emails, etc.</h2>
+        <p>When something occurs in <span class="PerforceHelix short">Helix Core</span> (change submitted, files shelved, job added/edited), or state changes within <span class="PerforceSwarm short">Swarm</span> (comment added, review state changed, etc.), the event is pushed onto a task queue. A background worker process subsequently pulls events off of the queue and publishes an event alerting modules about activity they may be interested in processing. This architecture allows the <span class="PerforceSwarm short">Swarm</span> user interface to be fairly quick while accommodating tasks that might require notable processing time, or need to wait for related information to become available.</p>
+        <p>Subscribers to the worker event flesh the item out (fetch the change/job details, for example) and indicate if it should result in an activity entry, email notification, etc. By subscribing to various event topics, your module can pay attention to specific types of events. While your module is processing an event, it can modify the text of activity events, change the contents of emails, drop things entirely from activity, etc.</p>
+        <p>When your module subscribes to an event, set the priority to influence how early or late in the process it runs. You will likely want your module to run after most other modules have done their work to flesh out the event, but before <span class="PerforceSwarm short">Swarm</span>'s activity module processes it. The activity module sets a good example of subscribing to these events:</p><pre class="programlisting"><i>swarm_install</i>/module/Activity/Module.php</pre>
+        <p>Note that its priority is set to -100. Select a value before that for your own module (for example, 0 would be neutral and -90 would indicate that you are interested in being last).</p>
+        <p>The activity module listens to all events. However, be more selective. For example, if you are only interested in changes, subscribe to <code>task.change</code> instead of <code>*</code>. Current task types are:</p>
+        <ul>
+            <li value="1"><code>task.change</code>
+            </li>
+            <li value="2"><code>task.shelve</code>
+            </li>
+            <li value="3"><code>task.review</code>
+            </li>
+            <li value="4"><code>task.comment</code>
+            </li>
+            <li value="5"><code>task.job</code>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="Templates" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="Templates"></a>Templates</h2>
+        <p>Override existing view templates using your custom module. Have a look at an <a href="extending.example_email.html">example module</a> that demonstrates how to customize the email templates <span class="PerforceSwarm short">Swarm</span> uses for comment notifications.</p>
+        <p>For more information about views, see the <a href="http://framework.zend.com/manual/2.1/en/modules/zend.view.quick-start.html" target="_blank">Zend/View Quick Start</a>.</p>
+        <h2 data-mc-autonum=""><a name="View_helpers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.modules.view_helpers"></a>View helpers</h2>
+        <h3 data-mc-autonum=""><a name="Set_options_on_existing_helpers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.modules.view_helpers.options"></a>Set options on existing helpers</h3>
+        <p>It is possible to influence the behavior of existing view helpers by setting options on them; for an example see: <code class="code_clearBackground"><a href="admin.swarm_root.html"><i>swarm_install</i></a>/module/Application/Module.php</code></p>
+        <h3 data-mc-autonum=""><a name="Register_new_helpers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="extending.modules.view_helpers.register"></a>Register new helpers</h3>
+        <p>It is also possible to register new view helpers by placing them within your module's hierarchy, for example, <code class="code_clearBackground">MyModule/src/MyModule/View/Helper/Foo.php</code>. Use the following <span class="PerforceSwarm short">Swarm</span> view helper for inspiration: <code class="code_clearBackground"><i>swarm_install</i>/module/Activity/src/Activity/View/Helper/Activity.php</code></p>
+        <p>Then register your view helper with the view manager via your <code>ModuleConfig</code>: <code class="code_clearBackground"><i>swarm_root</i>/module/Activity/config/module.config.php</code></p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

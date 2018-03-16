@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Apache configuration</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/setup.apache.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix">  <![CDATA[ ]]></span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><span class="autonumber"><span></span></span>Apache configuration</h1>
+        <p>The configuration of the Apache HTTP Server (Apache) can vary between OS distributions; see the documentation specific to your installation of Apache. For example, on Mac OS X, you may have to enable Web Sharing within the Sharing control panel in System Preferences.</p>
+        <ol>
+            <li value="1">
+                <p>Locate your system's Apache configuration.</p>
+                <p>Common configuration directories include:</p>
+                <ul>
+                    <li value="1"><code class="code_clearBackground">/etc/httpd/conf/</code>
+                    </li>
+                    <li value="2"><code class="code_clearBackground">/etc/apache2/</code>
+                    </li>
+                    <li value="3"><code class="code_clearBackground">/Applications/XAMPP/etc/</code>
+                    </li>
+                </ul>
+                <p>Within the configuration path, the main Apache configuration file is usually named one of the following:</p>
+                <ul>
+                    <li value="1"><code class="code_clearBackground">httpd.conf</code>
+                    </li>
+                    <li value="2"><code class="code_clearBackground">apache2.conf</code>
+                    </li>
+                </ul>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>A longer discussion on the possible locations and names of Apache configuration files is available here:</p>
+                    <p><a href="https://wiki.apache.org/httpd/DistrosDefaultLayout" target="_blank">https://wiki.apache.org/httpd/DistrosDefaultLayout</a>
+                    </p>
+                </div>
+            </li>
+            <li value="2">
+                <p>Set up an Apache virtual host (vhost) for your installation.</p>
+                <p>If your Apache configuration directory contains the directories <code class="code_clearBackground">sites-available</code> and <code class="code_clearBackground">sites-enabled</code>:</p>
+                <ol>
+                    <li value="1">Copy the appropriate virtual host definition below into the file <code class="code_clearBackground">sites-available/swarm</code>.</li>
+                    <li value="2">
+                        <p>Enable the <span class="PerforceSwarm short">Swarm</span> virtual host definition.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span>sudo a2ensite swarm</pre>
+                    </li>
+                </ol>
+                <p>Otherwise, copy the appropriate virtual host definition below into the bottom of the main Apache configuration file, <code class="code_clearBackground">httpd.conf </code>or <code class="code_clearBackground">apache2.conf</code>.</p>
+                <ul>
+                    <li value="1">Virtual host definition example for Apache 2.2:<pre class="programlisting" lang="php" xml:space="preserve">&lt;VirtualHost *:80&gt;
+    ServerName <i>myswarm.host</i>
+    ServerAlias <i>myswarm</i>
+    ErrorLog "<i>/path/to/apache/logs/myswarm</i>.error_log"
+    CustomLog "<i>/path/to/apache/logs/myswarm</i>.access_log" common
+    DocumentRoot "<i>/path/to/swarm/</i>public"
+    &lt;Directory "<i>/path/to/swarm/</i>public"&gt;
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre></li>
+                    <li value="2">
+                        <p>Virtual host definition example for Apache 2.4:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;VirtualHost *:80&gt;
+    ServerName <i>myswarm.host</i>
+    ServerAlias <i>myswarm</i>
+    ErrorLog "/path/to/apache/logs/myswarm.error_log"
+    CustomLog "/path/to/apache/logs/myswarm.access_log" common
+    DocumentRoot "/path/to/swarm/public"
+    &lt;Directory "/path/to/swarm/public"&gt;
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;</pre>
+                    </li>
+                </ul>
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>See Apache's virtual host documentation for details:</p>
+                    <p><a href="https://httpd.apache.org/docs/2.2/vhosts/" target="_blank">https://httpd.apache.org/docs/2.2/vhosts/</a>
+                    </p>
+                    <p><a href="https://httpd.apache.org/docs/2.4/vhosts/" target="_blank">https://httpd.apache.org/docs/2.4/vhosts/</a>
+                    </p>
+                </div>
+            </li>
+            <li value="3">Customize the virtual host definition.<ol><li value="1">Replace <code class="code_clearBackground" style="font-style: italic;">myswarm.host</code> with the hostname for <span class="PerforceSwarm short">Swarm</span> on your network. This may require adjusting the DNS configuration on your network.</li><li value="2"><p>Replace <code class="code_clearBackground" style="font-style: italic;">myswarm </code>with the name of the subdomain hosting <span class="PerforceSwarm short">Swarm</span>. Many administrators choose swarm.</p><p>Note the string <code class="code_clearBackground" style="font-style: italic;">myswarm </code>in the log file paths: this should match the subdomain name and prefix for the log files, to help coordinate the active host with the log files for that host. Doing this is particularly useful when your Apache server hosts multiple instances of <span class="PerforceSwarm short">Swarm</span>.</p></li><li value="3">Replace <code class="code_clearBackground" style="font-style: italic;">/path/to/apache/logs</code> with the path where your Apache stores its log files. Apache's log files are typically named <code class="code_clearBackground">access_log</code> and <code class="code_clearBackground">error_log</code>.</li><li value="4">Replace <code class="code_clearBackground" style="font-style: italic;">/path/to/swarm</code> with the path to the <span class="PerforceSwarm short">Swarm</span> directory.</li></ol></li>
+            <li value="4">
+                <p>Verify that the correct Apache modules are enabled.</p>
+                <ul>
+                    <li value="1">
+                        <p>To query whether the PHP and Rewrite modules are active, use the apachectl utility to list all of the active modules (this may be named <code class="code_clearBackground">apache2ctl</code> on your system):</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>apachectl -t -D DUMP_MODULES</b></pre>
+                    </li>
+                    <li value="2">Simply look for <code class="code_clearBackground">php5_module</code> and <code class="code_clearBackground">rewrite_module</code> in the output. If you see them, skip ahead to step 5.</li>
+                    <li value="3">
+                        <p>If the Apache utility <code class="code_clearBackground" style="font-weight: bold;">a2enmod </code>is installed, use it to enable the PHP and Rewrite modules:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo a2enmod php5 rewrite</b></pre>
+                    </li>
+                    <li value="4">
+                        <p>Without the <code class="code_clearBackground" style="font-weight: bold;">a2enmod </code>utility, edit the Apache configuration file by hand. Locate your Apache configuration file for modules and either uncomment or add the following lines:</p><pre class="programlisting" lang="apache">LoadModule  php5_module     libexec/apache2/libphp5.so<br />LoadModule  rewrite_module  libexec/apache2/mod_rewrite.so</pre>
+                    </li>
+                    <li value="5">Note that your Apache installation may have different paths for the location of its modules (the .so files).</li>
+                </ul>
+            </li>
+            <li value="5">
+                <p>Restart your web server.</p>
+                <ul>
+                    <li value="1">
+                        <p>To ensure that the Apache configuration changes you made become active, restart the web server.</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>sudo apachectl restart</b></pre>
+                    </li>
+                    <li value="2">
+                        <p>Query Apache's active virtual hosts and modules to confirm your changes are in effect:</p><pre class="programlisting" xml:space="preserve"><span style="font-weight: normal;">$ </span><b>apachectl -t -D DUMP_VHOSTS</b><br /><span style="font-weight: normal;">$ </span><b>apachectl -t -D DUMP_MODULES</b></pre>
+                    </li>
+                </ul>
+                <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+                    <p>Apache must be configured to use the prefork <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">MPM<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>An MPM, or multi-processing module, is a component of the Apache web server that is responsible for binding to network ports, accepting requests, and dispatch operations to handle the request.</span></a> because P4PHP does not support threaded operation.</p>
+                    <p>The prefork <code class="code_clearBackground" style="font-style: italic;">MPM</code> is the default for Linux and OSX Apache installations, so you may not have to do anything.</p>
+                    <p>For more information on Apache MPMs and configuration, see:</p>
+                    <p><a href="https://httpd.apache.org/docs/2.2/mpm.html" target="_blank">https://httpd.apache.org/docs/2.2/mpm.html</a>
+                    </p>
+                    <p><a href="https://httpd.apache.org/docs/2.4/mpm.html" target="_blank">https://httpd.apache.org/docs/2.4/mpm.html</a>
+                    </p>
+                </div>
+            </li>
+        </ol>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

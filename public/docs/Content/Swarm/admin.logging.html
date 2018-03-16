@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Logging</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <link href="../Resources/TableStyles/InformalTable.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.logging.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Logging" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Logging</h1>
+        <p><span class="PerforceSwarm long">Helix Swarm</span> is a web application, so there are several types of logging involved during the course of <span class="PerforceSwarm short">Swarm</span>'s normal operations.</p>
+        <h2 data-mc-autonum=""><a name="Web_server_logging" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.logging.web"></a>Web server logging</h2>
+        <p>All accesses to <span class="PerforceSwarm short">Swarm</span> may be logged by the web server hosting <span class="PerforceSwarm short">Swarm</span>. As web server log configuration is web server specific, refer to your web server's documentation. Since we recommend the use of Apache, more information regarding log configuration in Apache can be found here: <a href="https://httpd.apache.org/docs/2.2/logs.html" target="_blank">https://httpd.apache.org/docs/2.2/logs.html</a></p>
+        <h2 data-mc-autonum=""><a name="Helix_Versioning_Engine_logs" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.logging.perforce"></a> <span class="PerforceHVE long">Helix Versioning Engine</span> logs</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> communicates with the associated <span class="PerforceHVE short">Helix server</span> for every page request. Review the <span class="PerforceSwarm short">Swarm</span>-generated requests on your <span class="PerforceHVE short">Helix server</span> by enabling logging.</p>
+        <p>For more information, see "Configuring logging" and "Auditing user file access" in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4sag/index.html" target="_blank"><i><span class="Perforcegd-p4sag">Helix Versioning Engine Administrator Guide:&#160;Fundamentals</span></i></a>.</p>
+        <h2 data-mc-autonum=""><a name="Swarm_logs" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.logging.swarm"></a><span class="PerforceSwarm short">Swarm</span> logs</h2>
+        <p>Depending on the log configuration you provide to <span class="PerforceSwarm short">Swarm</span>, <span class="PerforceSwarm short">Swarm</span> can log its own operations. <span class="PerforceSwarm short">Swarm</span>'s logs are much more helpful if you encounter problems.</p>
+        <p><span class="PerforceSwarm short">Swarm</span> stores its log data in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/log</code> file. The volume of entries recorded in the log depends on the configuration stored in the <code class="code_clearBackground"><i>SWARM_ROOT</i>/data/config.php</code> file. Here is an example:</p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'log' =&gt; array(<br />        'priority'  =&gt; 3, // 7 for max, defaults to 3<br />),</pre>
+        <p>The log <code>priority</code> specifies the importance of the messages to be logged. When <code>priority</code> is set to <code>0</code> (the lowest value), only the most important messages are logged. When <code>priority</code> is set to <code>7</code> (the highest value), all messages, including the least important messages, are logged. The default priority is <code>3</code>.</p>
+        <p>The different priority levels are:</p>
+        <table style="mc-table-style: url('../Resources/TableStyles/InformalTable.css');" class="TableStyle-InformalTable" cellspacing="0">
+            <thead>
+                <tr class="TableStyle-InformalTable-Head-Header1">
+                    <th class="TableStyle-InformalTable-HeadE-Regular-Header1">
+                        <p>Priority</p>
+                    </th>
+                    <th class="TableStyle-InformalTable-HeadD-Regular-Header1">
+                        <p>Description</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">0</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Emergency: a message about a system instability</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">1</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Alert: a message about a required immediate action</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">2</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Critical: a message about a critical condition</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">3</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Error: a message about an error</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">4</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Warning: a message about a warning condition</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">5</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Notice: a message about a normal but significant condition</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyE-Regular-NoBackground">
+                        <p><code class="code_clearBackground">6</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyD-Regular-NoBackground">
+                        <p>Info: an informational message</p>
+                    </td>
+                </tr>
+                <tr class="TableStyle-InformalTable-Body-NoBackground">
+                    <td class="TableStyle-InformalTable-BodyB-Regular-NoBackground">
+                        <p><code class="code_clearBackground">7</code>
+                        </p>
+                    </td>
+                    <td class="TableStyle-InformalTable-BodyA-Regular-NoBackground">
+                        <p>Debug: a debugging message</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Setting <code class="code_clearBackground">priority</code> to a value higher than <code class="code_clearBackground">7</code> does not result in increased logging. Setting <code class="code_clearBackground">priority</code> to a value lower than <code class="code_clearBackground">0</code> does not result in reduced logging.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Trigger_Token_Errors" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.logging.trigger_token_errors"></a>Trigger Token Errors</h2>
+        <p>If the trigger tokens are missing or invalid, the web server error log contains a suitable error:</p><pre class="screen">queue/add attempted with invalid/missing token: <i>token used</i></pre>
+        <p>A token is <i>invalid</i> when it is not formed from the characters A through Z (in upper or lowercase), 0 through 9, or a dash (-).</p>
+        <p>A token is <i>missing</i> when a file using the token as its name does not exist in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/queue/tokens</code> directory.</p>
+        <h2 data-mc-autonum=""><a name="Performance_logging" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.logging.performance"></a>Performance logging</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> logs warnings whenever commands issued to the <span class="PerforceHVE short">Helix server</span> take longer than expected to complete. These warnings can be used to diagnose performance problems in the <span class="PerforceHVE short">Helix server</span>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>By default, warnings are not captured in the <span class="PerforceSwarm short">Swarm</span> log. To capture warnings, the <a href="#admin.logging.swarm">log priority</a> must be set to 4 or higher.</p>
+        </div>
+        <p>The default configuration is:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php<br />    // this block should be placed within the 'p4' block<br />    'slow_command_logging' =&gt; array(<br />        3, // commands without a specific rule have a 3-second limit<br />        10 =&gt; array('print', 'shelve', 'submit', 'sync', 'unshelve'),<br />    ),</pre>
+        <p>In this configuration block, the numeric key specifies the time threshold in seconds, and the value (if present) is an array of <span class="PerforceHVE short">Helix server</span> commands that should use the threshold. Should a command be associated with multiple thresholds, the largest is used for that command.</p>
+        <p>In addition, <span class="PerforceSwarm short">Swarm</span> automatically detects when the PHP extension <b>xhprof</b> is installed and collects profiling data for requests that take longer than expected. The profiling data could be helpful in diagnosing performance issues within <span class="PerforceSwarm short">Swarm</span> itself, particularly when analyzed in combination with the slow command logging described above. When collected, profiling data is stored in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/xhprof</code> folder.</p>
+        <p>The default configuration is:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'xhprof' =&gt; array(<br />        'slow_time'      =&gt; 3, // the threshold in seconds<br />        'ignored_routes' =&gt; array('download', 'imagick', 'libreoffice', 'worker'),<br />    ),</pre>
+        <p><code>slow_time</code> specifies the threshold, in seconds, that should be used to determine when a <span class="PerforceSwarm short">Swarm</span> request is slow. <code>ignored_routes</code> is an array that specifies a list of Zend Framework <code>route</code> names that should not be profiled. For example, <span class="PerforceSwarm short">Swarm</span>'s <code>Files</code> module specifies that the download route should be ignored from profiling as downloads could take significantly longer than the default threshold.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Depending on the performance of the server hosting <span class="PerforceSwarm short">Swarm</span>, and particularly the performance of the associated <span class="PerforceHVE short">Helix server</span>, you may want to monitor the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/xhprof</code> folder for disk usage. Each request that exceeds the time threshold causes 200-600KB of data to be written.</p>
+        </div>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

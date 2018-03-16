@@ -1,0 +1,30 @@
+<div class="row-fluid">
+    <div id="projects-column" class="span3">
+        <?php echo $this->projectsSidebar() ?>
+    </div>
+    <div id="feed-column" class="span9">
+        <ul class="nav nav-tabs">
+            <li>
+                <a id="dashboard-tab" href="#actionable-reviews" data-toggle="tab">
+                    <?php echo $this->te("Dashboard")?><span class="badge actionable-review-counter">?</span>
+                </a>
+            </li>
+            <li>
+                <a id="activity-tab" href="#activity" data-toggle="tab"><?php echo $this->te("Activity")?></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <?php include __DIR__ . '/dashboard.phtml' ?>
+            <?php include __DIR__ . '/activity.phtml' ?>
+       </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#feed-column li a').click(function () {
+            if ($('body').hasClass('authenticated')) {
+                swarm.localStorage.set('swarm.home.pane', this.id);
+            }
+        });
+    });
+</script>

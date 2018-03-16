@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Review list</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.list.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Review_list" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Review list</h1>
+        <p>The code review list helps you keep track of code reviews that:</p>
+        <ul>
+            <li value="1">Have been requested and are awaiting review</li>
+            <li value="2">Are underway</li>
+            <li value="3">Have been accepted, rejected, or archived</li>
+        </ul>
+        <p>To see all available reviews, click the <b>Reviews</b> link in the main toolbar.</p>
+        <p>The <b>Reviews</b> page lists open and closed reviews for all projects in the <span class="PerforceHVE short">Helix server</span>.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-reviews.png" title="The Reviews page" alt="Image of the reviews page" />
+        </div>
+        <p>The <b>Opened</b> and <b>Closed</b> tabs display:</p>
+        <ul>
+            <li value="1"><b>Opened</b> tab: displays a list of all code reviews that have started, are being reviewed, are awaiting revisions, or need to be committed. </li>
+            <li value="2"><b>Closed</b> tab: displays a list of all code reviews that have been approved and committed, rejected, or archived.</li>
+        </ul>
+        <p>Each review displays the following information:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-reviews_columns.png" title="Review details in a review queue" alt="Image of review details" />
+        </div>
+        <ul>
+            <li value="1">The review id</li>
+            <li value="2">The avatar of the review's author</li>
+            <li value="3">The review's description</li>
+            <li value="4">The associated project's name and branch</li>
+            <li style="color: #000000;" value="5">When the review was created or when the review was last updated depending on the <b>Result order</b> button setting. </li>
+            <li class="L0" value="6">When review results are older than 24 hours they are displayed in numerical order within each day. </li>
+            <li class="L0" value="7">
+                <img src="../Resources/Images/swarm-sort_order-button.png" title="Review sort order button" alt="Review sort order button image" />
+            </li>
+            <li class="L0" value="8">To change the sort order, click the <b>Result order</b> button and select <b>Created </b>or <b>Last activity</b> from the dropdown menu:<ul><li value="1"><p><b>Created</b>: Reviews sorted by when they were created</p></li><li value="2"><p><b>Last activity</b>: Reviews sorted by when they were last updated</p></li></ul></li>
+            <li class="L0" value="9">
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <ul>
+                        <li value="1">If the <b>Result order</b> button is not displayed reviews are sorted by when they were created. </li>
+                        <li value="2"><b>Result order</b> button display is a global setting controlled by the <span class="PerforceSwarm short">Swarm</span> administrator. See <a href="admin.review_filter.html" class="MCXref xref">Reviews filter</a> for details. </li>
+                    </ul>
+                </div>
+            </li>
+            <li value="10">An icon indicating the current review state</li>
+            <li value="11">An icon indicating the test suite state</li>
+            <li value="12">A  counter for the number of open (non-archived) comments that are associated with the review. Hover your mouse over the comment count to display a tooltip showing the number of archived comments associated with the review.</li>
+            <li value="13">An indicator showing the number of up votes and down votes</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Hover your mouse over any of the icons to see tooltips.</p>
+        </div>
+        <p><a href="basics.projects.html" class="MCXref xref">Projects</a> and <a href="basics.groups.html" class="MCXref xref">Groups</a> have their own review lists that display reviews created by their members.</p>
+        <h2 data-mc-autonum=""><a name="Filtering_reviews" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.filtering"></a>Filtering reviews</h2>
+        <p>The following filtering options are available for code reviews:</p>
+        <ul>
+            <li value="1">
+                <p><b>Project:</b> a dropdown menu that lets you filter which reviews to display based on project: </p>
+                <p>
+                    <img src="../Resources/Images/swarm-dropdown-reviews-projects.png" title="Project dropdown menu" alt="Image of project dropdown menu" />
+                </p>
+                <ul>
+                    <li value="1"><b>All Projects:</b> all reviews are displayed for all  projects.</li>
+                    <li value="2"><b>My Projects:</b> all reviews for all of the projects you are participating in, as a member, owner, moderator, or follower.</li>
+                    <li value="3"><b>Project Search:</b> An auto-complete search field that allows you to choose one of the projects defined in <span class="PerforceHVE short">Helix server</span>. Once specified, only reviews for the selected project are displayed. Click the <b>X</b> button to remove a <i>projectid</i> after it has been specified.</li>
+                    <li value="4"><b>Select Project:</b> selecting a project name displays only reviews for that project.</li>
+                </ul>
+            </li>
+            <li value="2">
+                <p><b>Users:</b> a dropdown menu that lets you filter which reviews to display based on user involvement:</p>
+                <p>
+                    <img src="../Resources/Images/swarm-dropdown-reviews-users-open.png" title="User dropdown, All Reviews selected" alt="Image of user dropdown menu" />
+                </p>
+                <ul>
+                    <li value="1"><b>All Reviews:</b> displays all reviews. </li>
+                    <li value="2"><b>Reviews I've Authored</b>: displays reviews that you have authored.</li>
+                    <li value="3"><b>Reviews I'm Participating In:</b> displays reviews that you are a reviewer of, but not an author of.</li>
+                    <li value="4"><b>Review I've Authored Or Am Participating In:</b> displays reviews that you have authored, or are a reviewer of.</li>
+                    <li value="5">
+                        <p><b>Specific User:</b> An auto-complete search field that allows you to choose one of the user accounts defined in the <span class="PerforceHVE short">Helix server</span>. Once specified, only reviews authored by the user are displayed. Click the <b>X</b> button to remove a userid after it has been specified.</p>
+                    </li>
+                </ul>
+                <p>When you select one of the available options, the list of options updates to match the currently selected filter, and the <b>Users</b> dropdown indicates the current filter: <b>All</b>, <b>Author</b>, <b>Participant</b>, or <b style="font-style: italic;">userid</b>.</p>
+            </li>
+            <li value="3"><b>Reviewer presence</b>, (<b>Opened</b> tab only): </li>
+            <li class="L0" value="4">
+                <img src="../Resources/Images/swarm-buttons-has_hasno_reviewers.png" title="Review filter buttons for Has reviewers and Has no reviewers" alt="Image of review filter buttons for Has reviewers and Has no reviewers" />
+                <ul>
+                    <li value="1"><b>Has Reviewers:</b>  displays reviews that have one or more reviewers. </li>
+                    <li value="2"><b>No Reviewers:</b> displays reviews that have no reviewers. </li>
+                </ul>
+            </li>
+            <li value="5">
+                <p><b>Review state</b>, (<b>Opened</b> tab only):  </p>
+                <p>
+                    <img src="../Resources/Images/swarm-buttons-needs-review_revision-approved.png" title="Review filter buttons for Needs review, Needs revision, and Approved" alt="Image of review filter buttons for Needs review, Needs revision, and Approved" />
+                </p>
+                <ul>
+                    <li value="1"><b>Needs review:</b> the review's changes need to be reviewed.</li>
+                    <li value="2"><b>Needs revision:</b> the review's changes have been reviews, but further revisions are required before the review can be accepted.</li>
+                    <li value="3"><b>Approved:</b> the review's changes have been approved, and should be committed.</li>
+                </ul>
+            </li>
+            <li value="6">
+                <p><b>Review state</b>, (<b>Closed</b> tab only): </p>
+                <p>
+                    <img src="../Resources/Images/swarm-buttons-approved-rejected-archived.png" title="Review state buttons" alt="" />
+                </p>
+                <ul>
+                    <li value="1"><code class="code_clearBackground">Approved:</code> the review's changes have been approved, and should be committed.</li>
+                    <li value="2"><code class="code_clearBackground">Rejected:</code> the review's changes have been rejected.</li>
+                    <li value="3"><code class="code_clearBackground">Archived:</code> the review's changes have been put aside.</li>
+                </ul>
+            </li>
+            <li value="7">
+                <p><b>Test status:</b> <![CDATA[ ]]></p>
+                <p>
+                    <img src="../Resources/Images/swarm-buttons-tests-pass_fail.png" title="Review filter buttons for Tests pass, and Tests fail" alt="Image of review filter buttons for Tests pass, and Tests fail" />
+                </p>
+                <ul>
+                    <li value="1"><b>Tests pass:</b> when automated tests are enabled for the associated project, and the test suite execution succeeds, <span class="PerforceSwarm short">Swarm</span> updates the review accordingly.</li>
+                    <li value="2"><b>Tests fail:</b> similar to the Tests pass state, except that the test suite execution has failed. Check with your test suite to determine why the tests failed.</li>
+                </ul>
+            </li>
+            <li value="8">
+                <p><b>Vote status:</b> <![CDATA[ ]]></p>
+                <p>
+                    <img src="../Resources/Images/swarm-buttons-voted-up-down.png" title="Review filter buttons for Vote status" alt="Image of review filter buttons for Vote status" />
+                </p>
+                <ul>
+                    <li value="1"><b>Voted up:</b> I have voted the review up.</li>
+                    <li value="2"><b>Voted down:</b> I have voted the review down.</li>
+                    <li value="3"><b>Not voted:</b> I am a participant but have not voted on the review.</li>
+                    <li class="L0" value="4">
+                        <p>Filters for voting only apply to reviews which you are a participant of. Commenting on or voting on a review will automatically add you as a participant. If you leave the review after commenting on it, then this review will not be included in the list.</p>
+                    </li>
+                </ul>
+            </li>
+            <li value="9">
+                <p><b>Comment status:</b> <![CDATA[ ]]></p>
+                <p>
+                    <img src="../Resources/Images/swarm-buttons-commented-or-not.png" title="Review filter buttons for Comment status" alt="Image of review filter buttons for Comment status" />
+                </p>
+                <ul>
+                    <li value="1"><b>Has comments:</b> I have commented on the review.</li>
+                    <li value="2"><b>Does not have comments:</b> I have not commented on the review.</li>
+                    <li class="L0" value="3">
+                        <p>Filters for commenting only apply to reviews which you are a participant of. Commenting on or voting on a review will automatically add you as a participant. If you leave the review after commenting on it, then this review will not be included in the list.</p>
+                    </li>
+                </ul>
+            </li>
+            <li value="10"><b>Bookmark:</b> review filters can be remembered by bookmarking the page, and this icon acts as a reminder of that.</li>
+            <li class="L0" value="11">
+                <img src="../Resources/Images/swarm-buttons-bookmark.png" title="Bookmark icon" alt="Image of bookmark icon" />
+            </li>
+            <li value="12"><b>Search term:</b> where review descriptions match your search string.</li>
+            <li class="L0" value="13">
+                <img src="../Resources/Images/swarm-buttons-search.png" title="Review Search field" alt="Image of review Search field" />
+            </li>
+        </ul>
+        <p><span class="PerforceSwarm short">Swarm</span> updates the URL in your browser to reflect filtering options. This makes it easy to bookmark or share review list URLs. <span class="PerforceSwarm short">Swarm</span> maintains the current filtering if you click on a review link and then use your browser's back button to return to the review list.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Email configuration</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/admin.email.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Email_configuration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Email configuration</h1>
+        <p><span class="PerforceSwarm short">Swarm</span>'s email delivery is controlled by the mail configuration block in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html"><i>SWARM_ROOT</i></a></i>/data/config.php</code> file. Here is an example:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'mail' =&gt; array(<br />        // 'sender' =&gt; 'swarm@my.domain',   // defaults to 'notifications@hostname'<br />        'transport' =&gt; array(<br />            'name' =&gt; 'localhost',          // name of SMTP host<br />            'host' =&gt; '127.0.0.1',          // host/IP of SMTP host<br />            'port' =&gt; 587,                  // SMTP host listening port<br />            'connection_class'  =&gt; 'plain', // 'smtp', 'plain', 'login', 'crammd5'<br />            'connection_config' =&gt; array(   // include when auth required to send<br />                'username'  =&gt; 'user',      // user on SMTP host<br />                'password'  =&gt; 'pass',      // password for user on SMTP host<br />                'ssl'       =&gt; 'tls',       // empty, 'tls', or 'ssl'<br />            ),
+<br />            // override email deliveries and store all messages in this path<br />            // 'path' =&gt; '/var/spool/swarm',<br />        ),<br />        
+        // override regular recipients; send email only to these addresses<br />        // 'recipients' =&gt; array(<br />        //     'user1@my.domain',<br />        //     'user2@my.domain',<br />        // ),
+<br />        // send notifications of comments to comment authors?<br />        'notify_self' =&gt; false,
+<br />        // blind carbon-copy recipients<br />        // 'use_bcc' =&gt; true,
+<br />        // suppress reply-to header<br />        // 'use_replyto' =&gt; false,<br />    ),</pre>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Without any mail configuration in the <code class="code_clearBackground"><i><a href="admin.swarm_root.html">SWARM_ROOT</a></i>/data/config.php</code> file, <span class="PerforceSwarm short">Swarm</span> attempts to send email according to PHP's configuration, found in the <code class="code_clearBackground">php.ini</code> file. By default, the configuration in <code class="code_clearBackground">php.ini</code> relies on SendMail being installed.</p>
+        </div>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>Email delivery for events related to restricted changes is disabled by default. See <a href="admin.security.html#admin.security.restricted_changes" class="MCXref xref">Restricted Changes</a> for details on how to enable restricted change notifications.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Sender" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.sender"></a>Sender</h2>
+        <p>The sender item within the <code>mail</code> block specifies the sender email address that should be used for all notification email messages. The default value is:</p><pre class="programlisting">notifications@<i>hostname</i></pre>
+        <p><code style="font-style: italic;">hostname</code> is the name of the host running <span class="PerforceSwarm short">Swarm</span>, or when specified with the <a href="admin.environment.html" class="MCXref xref">Environment</a> configuration.</p>
+        <h2 data-mc-autonum=""><a name="Transport" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.transport"></a>Transport</h2>
+        <p>The <code>transport</code> block within the <code>mail</code> block defines which mail server <span class="PerforceSwarm short">Swarm</span> should use to send email notifications. Most of the items in this block can be omitted, or included as needed. See the Zend Framework's <a href="http://framework.zend.com/manual/2.2/en/modules/zend.mail.smtp.options.html#configuration-options" target="_blank">Mail Transport Configuration Options</a> for a description of most fields and their default values.</p>
+        <p><span class="PerforceSwarm short">Swarm</span> uses the custom path item to direct all email messages to a directory instead of attempting delivery via SMTP. For details, see <a href="#admin.email.path" class="MCXref xref">Save all messages to disk</a>.</p>
+        <h2 data-mc-autonum=""><a name="Recipients" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.recipients"></a>Recipients</h2>
+        <p>The <code>recipients</code> item within the <code>mail</code> block allows you to specify a list of recipients that should receive email notifications, overriding the normal recipients. This is useful if you need to debug mail deliveries.</p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'mail' =&gt; array(<br />        'recipients' =&gt; array(<br />            'user1@my.domain',<br />            'user2@my.domain',<br />        ),<br />    ),</pre>
+        <p>Any number of recipients can be defined. If the array is empty, email notifications are delivered to the original recipients.</p>
+        <h2 data-mc-autonum=""><a name="notify_self" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.notify_self"></a>notify_self</h2>
+        <p>The <code>notify_self</code> item within the <code>mail</code> block specifies whether comment authors should receive an email for their comments. The default value is <code>false</code>. When set to <code>true</code>, comment authors receive an email notification for their own comments.</p>
+        <h2 data-mc-autonum=""><a name="Use_BCC" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.use_bcc"></a>Use BCC</h2>
+        <p>The <code>use_bcc</code> item within the <code>mail</code> block allows you to address recipients using the <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">BCC<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>Blind carbon copy, a feature of email, allows the sender of a message to conceal the person entered in the Bcc: field from all other recipients.</span></a> email field. Setting the value to <code>true</code> causes <span class="PerforceSwarm short">Swarm</span> to use the <code>Bcc:</code> field in notifications instead of the <code>To:</code> field, concealing the email addresses of all recipients.  </p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'mail' =&gt; array(<br />        'use_bcc' =&gt; true,<br />    ),</pre>
+        <h2 data-mc-autonum=""><a name="Use_Reply-To" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.use_replyto"></a>Use Reply-To</h2>
+        <p>The <code>use_replyto</code> item within the <code>mail</code> block allows you to suppress populating the Reply-To email field. Setting the value to <code>false</code> causes <span class="PerforceSwarm short">Swarm</span> to omit the <code>Reply-To:</code> field in notifications; by default, it is populated with the author's name and email address. When this field is <code>true</code>, users receiving an email notification can simply reply to the email and their response will be addressed to the author.</p><pre lang="php" class="programlisting" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'mail' =&gt; array(<br />        'use_replyto' =&gt; false,<br />),</pre>
+        <h2 data-mc-autonum=""><a name="Save_all_messages_to_disk" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.path"></a>Save all messages to disk</h2>
+        <p>For testing purposes, you may want to send all email to disk without attempting to send it to recipients. Use the following configuration block to accomplish this:</p><pre class="programlisting" lang="php" xml:space="preserve">&lt;?php<br />    // this block should be a peer of 'p4'<br />    'mail' =&gt; array(<br />        'transport'  =&gt; array('path' =&gt; MAIL_PATH),<br />    ),</pre>
+        <p><code style="font-style: italic;">&lt;MAIL_PATH&gt;</code> should be replaced with the absolute path where email messages should be written. This path must already exist and be writable by the web server user.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Use of the path item causes <span class="PerforceSwarm short">Swarm</span> to ignore <b>all</b> other configuration within the transport block. This is why path is commented out in the main example.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Email_headers" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="admin.email.headers"></a>Email headers</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> sends out notification emails that contain custom headers which email programs can use for automatic filtering. Emails also contain headers to ensure they are correctly threaded in email clients which support doing so.</p>
+        <p>All <span class="PerforceSwarm short">Swarm</span> emails contain the following headers, which can be used to identify which <span class="PerforceSwarm short">Swarm</span> server they came from:</p><pre class="screen">X-Swarm-Host: swarm.perforce.com<br />X-Swarm-Version: SWARM/2017.1/1500036 (2017/03/27)</pre>
+        <p>The exact values may differ according to the version of <span class="PerforceSwarm short">Swarm</span> you are running, and its configuration.</p>
+        <p>If a notification is applicable to one or more projects, then each project will be listed in the <code>X-Swarm-Project</code> header, which contains a list of one or more project names. Reviews may span multiple projects, so in this case a single email is sent out with each project listed.</p><pre class="screen">X-Swarm-Project: gemini, apollo<br />X-Swarm-Host: swarm.perforce.com<br />X-Swarm-Version: SWARM/2017.1/1500036 (2017/03/27)</pre>
+        <p>If one or more of the applicable projects is private, then two or more emails may be sent. In order for the existance of the private project to be hidden from non-members, any email sent to them will not contain references to the private project. Members of each private project will receive an email tailored to them which contains references to that private project. The email to the non-private projects will not contain references to any of the private projects in the <code>X-Swarm-Project</code> header.</p>
+        <p>For example, if a review spans three projects, called <code>Gemini</code>, <code>Apollo</code>, and <code>Ultra</code>, where <code>Ultra</code> is a private project, then members of projects <code>Gemini</code> and <code>Apollo</code> will receive an email with the following headers:</p><pre class="screen">X-Swarm-Project: gemini, apollo<br />X-Swarm-Host: swarm.perforce.com<br />X-Swarm-Version: SWARM/2017.1/1500036 (2017/03/27)</pre>
+        <p>Members of the <code>Ultra</code> project will receive an email with the following header:</p><pre class="screen">X-Swarm-Project: ultra<br />X-Swarm-Host: swarm.perforce.com<br />X-Swarm-Version: SWARM/2017.1/1500036 (2017/03/27)</pre>
+        <p>This can result in users receiving two notification emails (if they are members of <code>Ultra</code> and one of the other two projects), but privacy for the private project is preserved.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

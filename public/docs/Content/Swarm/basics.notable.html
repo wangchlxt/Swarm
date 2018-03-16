@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Notable minor features</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.notable.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Notable_minor_features" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Notable minor features</h1>
+        <h2 data-mc-autonum=""><a name="Quick_URLs" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.quick_urls"></a>Quick URLs</h2>
+        <p>Many developers like to type the least amount of information to locate the data they're looking for. <span class="PerforceSwarm short">Swarm</span> tries to assist by handling URLs intelligently. If you visit a URL like:</p><pre class="screen">https://<i>myswarm.url</i>/identifier</pre>
+        <p><span class="PerforceSwarm short">Swarm</span> attempts to locate <code>identifier</code> as a <a href="chapter.code_reviews.html">review</a>, <a href="basics.changelists.html">changelist</a>, <a href="basics.files.html">depot path</a>, <a href="basics.projects.html">project</a>, <a href="basics.jobs.html">job</a>, <a href="basics.users.html">user</a>, <a href="basics.groups.html">group</a>, depot name, and Git Fusion SHA1 (or fragment). If you visit the URL <code class="code_clearBackground">https://<i>myswarm.ur</i>l/123</code>, <span class="PerforceSwarm short">Swarm</span> redirects to <code class="code_clearBackground">https://myswarm.url/changes/123</code>, provided that <code class="code_clearBackground">changelist 123</code> exists. If you visit the URL <code class="code_clearBackground">https://<i>myswarm.url</i>/bob</code>, <span class="PerforceSwarm short">Swarm</span> tries each of the following URLs and redirects to the first match:</p><pre class="screen" xml:space="preserve">https://<i>myswarm.url</i>/changes/<i>bob</i>
+https://<i>myswarm.url</i>/files/<i>bob</i>
+https://<i>myswarm.url</i>/projects/<i>bob</i>
+https://<i>myswarm.url</i>/jobs/<i>bob</i>
+https://<i>myswarm.url</i>/users/<i>bob</i>
+https://<i>myswarm.url</i>/groups/<i>bob</i></pre>
+        <p>If you enter an identifier that does not exist for any type of resource, <span class="PerforceSwarm short">Swarm</span> displays a <code class="code_clearBackground">Page Not Found</code> error.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Changelist identifiers must be numeric, so there could never be a changelist called bob.</p>
+        </div>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>Git Fusion SHA1 identifiers (or a fragment of one) work when the SHA1 refers to a single changelist. If the SHA1 refers to more than one changelist, which can occur for Git branches, <span class="PerforceSwarm short">Swarm</span> reports a 404 error.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="@mention" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.mentions"></a>@mention</h2>
+        <p>When you write a changelist description, job description, comment, or review, use <code style="font-style: italic;">@mention</code> to refer to projects, changelists, jobs, and users. Use <code>@@mention</code> to refer to groups. <span class="PerforceSwarm short">Swarm</span> automatically creates a link for each @mention and @@mention, so it's easy to navigate to the specified resource. For example, when you include <code>@job12345</code> in a comment, <span class="PerforceSwarm short">Swarm</span> turns that text into a link that, when clicked, displays the Jobs page for <code>job12345</code>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>For jobs, the <code class="code_clearBackground">@</code> character is optional: <span class="PerforceSwarm short">Swarm</span> creates job links for any text that looks like a job identifier, such as <code class="code_clearBackground">job012345</code>.</p>
+            <p>Similarly, for changes and reviews, the <code class="code_clearBackground">@</code> character is optional: <span class="PerforceSwarm short">Swarm</span> creates change links for <code class="code_clearBackground">change 1234</code>, or review links for <code class="code_clearBackground">review 2345</code>.</p>
+        </div>
+        <p>When you start a code review, including a user <code>@mention</code>, or a group <code>@@mention</code> in the changelist description automatically makes them  reviewers for that code review. During a code review, including a user <code>@mention</code> or group <code>@@mention</code> in a comment causes the mentioned user or group to receive <a href="basics.notifications.html">notifications</a> of code review events, even if they are not a member of your project or following you or your project. </p>
+        <p><b>Additional option for a user <code>@mention</code>:</b> <![CDATA[ ]]></p>
+        <ul>
+            <li value="1"><code>@*mention</code>: include an asterisk (<code>*</code>) before the userid to make the user a required reviewer. See <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" class="MCXref xref">Required reviewers</a> for details. </li>
+        </ul>
+        <p><b>Additional options for a group <code>@@mention</code>: </b>
+        </p>
+        <ul>
+            <li value="1"><code>@@*mention</code>: include an asterisk <code>*</code> before the groupid to make the group  a required reviewer, <b>All votes required</b>. See <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" class="MCXref xref">Required reviewers</a> for details. </li>
+            <li value="2"><code>@@!mention</code>:  include an exclamation mark <code>!</code> before the groupid to make the group  a required reviewer, <b>One vote required</b>. See <a href="code_reviews.responsibility.html#code_reviews.responsibility.required" class="MCXref xref">Required reviewers</a> for details.</li>
+        </ul>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <ul>
+                <li value="1"><b>Group mailing list enabled:</b> notifications are sent to the group email address.</li>
+                <li value="2"><b>Group mailing list disabled:</b> notifications are sent to the group members individual email addresses. </li>
+            </ul>
+        </div>
+        <h2 data-mc-autonum=""><a name="Search_..97" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.search"></a>Search</h2>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-search.png" title="Searching with Swarm" alt="" />
+        </div>
+        <p><span class="PerforceSwarm short">Swarm</span> can search for users, groups, projects, and file paths. Enter keywords or path elements into the search field, which appears at the right of the <span class="PerforceSwarm short">Swarm</span> toolbar, to display any matching results.</p>
+        <p>Navigate the results with the ↑ (up arrow) or ↓ (down arrow) keys, and display the details for the result by pressing <b>Enter</b>. Or, click a search result with your mouse.</p>
+        <p>Full-content searching is only available if your <span class="PerforceSwarm short">Swarm</span> administrator installs the <span class="PerforceHelix short">Helix Core</span> Search Tool. See <a href="admin.search.html" class="MCXref xref">Search</a> for details.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-search-no_results_yet.png" title="No search results, yet..." alt="" />
+        </div>
+        <p><span class="PerforceSwarm short">Swarm</span> updates the search results as you type. Some results should appear within a second or two. You may have to wait a few seconds for final results to be incorporated into the results list. When <span class="PerforceSwarm short">Swarm</span> does not yet have any results, it indicates such.</p>
+        <h2 data-mc-autonum=""><a name="JIRA_integration" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.jira"></a>JIRA integration</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> ships with a JIRA module that can:</p>
+        <ul>
+            <li value="1">create links to JIRA when <span class="PerforceSwarm short">Swarm</span> displays JIRA issue identifiers in changelists, comments, jobs, reviews, etc.</li>
+            <li value="2">add links within JIRA back to <span class="PerforceSwarm short">Swarm</span>, for JIRA issues associated with reviews or committed changes. These links reflect the current status of associated code reviews.</li>
+        </ul>
+        <p>By default, the JIRA module is disabled. To enable JIRA integration, see <a href="integrations.jira.html#integrations.jira.enable" class="MCXref xref">Enabling the JIRA module</a>.</p>
+        <h2 data-mc-autonum=""><a name="Avatars_..98" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.avatars"></a>Avatars</h2>
+        <p> Each event in an activity stream includes an <i>avatar</i>, an image that represents the user responsible for the event. Avatars help to visually tie together various events and personalize the history presented in the stream.</p>
+        <p> Based on the email address entered in a user's or group's <span class="PerforceHelix short">Helix Core</span> account, <span class="PerforceSwarm short">Swarm</span> attempts to fetch an avatar from <a href="http://en.gravatar.com/" target="_blank">gravatar.com</a>. Otherwise, <span class="PerforceSwarm short">Swarm</span> selects from its collection of default avatars and color palettes to provide pleasing variations.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-thumb-avatars.png" title="Avatar variations" alt="" />
+        </div>
+        <p>Hover your mouse over an avatar to display a tooltip with the user's or groups full name.</p>
+        <h2 data-mc-autonum=""><a name="Following" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.follow"></a>Following</h2>
+        <p>Whenever you see a <b>Follow</b> button, for example when you are viewing a project page or user profile, clicking the button causes <span class="PerforceSwarm short">Swarm</span> to send you notifications whenever there is activity generated by the current resource.</p>
+        <p>This is useful if, in the case of a project, you are not a project member but want to know what's happening in the project. Or, in the case of a user, you want to see what activity that user generates.</p>
+        <p>To stop receiving notifications, visit the project page or user profile and click the <b>Unfollow</b> button.</p>
+        <h2 data-mc-autonum=""><a name="Time" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.time"></a>Time</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> typically displays the time of an event, such as when a file was created, as about <i>X units ago</i>. Hover your mouse pointer over a time display to see a tooltip displaying the exact date and time of the event.</p>
+        <h2 data-mc-autonum=""><a name="Keyboard_shortcuts" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.shortcuts"></a>Keyboard shortcuts</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> provides the following keyboard shortcuts:</p>
+        <ul>
+            <li value="1"><b>n</b> - While viewing <a href="basics.diffs.html" class="MCXref xref">Diffs</a>, pressing <b>n</b> scrolls to the next difference.</li>
+            <li value="2"><b>p</b> - While viewing <a href="basics.diffs.html" class="MCXref xref">Diffs</a>, pressing <b>p</b> scrolls to the previous difference.</li>
+            <li value="3">
+                <p><b>ESC</b> - While viewing a dialog, pressing <b>ESC</b> closes the dialog.</p>
+                <p>While entering text into a text area, pressing <b>ESC</b> stops text entry.</p>
+            </li>
+        </ul>
+        <h2 data-mc-autonum=""><a name="About_Swarm" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.about"></a>About <span class="PerforceSwarm short">Swarm</span></h2>
+        <p>You can discover the version of <span class="PerforceSwarm short">Swarm</span> you are using:</p>
+        <ol>
+            <li value="1"><a href="basics.login_logout.html">Log in</a> to <span class="PerforceSwarm short">Swarm</span>.</li>
+            <li value="2">
+                <p>Click your userid, found at the right of the main toolbar, and select <b>About <span class="PerforceSwarm short">Swarm</span></b>. </p>
+                <p>A dialog appears displaying the <span class="PerforceSwarm short">Swarm</span> version.</p>
+            </li>
+        </ol>
+        <h2 data-mc-autonum=""><a name="Custom_error_pages" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.custom_error_pages"></a>Custom error pages</h2>
+        <p>If <span class="PerforceSwarm short">Swarm</span> encounters an error during processing, such as when a <a href="#basics.notable.quick_urls" class="MCXref xref">Quick URLs</a> is used that points to a non-existent resource, <span class="PerforceSwarm short">Swarm</span> presents a custom error page featuring its mascot, Bizzy Heisenbug. Bizzy's friends swarm your mouse pointer while you are moving it.</p>
+        <h2 data-mc-autonum=""><a name="Short_links_..99" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.short_links"></a>Short links</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> provides a <i>short link</i> feature that creates shorter URLs than normal to make sharing specific views within <span class="PerforceSwarm short">Swarm</span> easier. It is also possible to register or configure an alternate, shorter hostname to have even shorter URLs. See <a href="admin.short_links.html" class="MCXref xref">Short links</a> for details.</p>
+        <p>Conceptually, this is identical to <a href="http://tinyurl.com/">http://tinyurl.com</a>, or the Twitter feature <a href="http://t.co/" target="_blank">http://t.co</a>, but is restricted to <span class="PerforceSwarm short">Swarm</span> URLs on a hostname you control.</p>
+        <p><span class="PerforceSwarm short">Swarm</span> displays a <i>bookmark</i> button <img src="../Resources/Images/swarm-button-short_link.png" title="The short links &quot;bookmark&quot; button" alt="" /> when viewing files or folders in the depot.</p>
+        <p>Click the button to display a popup containing the short link. Press <b>CTRL+C</b> (on Windows and Linux), or <b>Command+C</b> (on Mac OSX), to copy the short link. You can then paste the short link anywhere you'd like to share the current file or folder view in <span class="PerforceSwarm short">Swarm</span>.</p>
+        <h2 data-mc-autonum=""><a name="Mobile_browser_compatibility" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.notable.mobile_browser_compatibility"></a>Mobile browser compatibility</h2>
+        <p><span class="PerforceSwarm short">Swarm</span> is intended to be used from any modern browser, including most mobile device browsers. For our initial release, mobile browser testing has been quite limited. We anticipate that you may encounter various issues, but we certainly look forward to hearing about your mobile device experiences using <span class="PerforceSwarm short">Swarm</span>.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

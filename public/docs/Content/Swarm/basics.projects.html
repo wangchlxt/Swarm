@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Projects</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/basics.projects.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Projects_..101" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Projects</h1>
+        <p>A <span class="PerforceSwarm short">Swarm</span> project is made up of a group of <span class="PerforceHelix short">Helix Core</span> <a href="basics.users.html" title="Users" alt="Users">users</a> who are working together on one or more codelines within the <span class="PerforceHVE short">Helix server</span>. A project's definition includes one or more <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">branches<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A branch in Perforce is a set of related files that exist at a specific location in the Perforce depot as a result of being copied to that location, as opposed to being added at that location.</span></a> of code, and optionally a <a href="javascript:void(0);" class="MCTextPopup MCTextPopupHotSpot MCTextPopup_Open glossaryTerm MCTextPopupHotSpot_" alt="Closed" data-mc-alt2="Open">job<span class="MCTextPopupBody popupBody"><span class="MCTextPopupArrow"></span>A job is a component of the Helix Versioning Engine's defect tracking system and describes work to be done, such as a bug fix or improvement request. Associating a job with a changelist records which changes fixed the reported problem or added the requested improvement.</span></a> filter, <a href="quickstart.integrate_test_suite.html" title="Automated test integration" alt="Automated test integration">automated test integration</a>, and <a href="quickstart.review_deployment.html" title="Automated deployment" alt="Automated deployment">automated deployment</a>. This section provides an introduction to the interactions users have with projects. See the <a href="chapter.projects.html" title="Projects" alt="Projects" class="MCXref xref">Projects</a> chapter for details on managing projects.</p>
+        <p>Projects are listed on the <span class="PerforceSwarm short">Swarm</span> home page. Anonymous users see a list of all public projects:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-all_projects.png" title="The All Projects panel" alt="Projects panel image" />
+        </div>
+        <p>Logged-in users can choose to display all projects  or just the projects they are a member of by clicking on the dropdown above the projects list: </p>
+        <p>
+            <img src="../Resources/Images/swarm-dropdown-project-my_projects.png" title="Projects filter dropdown" alt="Projects filter dropdown image" />
+        </p>
+        <ul>
+            <li value="1"><b>All Projects:</b> lists all of the available projects. </li>
+            <li value="2"><b>My Projects:</b> list all the projects that you are a member of. </li>
+            <li class="L0" value="3">
+                <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+                    <p>If you are an owner of a project but not a member of that project, the project will not appear in your <b>My Projects</b> list. This allows you to administer a large number of projects but only be a member of the projects you want to see in your <b>My Projects</b> list. </p>
+                </div>
+            </li>
+        </ul>
+        <p>The number in the icon to the right of the project name displays the total number of members  for the project. Hover your mouse over the icon to display a tooltip with the number of members  for the project.</p>
+        <p>
+            <img src="../Resources/Images/swarm-thumb-project_count-tooltip.png" title="Project count tooltip" alt="Project count tooltip image" />
+        </p>
+        <h2 data-mc-autonum=""><a name="Viewing_a_project" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.view"></a>Viewing a project</h2>
+        <p>View a project by doing one of the following:</p>
+        <ul>
+            <li value="1">Click on the project name in the projects list on the <span class="PerforceSwarm short">Swarm</span> <b>Home</b> page.</li>
+            <li value="2">Click on the project name or branch identifier in an <a href="basics.activity_streams.html" title="Activity stream" alt="Activity stream">activity stream. </a></li>
+            <li value="3">Visit the URL: <code class="code_clearBackground">https://<i>myswarm.url</i>/<i style="font-weight: bold;">projects</i>/<i>project-name</i></code> <![CDATA[ ]]></li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Overview_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.overview"></a>Overview tab</h3>
+        <p>The project <b>Overview</b> tab  shows a description of the project.</p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The project's <b>Overview</b> tab is only displayed if there is a <code class="code_clearBackground">README.md</code> in the project's mainline.</p>
+            <p>The <code class="code_clearBackground">README.md</code> file can contain Markdown text, allowing a formatted description of the project to be provided. See <a href="basics.markdown.html#basics.markdown.projects" title="Markdown in projects" alt="Markdown in projects" class="MCXref xref">Markdown in projects</a> for a description of the type of formatting that is supported. See <a href="admin.mainline.html" title="Mainline branch identification" alt="Mainline branch identification" class="MCXref xref">Mainline branch identification</a> for details on how to configure the mainline of a project.</p>
+        </div>
+        <p>
+            <img src="../Resources/Images/swarm-panel-project-markdown.png" title="Project overview page with markdown" alt="Project overview tab image" />
+        </p>
+        <p style="color: #000000;">The  following information is displayed in the project sidebar:</p>
+        <ul>
+            <li style="color: #000000;" value="1">A short description of the project</li>
+            <li style="color: #000000;" value="2">A <b>Follow </b>button, click to follow the project. This button is not available if you are a member of the project. </li>
+            <li style="color: #000000;" value="3">A list of project owners</li>
+            <li style="color: #000000;" value="4">A list of project moderators</li>
+            <li style="color: #000000;" value="5">A list of project members</li>
+            <li style="color: #000000;" value="6">A list of project followers</li>
+            <li style="color: #000000;" value="7">A list of the branches defined for the project</li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Activity_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.activity"></a>Activity tab</h3>
+        <p>The project <b>Activity</b> tab shows the <a href="basics.activity_streams.html" title="Activity stream" alt="Activity stream">activity stream</a> for the project</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-project.png" title="The Project activity page" alt="Project activity page image" />
+        </div>
+        <p style="color: #000000;">The  following information is displayed in the project sidebar:</p>
+        <ul>
+            <li style="color: #000000;" value="1">A short description of the project</li>
+            <li style="color: #000000;" value="2">A <b>Follow </b>button, click to follow the project. This button is not available if you are a member of the project. </li>
+            <li style="color: #000000;" value="3">A list of project owners</li>
+            <li style="color: #000000;" value="4">A list of project moderators</li>
+            <li style="color: #000000;" value="5">A list of project members</li>
+            <li style="color: #000000;" value="6">A list of project followers</li>
+            <li style="color: #000000;" value="7">A list of the branches defined for the project</li>
+        </ul>
+        <h3 data-mc-autonum=""><a name="Reviews_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.reviews"></a>Reviews tab</h3>
+        <p>The project <b>Reviews </b>tab shows a list of code reviews specific to the project.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-project_reviews.png" title="The project reviews page" alt="Project reviews page image" />
+        </div>
+        <p>For more details on browsing, filtering, and searching reviews, see <a href="code_reviews.list.html" title="Review list" alt="Review list" class="MCXref xref">Review list</a>.</p>
+        <h3 data-mc-autonum=""><a name="Files_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.files"></a>Files tab</h3>
+        <p>The project <b>Files</b> tab shows a list of files for the project, starting with a folder view representing each branch. Branches are designated with the <i>branch</i> icon <img src="../Resources/Images/swarm-icon-branch.png" title="Branch icon" alt="Branch icon image" />.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-project_files.png" title="The initial files listing for a project" alt="Project file listing image" />
+        </div>
+        <p>The project's <i>main</i> branch, identified by using a name such as <i>main</i>, <i>mainline</i>, <i>master</i>, <i>trunk</i>, is sorted to the top of the list of branches and appears in bold. The list of names can be configured, see <a href="admin.mainline.html" title="Mainline branch identification" alt="Mainline branch identification" class="MCXref xref">Mainline branch identification</a> for details.</p>
+        <p>For more information on browsing files, see <a href="basics.files.html" title="Files" alt="Files" class="MCXref xref">Files</a>.</p>
+        <h3 data-mc-autonum=""><a name="Commits_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.commits"></a>Commits tab</h3>
+        <p>The project <b>Commits</b> tab shows a list of changes made to the project.</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-project_commits.png" title="The project commits tab" alt="Project commits tab image" />
+        </div>
+        <p>For more details on history browsing, see <a href="basics.commits.html" title="Commits" alt="Commits" class="MCXref xref">Commits</a>.</p>
+        <h3 data-mc-autonum=""><a name="Jobs_tab" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.jobs"></a>Jobs tab</h3>
+        <p>The project <b>Jobs</b> tab shows a list of jobs associated with the project. </p>
+        <div class="important admonition" data-mc-autonum="Important "><span class="autonumber"><span class="admonition">Important </span></span>
+            <p>The <b>Jobs</b> tab is only displayed when the project configuration includes a <i>job filter</i>. See <a href="projects.add.html" title="Add a project" alt="Add a project" class="MCXref xref">Add a project</a> for details.</p>
+        </div>
+        <div class="img">
+            <img src="../Resources/Images/swarm-page-project_jobs.png" title="The project jobs tab" alt="Project jobs tab image" />
+        </div>
+        <p>For more details on browsing and searching jobs, see <a href="basics.jobs.html" title="Jobs link" alt="Jobs link" class="MCXref xref">Jobs</a>.</p>
+        <h2 data-mc-autonum=""><a name="Private_projects" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.private"></a>Private projects</h2>
+        <p>Private projects, introduced in <span class="PerforceSwarm short">Swarm</span> 2016.2, provide a way to make specific projects and their activity less visible to <span class="PerforceSwarm short">Swarm</span> users. When a project is made private, only the projects owners, moderators, and members, plus users with <i>super</i> privileges in the <span class="PerforceHVE short">Helix server</span>, can see the project, its activity streams, and ongoing reviews.</p>
+        <p>If you are logged in as an owner, moderator, or member of a private <span class="PerforceSwarm short">Swarm</span> project, that project appears on the <span class="PerforceSwarm short">Swarm</span> home page with an <i>eye</i> icon to indicate that it is private and has limited visibility:</p>
+        <div class="img">
+            <img src="../Resources/Images/swarm-panel-private_project.png" title="A private project in the Projects panel" alt="Private project icon image" />
+        </div>
+        <p>Similarly, the <i>eye</i> icon appears beside the project's title when viewing the project. When you hover your mouse over the <i>eye</i> icon, a tooltip appears indicating that this project is indeed private.</p>
+        <h3 data-mc-autonum=""><a name="Caveats" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="basics.projects.private.important"></a>Caveats</h3>
+        <p>The following are important caveats regarding private projects:</p>
+        <ul>
+            <li value="1">While <span class="PerforceSwarm short">Swarm</span> can mask the existence of projects, their activity, and reviews, <span class="PerforceSwarm short">Swarm</span> honors each user's access to files within the <span class="PerforceHVE short">Helix server</span>. This means that users that have access to the files in a private project's branches can browse to those branch paths within the depot and see the files and any committed changes.</li>
+            <li value="2">If you need to prevent access to important files, your <span class="PerforceHVE short">Helix server</span> administrator is required to manage the protections table accordingly. For details, see <a href="https://www.perforce.com/perforce/doc.current/manuals/p4sag/#P4SAG/security.authorizing.html" target="_blank" title="Link to Authorizing Access in the Helix Versioning Engine Administrator Guide: Fundamentals" alt="Link to Authorizing Access in the Helix Versioning Engine Administrator Guide: Fundamentals">Authorizing Access</a> in the <a href="http://www.perforce.com/perforce/doc.current/manuals/p4sag/index.html" target="_blank"><i><span class="Perforcegd-p4sag">Helix Versioning Engine Administrator Guide:&#160;Fundamentals</span></i></a>.</li>
+            <li value="3">It is possible for a user to start a review that touches files that belong to a private project. If the user is not a member, owner, or moderator of the private project, or does not have super privileges in the <span class="PerforceHVE short">Helix server</span>, they cannot participate in the review.</li>
+            <li value="4">If a user is not a member, owner, or moderator of a private project, or does not have super privileges in the <span class="PerforceHVE short">Helix server</span>, and they are added as a review participant (via an <a href="basics.notable.html#basics.notable.mentions" title="@mention" alt="@mention" class="MCXref xref">@mention</a> or by editing a review's participants) to a review containing files within the private project's branches, that user cannot participate in the review: the user cannot see the review, its files, or comments. Due to limitations in how <span class="PerforceSwarm short">Swarm</span> sends email notifications, such users could still receive notifications for reviews they cannot participate in.</li>
+            <li value="5">Notifications usually include links and mentions of the associated projects. Notifications involving private projects are filtered to remove any references to those private projects.</li>
+        </ul>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" data-mc-search-type="Stem" data-mc-help-system-file-name="index.xml" data-mc-path-to-help-system="../../" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic" data-mc-preload-images="false" data-mc-in-preview-mode="false" data-mc-toc-path="[%=System.LinkedTitle%]">
+    <!-- saved from url=(0016)http://localhost -->
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="msapplication-config" content="../../Skins/Favicons/browserconfig.xml" />
+        <link rel="icon" sizes="16x16" href="../../Skins/Favicons/favicon-16x16.png" /><title>Responsibility</title>
+        <link href="../../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" />
+        <link href="../../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" />
+        <link href="../Resources/Stylesheets/perforce.css" rel="stylesheet" />
+        <script src="../../Resources/Scripts/custom.modernizr.js">
+        </script>
+        <script src="../../Resources/Scripts/jquery.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.min.js">
+        </script>
+        <script src="../../Resources/Scripts/require.config.js">
+        </script>
+        <script src="../../Resources/Scripts/foundation.min.js">
+        </script>
+        <script src="../../Resources/Scripts/plugins.min.js">
+        </script>
+        <script src="../../Resources/Scripts/MadCapAll.js">
+        </script>
+    </head>
+    <body>
+        <p class="MCWebHelpFramesetLink MCWebHelpFramesetLinkTop"><a href="../../index.html#Swarm/code_reviews.responsibility.html">Open topic with navigation</a>
+        </p>
+        <div class="nocontent">
+            <div class="MCBreadcrumbsBox_0 breadcrumbs" data-mc-breadcrumbs-divider=" &gt; " data-mc-breadcrumbs-count="3" data-mc-toc="True"><span class="MCBreadcrumbsPrefix"> </span>
+            </div>
+        </div>
+        <h1 data-mc-autonum=""><a name="Responsibility" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span>Responsibility</h1>
+        <p>Initially, code reviews have no reviewers. </p>
+        <p>User and group default reviewers can be set for individual projects and project branches. Each time a new review is created in the project or project branch, the default reviewers will be added to the review. See <a href="projects.membership.html#projects.membership.default_reviewers" title="Default reviewers link" alt="Default reviewers link">default reviewers</a> for details. </p>
+        <p>Code review authors can designate users as reviewers by including an <a href="basics.notable.html#basics.notable.mentions">@mention</a> for each desired reviewer, and an <a href="basics.notable.html#basics.notable.mentions">@*mention</a> for each required reviewer. They can also designate groups as reviewers by using <a href="basics.notable.html#basics.notable.mentions">@@mention</a> for each desired group reviewer, an <a href="basics.notable.html#basics.notable.mentions">@@*mention</a> for each <a href="#code_reviews.responsibility.required">required reviewer</a> group (all members required), and an <a href="basics.notable.html#basics.notable.mentions">@@!mention</a> for each <a href="#code_reviews.responsibility.required">required reviewer</a>  group (one vote required). Code reviewers can also designate users or groups as reviewers by using the <b>Edit Reviewers</b> dialog which allows reviewers to be added, removed, and to configure the reviewer type. </p>
+        <p>Other users can show their interest in participating in the code review by clicking their avatar in the <b>Reviewers</b> area of the code review and selecting <b>Join review</b>, or by commenting on a review or one of its files. Once a user shows such interest, they are added to the review's list of reviewers and share in the responsibility of performing the code review. Later on, reviewers can change whether their vote is required or optional, or leave a review (perhaps to prevent further notifications).</p>
+        <p>Looking at a <a href="code_reviews.list.html" title="Review list" alt="Review list">review list</a> can help you determine which reviews have likely not been started, using the <b>No Reviewers</b> filter. Once a review has reviewers, it is considered to be active and appears in the review list with the state <code class="code_clearBackground">Has Reviewers</code>.</p>
+        <p>Review participation is <i>advisory</i> by default, and is used to inform your team that a code review is being conducted. The disposition of the review is reflected in the review's current state, the badges that may appear over each reviewer's avatar, and any comments reviewers might add.</p>
+        <h2 data-mc-autonum=""><a name="Moderators" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.responsibility.moderators"></a>Moderators</h2>
+        <p>A project moderator is a user assigned to moderate reviews for a specific branch associated with a project. See how to <a href="projects.add.html#projects.add.moderators">specify moderators</a>. </p>
+        <p>When <b>Only Moderators can approve or reject reviews</b> is set for a project branch, changing the state of any review associated with the moderated branch is restricted as follows:</p>
+        <ul>
+            <li value="1">Only moderators can approve or reject the review. Moderators can also transition a review to any other state.</li>
+            <li value="2">
+                <p>The review's author, when not a moderator, can change the review's state to <b>Needs Review</b>, <b>Needs Revision</b>, <b>Archived</b>, and can attach committed changelists.</p>
+                <p>Normally, the review's author cannot change the review's state to <b>Approved</b> or <b>Rejected</b> on moderated branches. However, authors that are also moderators have moderator privileges, and may approve or reject their own review.</p>
+                <p>When <code><a href="admin.reviews.html#admin.reviews.disable_self_approve">disable_self_approve</a></code> is enabled, authors who are moderators (or even users with admin privileges) cannot approve their own reviews.</p>
+            </li>
+            <li value="3">Project members can change the review's state to <b>Needs Review</b> or <b>Needs Revision</b>, and can attach committed changelists. Project members cannot change the review's state to <b>Approved</b>, <b>Rejected</b>, or <b>Archived</b>.</li>
+            <li value="4">Users that are not project members, moderators, or the review's author cannot transition the review's state.</li>
+            <li value="5">For the review's author and project members, if a review is not in one of their permitted states, for example if the review's state is <b>Rejected</b>, they cannot transition the review to another state.</li>
+        </ul>
+        <p>These restrictions have no effect on who can start a review.</p>
+        <h2 data-mc-autonum=""><a name="Required_reviewers_..95" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.responsibility.required"></a>Required reviewers</h2>
+        <p>Reviews can optionally have required reviewers. When a review has required reviewers, the review cannot be approved until all required reviewers and required reviewer groups have up-voted the review. If the review is associated with a project that has assigned moderators, even the moderators cannot approve the review without up-votes from all required reviewers (but they can reject the review).</p>
+        <p>When a group is  a required reviewer, it can be set to operate in one of two ways: </p>
+        <ul>
+            <li value="1"><b>All votes required:</b> all members of the group must up-vote the review to allow the review to be approved.</li>
+            <li value="2"><b>One vote required:</b> at least one member of the group must up-vote the review to allow the review to be approved. If any member of the group down-votes the review, the review cannot be approved. </li>
+        </ul>
+        <p>Required reviewers are expected to take greater care while performing a review than non-required reviewers, as their votes affect whether a review can be approved or not. </p>
+        <p>To edit the reviewers for a review, and to change whether a reviewer is required or not, see <a href="code_reviews.activities.html#code_reviews.activities.edit_reviewers" class="MCXref xref">Edit reviewers</a>.</p>
+        <div class="note admonition" data-mc-autonum="Note "><span class="autonumber"><span class="admonition">Note </span></span>
+            <p>If a review involves a branch with assigned moderators, only a moderator can approve the review, even if all required reviewers have up-voted the review.</p>
+            <p>See the <a href="projects.add.html#projects.add.moderators">description of assigning moderators</a>.</p>
+        </div>
+        <h2 data-mc-autonum=""><a name="Add_yourself_as_a_reviewer" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.responsibility.add"></a>Add yourself as a reviewer</h2>
+        <ol>
+            <li value="1">Visit the review's page. </li>
+            <li value="2">Log in, if you have not already done so.</li>
+            <li value="3">Click your avatar in the <b>Reviewers</b> area of the review display, which should be grayed out since you are not yet a reviewer. A dropdown menu appears.</li>
+            <li value="4">Select <b>+ Join Review</b>. Alternatively, you can select <b>^ Vote Up</b> or <b>v Vote Down</b> if you approve or disapprove of the review, respectively; either will cast your vote and make you a reviewer.</li>
+        </ol>
+        <p>Your avatar is no longer grayed out, and you are now a reviewer.</p>
+        <h2 data-mc-autonum=""><a name="Remove_yourself_as_a_reviewer" data-mc-generated-bookmark="TOC"></a><span class="autonumber"><span></span></span><a name="code_reviews.responsibility.remove"></a>Remove yourself as a reviewer</h2>
+        <ol>
+            <li value="1">Visit the review's page.</li>
+            <li value="2">Log in, if you have not already done so.</li>
+            <li value="3">Click your avatar in the <b>Reviewers</b> area of the review display, which should not be grayed out since you are already a reviewer. A dropdown menu appears.</li>
+            <li value="4">Select <b>X Leave Review</b>.</li>
+        </ol>
+        <p>Your avatar is now grayed out, and you are no longer a reviewer.</p>
+        <p class="Body">&#160;</p>
+        <div id="footer" style="height: 48px;" class="HTML5FooterBlock">
+            <table style="width: 100%;" class="HelpFooter">
+                <col style="width: 15%;" />
+                <col style="width: 15%;" />
+                <tr style="background-color: transparent;">
+                    <td class="HelpFooter"><a href="https://www.perforce.com/support/documentation" target="_blank"><img src="../Resources/FooterImages/Docs.png" title="View additional product documentation" alt="Additional product documentation" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/training" target="_blank"><img src="../Resources/FooterImages/training.png" title="Visit the Perforce Training portal" alt="Perforce training portal" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support/video-tutorials" target="_blank"><img src="../Resources/FooterImages/video-tutorials.png" title="Visit the Perforce video library" alt="Perforce video library" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="http://answers.perforce.com/" target="_blank"><img src="../Resources/FooterImages/KB.png" title="Visit the Perforce knowledge base" alt=" Perforce knowledge base" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="https://www.perforce.com/support" target="_blank"><img src="../Resources/FooterImages/Support.png" title="Go to Perforce customer support" alt="Perforce customer support" class="FooterIcon" /></a>&#160;&#160;&#160;&#160;&#160;<a href="mailto:manual@perforce.com?subject=Documentation feedback" target="_blank"><img src="../Resources/FooterImages/feedback.png" title="How can we improve this topic?" alt="Email us at: manual@perforce.com" class="FooterIcon" /></a></td>
+                    <td style="text-align: right; padding-bottom: 12px;" class="HelpFooter"><a href="http://www.perforce.com/" target="_blank"><img src="../Resources/FooterImages/PerforceLogoWhite.png" class="FooterIcon" alt="" /></a>&#160;&#160;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script type="text/javascript" src="../Resources/google-code-prettify/prettify.js">
+        </script>
+        <script type="text/javascript">/* <![CDATA[ */
+    // hookup prettify
+    $("pre.programlisting").each(function () {
+      var $this = $(this),
+          lang = $this.attr("lang");
+      if (lang) {
+        $this.addClass("lang-" + lang);
+       // if (lang !== "bash") 
+		// {
+        $this.addClass("prettyprint");
+        //}
+      }
+    });
+    window.prettyPrint();
+    /* ]]> */</script>
+        <script src="../Resources/google-analytics/alternate-google-analytics-script-from-madcap.js">
+        </script>
+    </body>
+</html>
